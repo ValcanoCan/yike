@@ -1,0 +1,1113 @@
+<html style="font-size: 100px;">
+<!--<html class=" ischrome ispc" style="font-size: 100px;">-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta content="telephone=no" name="format-detection">
+    <!--<script type="text/javascript" async="" src="https://dn-growing.qbox.me/vds.js"></script>-->
+    <style>
+        @charset "utf-8";
+        a, abbr, acronym, address, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, img, input, ins, kbd, label, legend, li, mark, menu, nav, ol, output, p, pre, q, s, section, small, span, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+            display: block
+        }
+
+        ol, ul {
+            list-style: none
+        }
+
+        blockquote, q {
+            quotes: none
+        }
+
+        blockquote:after, blockquote:before, q:after, q:before {
+            content: '';
+            content: none
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        ::-webkit-input-placeholder {
+            color: #c6c6c6
+        }
+
+        button, input[type=button], input[type=subimt] {
+            -webkit-appearance: none;
+            border: 0;
+            box-shadow: none;
+            outline: 0
+        }
+
+        body, html {
+            height: 100%;
+            overflow: visible
+        }
+
+        body {
+            font-size: .26rem;
+            color: #333;
+            background: #ededed;
+            font-family: "Microsoft YaHei", Arial;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        pre {
+            word-wrap: break-word;
+            white-space: pre-wrap
+        }
+
+        a {
+            margin: 0;
+            padding: 0;
+            font-size: 100%;
+            vertical-align: baseline;
+            background: 0 0;
+            text-decoration: none;
+            outline: 0;
+            color: #000
+        }
+
+        .btn {
+            border: 1px solid #f05b48;
+            background: #f05b48;
+            color: #fff;
+            line-height: .858rem;
+            box-shadow: none;
+            outline: 0;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            text-align: center;
+            width: 100%;
+            height: .858rem;
+            font-size: .28rem;
+            border-radius: 0
+        }
+
+        .btn:active:not([disabled=disabled]) {
+            background: #ec3119
+        }
+
+        .btn[disabled=disabled] {
+            border: 1px solid #c6c6c6;
+            background: #c6c6c6
+        }
+
+        .text {
+            border: 1px solid #ccc;
+            background: #fff;
+            color: #262930;
+            text-align: center;
+            box-shadow: none;
+            -webkit-appearance: none;
+            width: 100%;
+            height: .858rem;
+            font-size: .28rem;
+            border-radius: 0
+        }
+
+        .text:focus {
+            border: 1px solid #f05b48
+        }
+
+        .text.fill {
+            border: 1px solid #f05b48
+        }
+
+        .ellipsis {
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: middle
+        }
+
+        .clearfix {
+            display: block
+        }
+
+        .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden
+        }
+
+        .clear {
+            clear: both;
+            height: 0;
+            font: 0/0 Arial;
+            visibility: hidden
+        }
+
+        .hide {
+            visibility: hidden
+        }
+
+        #mobike-share-logo {
+            z-index: 0;
+            width: .2rem;
+            height: .2rem;
+            overflow: hidden;
+            margin: -.2rem 0 0 -.2rem;
+            position: absolute;
+            opacity: 0
+        }
+
+        .fixed-footer {
+            width: 100%;
+            position: fixed;
+            padding: .48rem .32rem;
+            bottom: 0;
+            left: 0
+        }
+
+        .loading-view {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 9000;
+            background: #fff;
+            top: 0;
+            left: 0
+        }
+
+        .loading-warp {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-38%, -50%);
+            transform: translate(-38%, -50%);
+            background-color: rgba(0, 0, 0, .6);
+            border-radius: 8px;
+            -webkit-border-radius: 8px;
+            height: 60px;
+            width: 60px
+        }
+
+        .loading-warp img {
+            position: relative;
+            z-index: 100;
+            height: auto;
+            display: block;
+            margin: 0 auto
+        }
+
+        .loading-img-warp {
+            width: 23px;
+            height: 23px;
+            margin: 10px auto 5px
+        }
+
+        .loading-tips {
+            font-size: 11px;
+            color: #fff;
+            text-align: center
+        }
+
+        .rotate {
+            -webkit-animation: rotate .75s 0s linear infinite;
+            animation: rotate .75s 0s linear infinite
+        }
+
+        @-webkit-keyframes rotate {
+            0% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0)
+            }
+            50% {
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg)
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0)
+            }
+            50% {
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg)
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg)
+            }
+        }
+
+        [bid], [cid] {
+            display: none
+        }
+    </style>
+    <style>
+        body {
+            -webkit-text-size-adjust: none;
+            -webkit-tap-highlight-color: transparent;
+            background-color: #FFF
+        }
+
+        html {
+            font-size: 7.5px;
+            max-width: 640px;
+            margin: 0 auto
+        }
+
+        html * {
+            box-sizing: border-box
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%
+        }
+
+        .wrap {
+            width: 100%;
+            height: 46%;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            position: relative
+        }
+
+        .page-top {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative
+        }
+
+        .page-top a {
+            position: absolute;
+            bottom: 0;
+            margin: 0 auto;
+            width: 100%
+        }
+
+        .page-top .bg {
+            position: fixed;
+            width: 100%;
+            height: 46%;
+            z-index: -1;
+            background: url('../../static/login/images/banner_slide_05.jpg') center center no-repeat;
+            background-size: cover;
+            top: 0;
+            left: 0
+        }
+
+        .page-top .banner {
+            position: relative;
+            z-index: 1
+        }
+
+        .page-top .banner {
+            width: 100%;
+            height: 46%;
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-box-align: center
+        }
+
+        .page-top .banner .logo {
+            display: block;
+            width: 18.75%;
+            height: auto;
+            margin-top: 9%;
+            margin-bottom: 4%
+        }
+
+        .page-top .banner .slogan-text {
+            display: block;
+            width: 56.2%;
+            height: auto
+        }
+
+        .page-top .banner-btn {
+            display: block;
+            background: rgba(240, 91, 72, .95);
+            width: 2.3rem;
+            font-weight: 400;
+            border-radius: 999px;
+            line-height: 3;
+            font-size: .22rem;
+            color: #fff;
+            margin: auto
+        }
+
+        .page-top .banner-btn:active {
+            background-color: rgba(216, 82, 65, .95)
+        }
+
+        .page .inline-content {
+            -webkit-box-orient: vertical;
+            -webkit-box-align: center;
+            padding: .78rem .468rem;
+            font-size: 10px;
+            height: 54%
+        }
+
+        .page .inline-content > p {
+            width: 88%;
+            font-size: .32rem;
+            color: #333;
+            margin-bottom: 1.3rem;
+            text-align: justify;
+            text-justify: inter-ideograph
+        }
+
+        /*.page .inline-content li {*/
+        /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozODRDODQ2NTk4RkYxMUU2OTlCMkNFMkRDODU1MEFGMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozODRDODQ2Njk4RkYxMUU2OTlCMkNFMkRDODU1MEFGMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM4NEM4NDYzOThGRjExRTY5OUIyQ0UyREM4NTUwQUYyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjM4NEM4NDY0OThGRjExRTY5OUIyQ0UyREM4NTUwQUYyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+BDQwmwAAAEBJREFUCNdj+A8DPzau+LFxOZzLABf9EO0BRHA5BmRRZDkGNFG4HFBiORaJDcshRi1HE0W2fDmyKEICIgcXBQIAVKuSgT5L6k4AAAAASUVORK5CYII=) no-repeat left 7px;*/
+        /*background-size: 4px;*/
+        /*padding-left: 4px;*/
+        /*margin: 1em 0 0*/
+        /*}*/
+
+        .page .inline-content li b {
+            color: #f05b48;
+            margin: 0 .13rem;
+            font-weight: 600;
+            float: left;
+            font-size: .24rem
+        }
+
+        .page .inline-content li span {
+            overflow: hidden;
+            display: block;
+            font-size: .24rem
+        }
+
+        .scroll-tips {
+            position: absolute;
+            display: block;
+            bottom: 0;
+            height: 40px;
+            width: 22px;
+            left: 50%;
+            margin-left: -11px;
+            z-index: 2
+        }
+
+        /*.scroll-tips span {*/
+        /*background: url(https://mbkst.mobike.com/app/images/icon_3.355377b.png) no-repeat;*/
+        /*background-size: 100%;*/
+        /*-webkit-animation: tips_ani 1s ease-out infinite;*/
+        /*-webkit-transition: background-position 1s;*/
+        /*transition: background-position 1s;*/
+        /*height: 100%;*/
+        /*width: 100%;*/
+        /*display: block*/
+        /*}*/
+
+        .page .inline-content ul {
+            color: #727272
+        }
+
+        .page {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            background: #fff
+        }
+
+        .page .banner img {
+            display: block;
+            width: 100%;
+            height: auto
+        }
+
+        .page .content {
+            width: 100%;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center
+        }
+
+        .page .content img {
+            display: block;
+            width: 100%;
+            height: auto
+        }
+
+        .foot {
+            width: 100%;
+            position: relative
+        }
+
+        .foot .banner {
+            height: 66%;
+            overflow: hidden
+        }
+
+        .foot .content {
+            height: 34%
+        }
+
+        .foot p {
+            color: #fff;
+            font-size: .2rem;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            bottom: .16rem
+        }
+
+        .foot .content {
+            width: 100%;
+            height: auto;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-box-align: center
+        }
+
+        .foot .content .slogan_2 {
+            display: block;
+            width: 62.5%;
+            height: auto;
+            margin-top: 11%
+        }
+
+        .foot .content .foot_btn {
+            display: block;
+            background: #fff;
+            color: #f05b48;
+            margin-top: 9%;
+            margin-bottom: 7%;
+            width: 2.912rem;
+            font-weight: 400;
+            border-radius: 999px;
+            line-height: 2.6
+        }
+
+        .foot .content .foot_btn:active {
+            background-color: rgba(255, 255, 255, .8)
+        }
+
+        .foot .content .foot_logo2 {
+            display: block;
+            width: 46.8%;
+            height: auto
+        }
+
+        #downloadTip {
+            position: fixed;
+            right: 0;
+            width: 50%;
+            height: auto;
+            z-index: 100;
+            display: none
+        }
+
+        #downloadTip img {
+            display: block;
+            width: 100%;
+            height: auto
+        }
+
+        @-webkit-keyframes tips_ani {
+            0% {
+                opacity: 0;
+                background-position: center 10px;
+                background-size: 100%
+            }
+            10% {
+                opacity: 1
+            }
+            100% {
+                opacity: 0;
+                background-position: center 0;
+                background-size: 95%
+            }
+        }
+
+        .invitation {
+            margin-bottom: .68rem
+        }
+
+        .invitation p {
+            font-size: .28rem;
+            color: #333;
+            font-weight: 600
+        }
+
+        .invitation b {
+            font-size: .36rem;
+            color: #f05b48;
+            margin-top: .156rem;
+            display: block;
+            font-weight: 600
+        }
+
+        @media (device-height: 480px) {
+            .invitation, .page-top .content > p {
+                margin-bottom: .26rem
+            }
+
+            .page-top .content {
+                padding-top: .52rem
+            }
+
+            .foot .content .slogan_2 {
+                margin-top: .52rem
+            }
+        }
+
+        @media (min-width: 320px) and (max-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+            html {
+                font-size: 10px
+            }
+        }
+
+        @media (min-width: 375px) and (max-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+            html {
+                font-size: 12px
+            }
+        }
+
+        @media (min-width: 414px) and (max-width: 736px) and (-webkit-min-device-pixel-ratio: 2) {
+            html {
+                font-size: 12.5px
+            }
+        }
+
+        #wrpabg {
+            background: rgba(0, 0, 0, .4);
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 99;
+            display: none
+        }
+
+        #app-pinner-box {
+            width: 100%;
+            position: fixed;
+            z-index: 88;
+            -webkit-transform: translateY(-80px);
+            transform: translateY(-80px);
+            -webkit-transition: all .2s ease-out;
+            transition: all .2s ease-out;
+            left: 0
+        }
+
+        .app-pinner-active #app-pinner-box {
+            -webkit-transform: translateY(0);
+            transform: translateY(0)
+        }
+
+        .page-top-text {
+            font-weight: 600
+        }
+
+        .invitation {
+            display: none
+        }
+
+        .has-invitation .invitation {
+            display: block
+        }
+
+        .has-invitation .page-top-text {
+            display: none
+        }
+
+        .wx-download-subtitle {
+            color: #a2a2a2;
+            font-size: .2rem;
+            margin: 5% 0 0;
+            display: none
+        }
+
+        .isweixin .wx-download-subtitle {
+            display: block
+        }
+    </style>
+    <title>sanoli 赛诺伊单车</title>
+    <style type="text/css">
+        .animated {
+            -webkit-animation-duration: .2s;
+            -webkit-animation-fill-mode: both
+        }
+
+        @-webkit-keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -6px, 0)
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -6px, 0);
+                transform: translate3d(0, -6px, 0)
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none
+            }
+        }
+
+        .fadeInDown {
+            -webkit-animation-name: fadeInDown;
+            animation-name: fadeInDown
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }
+
+        .fadeIn {
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn
+        }
+
+        @-webkit-keyframes zoomIn {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, .3, .3);
+                transform: scale3d(0.3, .3, .3)
+            }
+            50% {
+                opacity: 1
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, .3, .3);
+                transform: scale3d(0.3, .3, .3)
+            }
+            50% {
+                opacity: 1
+            }
+        }
+
+        .zoomIn {
+            -webkit-animation-name: zoomIn;
+            animation-name: zoomIn
+        }
+
+        @-webkit-keyframes zoomOut {
+            0% {
+                opacity: 1
+            }
+            50% {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, .3, .3);
+                transform: scale3d(0.3, .3, .3)
+            }
+            100% {
+                opacity: 0
+            }
+        }
+
+        @keyframes zoomOut {
+            0% {
+                opacity: 1
+            }
+            50% {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, .3, .3);
+                transform: scale3d(0.3, .3, .3)
+            }
+            100% {
+                opacity: 0
+            }
+        }
+
+        .zoomOut {
+            -webkit-animation-name: zoomOut;
+            animation-name: zoomOut
+        }
+
+        @-webkit-keyframes fadeOutUp {
+            from {
+                opacity: 1
+            }
+            to {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0)
+            }
+        }
+
+        @keyframes fadeOutUp {
+            from {
+                opacity: 1
+            }
+            to {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0)
+            }
+        }
+
+        .fadeOutUp {
+            -webkit-animation-name: fadeOutUp;
+            animation-name: fadeOutUp
+        }
+
+        @-webkit-keyframes slideInDown {
+            from {
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+                visibility: visible
+            }
+            to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+                visibility: visible
+            }
+            to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        .slideInDown {
+            -webkit-animation-name: slideInDown;
+            animation-name: slideInDown
+        }
+
+        @-webkit-keyframes zoomInDown {
+            from {
+                opacity: 0;
+                -webkit-transform: scale3d(0.1, .1, .1) translate3d(0, -1000px, 0);
+                transform: scale3d(0.1, .1, .1) translate3d(0, -1000px, 0);
+                -webkit-animation-timing-function: cubic-bezier(0.55, .055, .675, .19);
+                animation-timing-function: cubic-bezier(0.55, .055, .675, .19)
+            }
+            60% {
+                opacity: 1;
+                -webkit-transform: scale3d(0.475, .475, .475) translate3d(0, 60px, 0);
+                transform: scale3d(0.475, .475, .475) translate3d(0, 60px, 0);
+                -webkit-animation-timing-function: cubic-bezier(0.175, .885, .32, 1);
+                animation-timing-function: cubic-bezier(0.175, .885, .32, 1)
+            }
+        }
+
+        @keyframes zoomInDown {
+            from {
+                opacity: 0;
+                -webkit-transform: scale3d(0.1, .1, .1) translate3d(0, -1000px, 0);
+                transform: scale3d(0.1, .1, .1) translate3d(0, -1000px, 0);
+                -webkit-animation-timing-function: cubic-bezier(0.55, .055, .675, .19);
+                animation-timing-function: cubic-bezier(0.55, .055, .675, .19)
+            }
+            60% {
+                opacity: 1;
+                -webkit-transform: scale3d(0.475, .475, .475) translate3d(0, 60px, 0);
+                transform: scale3d(0.475, .475, .475) translate3d(0, 60px, 0);
+                -webkit-animation-timing-function: cubic-bezier(0.175, .885, .32, 1);
+                animation-timing-function: cubic-bezier(0.175, .885, .32, 1)
+            }
+        }
+
+        .zoomInDown {
+            -webkit-animation-name: zoomInDown;
+            animation-name: zoomInDown
+        }
+
+        @-webkit-keyframes inputOut {
+            0% {
+                opacity: 1;
+                height: 1.196rem
+            }
+            100% {
+                opacity: 0;
+                height: 0
+            }
+        }
+
+        @keyframes inputOut {
+            0% {
+                opacity: 1;
+                height: 1.196rem
+            }
+            100% {
+                opacity: 0;
+                height: 0
+            }
+        }
+
+        .inputOut {
+            -webkit-animation-name: inputOut;
+            animation-name: inputOut
+        }
+
+        @-webkit-keyframes fadeOut {
+            from {
+                opacity: 1
+            }
+            to {
+                opacity: 0
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1
+            }
+            to {
+                opacity: 0
+            }
+        }
+
+        .fadeOut {
+            -webkit-animation-name: fadeOut;
+            animation-name: fadeOut
+        }
+    </style>
+    <style type="text/css">
+        .app-pinner {
+            text-align: center;
+            width: 100%;
+            background: #fff;
+            left: 0;
+            bottom: 0;
+            z-index: 888;
+            box-sizing: border-box;
+            padding: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1)
+        }
+
+        .app-pinner img {
+            width: 42px;
+            display: inline-block;
+            float: left;
+            margin-left: 4px;
+            margin-right: 6px
+        }
+
+        .app-pinner .app-icon {
+            float: left;
+            overflow: hidden
+        }
+
+        .app-pinner .app-icon > div {
+            float: left;
+            text-align: left
+        }
+
+        .app-pinner .app-icon > div b {
+            font-size: 14px;
+            margin: 2px 0;
+            color: #000;
+            display: block
+        }
+
+        .app-pinner .app-icon > div span {
+            font-size: 12px;
+            color: #999;
+            margin-top: -2px;
+            display: block;
+            width: 2.9rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis
+        }
+
+        .app-pinner .download-btn {
+            float: right;
+            margin: 6px 0 auto;
+            font-size: 14px;
+            padding: 0 10px;
+            line-height: 2;
+            color: #fff;
+            background: #f05b48;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            text-decoration: none
+        }
+
+        .app-pinner .download-btn:active {
+            background: #ec3119
+        }
+    </style>
+    <style>
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .hide-up {
+            position: fixed;
+            top: -200px;
+            left: 0;
+        }
+    </style>
+</head>
+<body class="has-invitation app-pinner-active">
+<div id="app-pinner-box">
+    <div class="app-pinner">
+        <div class="app-icon">
+            <img src="../../static/images/logo1.jpg" alt="赛诺伊单车">
+
+            <div>
+                <b zh="赛诺伊单车" en="Mobike" data-lang-flag="lang0">赛诺伊单车</b>
+                <span zh="智能共享单车" en="Unlock your world" data-lang-flag="lang1">智能共享单车</span>
+            </div>
+        </div>
+        <a class="download-btn" track="download-pinner-btn-download"
+           href="http://sj.qq.com/myapp/detail.htm?apkName=com.beastbike.bluegogo"><span zh="立即下载" en="Download"
+                                                                                      data-lang-flag="lang2">立即下载</span></a>
+    </div>
+</div>
+<div id="wrap" class="wrap">
+    <header class="page-top">
+        <div class="bg"></div>
+        <a style="display:block" id="download-top-link"
+           href="http://sj.qq.com/myapp/detail.htm?apkName=com.mobike.mobikeapp">
+           <!--href="http://a.app.qq.com/o/simple.jsp?pkgname=com.mobike.mobikeapp">-->
+            <button class="banner-btn" track="download-top-btn" style="opacity: 1;">下载抢红包</button>
+        </a>
+    </header>
+    <section class="page page1">
+        <div class="banner">
+            <img src="../../static/images/mb1.png">
+        </div>
+    </section>
+    <div id="tail"></div>
+    <section class="page page2">
+        <div class="banner">
+            <div style="position:absolute">
+                <div class="inline-content">
+                    <div class="invitation">
+                        <p>注册时输入邀请码，双方增加信用分<br>您获得的邀请码为：</p>
+                        <!--<b id="invitation-code" data-key="invitationCode">王灿8155WPx</b>-->
+                        <b id="invitation-code" data-key="invitationCode" style="color: darkviolet;"></b>
+                    </div>
+                    <p class="page-top-text">打车太贵？走路太远？地铁太挤？来用赛诺伊单车吧。</p>
+
+                    <div>
+                        <ul>
+                            <li>
+                                <b>智能</b><span>手机上完成租车、用车、结费。实时查看周围可骑单车位置</span></li>
+                            <li><b>方便</b><span>无需固定还车点，停放在任意路边公共停车区域内即可</span>
+                            </li>
+                            <li>
+                                <b>便宜</b><span>运动版1元／30分钟；轻骑版0.5元／30分钟</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <img src="../../static/images/mb2.png">
+        </div>
+        <!--<div class="content">-->
+        <!--<img src="../../static/images/mb2.png">-->
+        <!--</div>-->
+    </section>
+    <section class="page page3">
+        <div class="banner">
+            <img src="../../static/images/mb3.png">
+        </div>
+    </section>
+    <section class="page page4">
+        <div class="banner">
+            <img src="../../static/images/mb4.png">
+        </div>
+    </section>
+    <section class="page page5">
+        <div class="banner">
+            <img src="../../static/images/mb5.png">
+        </div>
+    </section>
+    <!--<section class="page page2">-->
+    <!--<div class="banner">-->
+    <!--<img src="../../static/images/mb3.png">-->
+    <!--</div>-->
+    <!--</section>-->
+    <footer class="page foot">
+        <div class="banner">
+            <img src="../../static/images/mb6.png">
+        </div>
+    </footer>
+</div>
+</body>
+<script>
+    //找人
+    var topPart = document.getElementById("wrap");
+    var navBar = document.getElementById("app-pinner-box");
+    navBar.className = 'hide-up';
+    //窗体滚动的时候 判断 页面被卷去的头部的高度 如果大于topPart的高度的 就改变navBar的定位方式
+    window.onscroll = function () {
+//        console.log(scroll().top);
+        //页面被卷去的头部 > 顶部部分的高度
+        if (scroll().top > navBar.offsetHeight) {
+            navBar.className = "fixed";
+        } else {
+            navBar.className = "hide-up";
+        }
+    }
+    function scroll() {
+        return {
+            top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+            left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
+        };
+    }
+
+    var realName = localStorage.getItem('orderName');
+    var invitation = document.getElementById("invitation-code");
+    invitation.innerText = realName;
+</script>
+
+</html>

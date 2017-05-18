@@ -1,0 +1,150 @@
+<style>
+    .accordion-toggle{
+        display:none;
+    }
+</style>
+<div id="page-content" class="clearfix">
+
+    <div class="row-fluid">
+
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">订单管理&nbsp;>&nbsp;</span>扣费管理</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+						<span class="input-icon">
+							<input style="width: 200px;" autocomplete="off" type="text" value=""
+                                   placeholder="输入用户名、操作员名查询">
+							<i class="icon-search"></i>
+						</span>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="">
+                                    <label class="labelFont">&nbsp;</label>
+
+                                    <div class='input-group date'>
+                                        <input style="width: 130px !important;margin-left: 5px;height: 20px !important;margin-top: -28px !important;
+                           border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker1"
+                                               data-date-format="YYYY/MM/DD" placeholder="开始日期"
+                                               type='text' class="form-control"
+                                               ng-model="startTime" ng-change="startTimeChange(startTime)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="">
+                                    <label class="labelFont">&nbsp;</label>
+
+                                    <div class='input-group date'>
+                                        <input style="width: 130px !important;margin-left: 5px;height: 20px !important;margin-top: -28px !important;
+                           border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker2"
+                                               data-date-format="YYYY/MM/DD" placeholder="结束日期"
+                                               type='text' class="form-control"
+                                               ng-model="endTime" ng-change="endTimeChange(endTime)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <button style="margin-top: 2px;height: 30px;" class="btn btn-mini btn-light" ng-click="chargeSearch();" title="检索"><i
+                                    id="nav-search-icon" class="icon-search"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- 检索  -->
+
+
+                <table class="table table-striped table-bordered table-hover">
+
+                    <thead>
+                    <tr>
+                        <!-- <th class="center">
+                        <label><input type="checkbox" id="zcheckbox" /><span class="lbl"></span></label>
+                        </th> -->
+                        <th>序号</th>
+                        <th>用户</th>
+                        <th>手机号</th>
+                        <th>扣款金额</th>
+                        <th>扣款原因</th>
+                        <th>操作员</th>
+                        <!--<th class="center">状态</th>-->
+                        <th>扣款时间</th>
+                        <!-- <th class="center">操作</th> -->
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <!-- 开始循环 -->
+                    <tr>
+
+                        <td style="width: 30px;">1</td>
+                        <td>席蒙</td>
+                        <td>15043014338</td>
+                        <td>0.01</td>
+                        <td>损坏车辆</td>
+                        <td>系统管理员1</td>
+                        <!--<td>完成</td>-->
+                        <td>2017-01-03 16:51:36</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="">
+                    <a class="btn btn-small btn-success" ng-click="chargeAdd()">新增</a>
+                </div>
+                <tm-pagination style="margin: 0px auto 0px auto !important;" conf="paginationConf"></tm-pagination>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="chargeManagementDiag">
+    <div ng-controller="temCtrl">
+        <div id="ngdialog-titile" class="ngdialog-titile"
+             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+            <img align="absmiddle" src="plugins/attention/zDialog/skins/blue/icon_dialog.gif"
+                 style="width: 18px;height: 18px;">
+            <span>新增</span>
+        </div>
+        <table id="table_report" class="table table-striped table-bordered table-hover">
+            <tbody>
+            <tr>
+                <td style="width:110px;text-align: right;padding-top: 13px;">用户名:</td>
+                <td><input type="text" value="" maxlength="32" placeholder="这里输入用户名"
+                           title="用户手机号"></td>
+            </tr>
+            <tr>
+                <td style="width:110px;text-align: right;padding-top: 13px;">用户手机号:</td>
+                <td><input type="text" value="" maxlength="32" placeholder="这里输入用户手机号"
+                           title="用户手机号"><span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span></td>
+            </tr>
+            <tr>
+                <td style="width:110px;text-align: right;padding-top: 13px;">扣款金额:</td>
+                <td><input type="text" value="" maxlength="32" placeholder="这里输入扣款金额" ng-model="deductMoneyNum" ng-change="sumChange(deductMoneyNum)"
+                           title="扣款金额"><span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span></td>
+            </tr>
+            <tr>
+                <td style="width:110px;text-align: right;padding-top: 13px;">扣款原因:</td>
+                <td>
+                <textarea rows="5" cols="" maxlength="256" style="width: 400px" ng-model="deductMoneyReason" ng-change="reasonChange(deductMoneyReason)"
+                          value=""></textarea><span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" colspan="10">
+                    <a class="btn btn-mini btn-primary" ng-click="addSave();closeThisDialog('a')">保存</a>
+                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</script>

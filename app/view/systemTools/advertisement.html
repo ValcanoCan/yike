@@ -1,0 +1,140 @@
+<style>
+    .ngdialog-content{
+        width: 600px;
+    }
+</style>
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">系统工具&nbsp;>&nbsp;</span>广告列表</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <!-- 检索  -->
+
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>图片名称</th>
+                        <th>查看图片</th>
+                        <th>图片描述</th>
+                        <th>广告状态</th>
+                        <!--<th>图片大小</th>-->
+                        <!--<th>图片格式</th>-->
+                        <th hidden="">当前页</th>
+                        <!--<th>查看车辆位置</th>-->
+                        <th style="width: 60px;">启动广告</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in advertsInfo">
+                        <td style="width: 30px;">{{item.orderNo}}</td>
+                        <td>{{item.imgName}}</td>
+                        <td>
+                            <button style="border-radius:6px !important;" ng-click="showImage(item,startPage)" class="btn btn-mini" data-toggle="dropdown">
+                                <a href="" style="text-decoration: none;" title="显示图片" class="icon-picture">
+                                </a></button>
+                            <!--<a style="cursor:pointer;" title="显示图片" ng-click="showImage(item)"-->
+                            <!--class="tooltip-success">-->
+                            <!--<span class="blue"><i class="icon-picture"></i></span></a>-->
+                        </td>
+                        <td>{{item.imgDescribe}}</td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.useing==1]">{{item.useing==1?"启用":"停发"}}</span></td>
+                        <!--<td>{{item.imgSize}}</td>-->
+                        <!--<td>{{item.imgFormat}}</td>-->
+                        <td hidden="">{{startPage}}</td>
+                        <td>
+                            <button style="border-radius:6px !important;" ng-click="openAdvert(item,startPage)" class="btn btn-mini" data-toggle="dropdown">
+                                <a href="" style="text-decoration: none;" title="启动广告" class="icon-plane">
+                                </a></button>
+                            <!--<div><a style="cursor:pointer;" title="启动广告" ng-click="openAdvert(item)"-->
+                                   <!--class="tooltip-success">-->
+                            <!--<span class="blue"><i class="icon-plane"></i></span></a>-->
+                            <!--</div>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <div style="float: left;">
+                        <a class="btn btn-small btn-success" ng-click="addAdvert()">添加新广告</a>
+                    </div>
+                    <div style="margin-left: 94px;width: 300px;">
+                        <a class="btn btn-small btn-success" ng-click="stopAllAdvert()">停发所有广告</a>
+                    </div>
+                    <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -25px;">
+                        <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                    </div>
+                </div>
+                <tm-pagination style="margin: 10px auto 0px auto !important;"
+                               conf="paginationConf"></tm-pagination>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!--添加新广告-->
+<script type="text/ng-template" id="addAdvertDiag">
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>添加新广告</span>
+    </div>
+    <table class="table table-striped table-bordered">
+        <tbody>
+        <tr>
+            <td class="text-right" style="width:100px;padding-top: 13px;">上传图片:</td>
+            <td class="text-left">
+                <iframe name="posthere" frameborder=0 style="display: none;"></iframe>
+                <form name="form" method="post" action=""
+                      enctype="multipart/form-data" target="posthere">
+                <!--<input type="file" name="file" id="excelFile">-->
+                <input type="file" file-model="imageToUpload" name="file" id="file"
+                       onChange="document.form.path.value=this.value" style="display:none">
+                <input class="path" name="path" readonly="readonly" style="border:none;width: 350px;">
+                <input type="submit" value="选择图片" onclick="document.form.file.click()"/>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:100px;padding-top: 13px;">图片描述:</td>
+            <td class="text-left">
+                <textarea ng-model="advertDescription" ng-change="addAdvertParamChange(advertDescription)" style="width: 350px;height: 150px;" placeholder="这里输入图片描述"></textarea>
+                <span style="color: #d80c18;font-size: 16px;margin-left: 12px;">*(必填项)</span></td>
+            </td>
+        </tr>
+        <!--<tr>-->
+            <!--<td style="text-align: center;" colspan="2">-->
+                <!--<a class="btn btn-mini btn-success" ng-click="uploadImage();closeThisDialog('a')">上传图片</a>-->
+                <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+            <!--</td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+    <div style="text-align: center;margin: -10px 0 5px 0;padding: 5px;background-color: lavender;" colspan="10">
+        <a class="btn btn-mini btn-success" ng-click="uploadImage();">添加广告</a>
+        <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+    </div>
+</script>
+
+<!--显示图片-->
+<script type="text/ng-template" id="showImageDiag">
+    <style>
+        .ngdialog-content{
+            width: 380px !important;
+        }
+    </style>
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>显示图片</span>
+    </div>
+    <div>
+        <img src="{{thisImagePath}}" alt=""/>
+    </div>
+    <div style="text-align: center;margin: 5px 0;padding: 5px;background-color: lavender;">
+        <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">关闭</a>
+    </div>
+</script>

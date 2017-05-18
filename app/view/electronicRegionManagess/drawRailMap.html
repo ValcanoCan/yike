@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="en"  ng-app="drawRailMap">
+<meta charset="utf-8"/>
+<head>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../../bower_components/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" type="text/css" href="../../bower_components/ng-dialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="../../bower_components/ng-dialog/css/ngDialog-theme-plain.css">
+    <script type="text/javascript" charset="utf-8"  src="../../bower_components/angular/angular.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../bower_components/ng-dialog/js/ngDialog.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../static/js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../static/js/jquery.tips.js"></script>
+
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=Ar51bSGbDdPhh5up7x2DRYDKIjb3Uujj"></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css"/>
+    <script src="./drawRailMap.js"></script>
+    <style>
+        body{
+            padding: 10px;
+        }
+        input{
+            height: 30px !important;
+            line-height: 30px !important;
+            margin-bottom: 0 !important;
+            width: 400px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+        }
+        .show-title{
+            font-size: 18px;
+            font-weight: 700;
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: 15px;
+            width: 100%;
+            border-bottom: 3px solid  #D31322;
+        }
+        select{
+            width: 300px;
+            height: 30px !important;
+            line-height: 30px !important;
+            margin-bottom: 0 !important;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body ng-controller="drawRailMapCtrl">
+<div class="show-title"><span style="color:#787878;font-size: 14px;">电子区域管理&nbsp;>&nbsp;列表查看&nbsp;>&nbsp;</span>画图创建电子围栏</div>
+    <div>
+        <table class="table table-striped table-bordered table-hover">
+            <tbody>
+            <tr>
+                <td style="width:160px;text-align: right;padding-top: 13px;">城市:</td>
+                <td style="text-align: left !important;">
+                    <select ng-model="city" ng-change="nameOrderChange(city,railName,railOrde)">
+                        <option value=""><strong>选择城市</strong></option>
+                        <option ng-repeat="city in railCitiesInfo" value="{{city}}">{{city.name}}</option>
+                    </select>
+                    <span style="color: #d80c18;font-size: 16px;margin-left: 150px;">*(必填项)</span></td>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:160px;text-align: right;padding-top: 13px;">电子围栏名称:</td>
+                <td style="text-align: left !important;">
+                    <input type="text" value="" maxlength="32" placeholder="这里输入电子围栏名称"
+                           title="电子围栏名称" ng-model="railName" ng-change="nameOrderChange(city,railName,railOrder)">
+                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:160px;text-align: right;padding-top: 13px;">电子围栏位号:</td>
+                <td style="text-align: left !important;">
+                    <input id="drawOrder" type="text" value="" maxlength="32" placeholder="这里输入电子围栏位号(阿拉伯数字1-100++)"
+                           title="电子围栏位号" ng-model="railOrder"
+                           ng-change="nameOrderChange(city,railName,railOrder)">
+                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:160px;text-align: right;padding-top: 13px;">根据县区画电子围栏:</td>
+                <td style="text-align: left !important;">
+                    <select ng-model="county" ng-change="countyChange(county)">
+                        <option value=""><strong>选择县区</strong></option>
+                        <option ng-repeat="county in countiesInfo" value="{{county}}">{{county.name}}</option>
+                    </select>
+                    <span style="color: #d80c18;font-size: 16px;margin-left: 150px;">*(此之前,先选定电子围栏位号)</span></td>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:160px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
+                <td style="text-align: left !important;">
+                    <p style="color: #0000cc;font-size: 16px;">1、电子围栏名称、电子围栏位号由输入框输入</p>
+                    <p style="color: #0000cc;font-size: 16px;">2、经纬度坐标通过点击地图右上角多边形按钮,鼠标点击地图画出多边形,画出一个多边区域<span style="color:#d80c18;">&nbsp;(多边形最后一个点双击鼠标左键完成画图)&nbsp;</span>,点击确认创建按钮创建电子围栏</p>
+                    <p style="color: #0000cc;font-size: 16px;">3、若设置参数有误,可点击清空参数按钮,重新设置</p>
+                    <p style="color: #0000cc;font-size: 16px;">4、如果想按市级下的区、县设置电子围栏,则按要求设定参数后,直接点击县区电子围栏按钮即可</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" colspan="10">
+                    <!--<a id="savedrawParams" class="btn btn-mini btn-success" ng-click="saveParams()">保存参数</a>-->
+                    <a id="cleardrawParams" class="btn btn-mini btn-warning" ng-click="clearParams()">清空参数</a>
+                    <a id="freedom-btn" class="btn btn-mini btn-primary" ng-click="closeThisDialog('a')">确认创建</a>
+                    <a id="county-btn" class="btn btn-mini btn-primary" ng-click="closeThisDialog('a')">确认创建县区电子围栏</a>
+                    <a class="btn btn-mini btn-danger" ng-click="returnList()">返回列表页面</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="allmap" style="overflow:hidden;zoom:1;position:relative;border: 3px solid #000;">
+        <div id="map" style="height:500px;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+    </div>
+</body>
+</html>

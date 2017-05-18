@@ -1,0 +1,177 @@
+<div id="page-content" class="clearfix">
+
+    <div class="row-fluid">
+
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">故障报修管理&nbsp;>&nbsp;</span>车辆报警</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <!--<table>-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                        <!--<td style="vertical-align:top;">-->
+                            <!--<div class="radius" style="width: 170px;height: 30px;line-height: 30px;background-color: lightgray;position: relative;top: 2px;" ng-click="orderSearch()">-->
+                                <!--<span style="font-weight: 700;">可按日期和审核状态查询</span>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<div>-->
+                                <!--<div class="">-->
+                                    <!--<label class="labelFont">&nbsp;</label>-->
+
+                                    <!--<div class='input-group date'>-->
+                                        <!--<input style="width: 130px !important;margin-left: 5px;height: 20px !important;margin-top: -28px !important;-->
+                           <!--border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker1"-->
+                                               <!--data-date-format="YYYY-MM-DD" placeholder="提交日期"-->
+                                               <!--type='text' class="form-control"-->
+                                               <!--ng-model="createTime" ng-change="timeStatusChange(createTime,status)"/>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <!--&lt;!&ndash;<td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<label class="labelFont">&nbsp;</label>&ndash;&gt;-->
+
+                                    <!--&lt;!&ndash;<div class='input-group date'>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input style="width: 130px !important;margin-left: 5px;height: 20px !important;margin-top: -28px !important;&ndash;&gt;-->
+                           <!--&lt;!&ndash;border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker2"&ndash;&gt;-->
+                                               <!--&lt;!&ndash;data-date-format="YYYY-MM-DD" placeholder="结束日期"&ndash;&gt;-->
+                                               <!--&lt;!&ndash;type='text' class="form-control"&ndash;&gt;-->
+                                               <!--&lt;!&ndash;ng-model="endTime" ng-change="timeStatusChange(startTime,endTime,status)"/>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                        <!--<td>-->
+                            <!--<select style="width: 120px;" ng-model="status" ng-change="timeStatusChange(createTime,status)">-->
+                                <!--<option value=""><strong> 审核状态</strong></option>-->
+                                <!--<option value="3">未审核</option>-->
+                                <!--<option value="1">同意</option>-->
+                                <!--<option value="2">拒绝</option>-->
+                            <!--</select>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+                <!-- 检索  -->
+                <table class="table table-striped table-bordered table-hover">
+
+                    <thead>
+                    <tr>
+                        <!--<th>-->
+                            <!--<label><input type="checkbox" id="zcheckbox"><span class="lbl"></span></label>-->
+                        <!--</th>-->
+                        <th>序号</th>
+                        <th>车辆VIN号</th>
+                        <th>电池状态</th>
+                        <th>总电压状态</th>
+                        <th>总电流状态</th>
+                        <th>当前电压状态</th>
+                        <th>电池温度状态</th>
+                        <th>电机控制器通讯状态</th>
+                        <th>T-Box工作电压状态</th>
+                        <th>电池盒锁状态</th>
+                        <th>车辆位置状态</th>
+                        <th>内部电池状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in vehicleAlarmInfo">
+                        <!--<td style="width: 30px;">-->
+                            <!--<label><input type="checkbox" name="ids" value="57"><span class="lbl"></span></label>-->
+                        <!--</td>-->
+                        <td style="width: 30px;">{{item.orderNo}}</td>
+                        <td>{{item.vin}}</td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.batF==0]">{{item.batF==0?"正常":"故障"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.volOut==0]">{{item.volOut==0?"正常":"超限"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.currentF==0]">{{item.currentF==0?"正常":"超限"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.socOut==0]">{{item.socOut==0?"正常":"报警"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.batTempOut==0]">{{item.batTempOut==0?"正常":"超限"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.motorControlComF==0]">{{item.motorControlComF==0?"正常":"故障"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.tboxVolOut==0]">{{item.tboxVolOut==0?"正常":"超限"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.batBoxLockF==0]">{{item.batBoxLockF==0?"正常":"异常打开"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.moveF==0]">{{item.moveF==0?"正常":"未开锁移动"}}</span></td>
+                        <td><span ng-class="{true:'statistic',false:'inclose'}[item.innerBatF==0]">{{item.innerBatF==0?"正常":"异常"}}</span></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;">
+                    <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                </div>
+                    <tm-pagination style="margin: 10px auto 0px auto !important;"
+                                   conf="paginationConf"></tm-pagination>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--审核用户上传工单-->
+<script type="text/ng-template" id="auditWorksheetDiag">
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <img align="absmiddle" src="plugins/attention/zDialog/skins/blue/icon_dialog.gif"
+             style="width: 18px;height: 18px;">
+        <span>审核用户上传工单</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">序号:</td>
+            <td><input type="text" value="" maxlength="32" title="ID" readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">提交人姓名:</td>
+            <td><input type="text" value="周星驰" maxlength="32" title="提交人姓名" readonly="readonly">
+            </td>
+        </tr>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">电话:</td>
+            <td><input type="text" value="13483672394" maxlength="32" title="电话"
+                       readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">故障类型:</td>
+            <td><input type="text" value="刹车失灵" maxlength="32" title="故障类型"
+                       readonly="readonly"></td>
+        </tr>
+
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">图片:</td>
+            <td>
+                <span class="red"><input type="text" value="" title="图片"
+                                         readonly="readonly"></span>
+
+            </td>
+        </tr>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">提交地点:</td>
+            <td><input class="text" value="百子湾" type="text"
+                       readonly="readonly" title="提交地点"></td>
+        </tr>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">提交时间:</td>
+            <td><input class="text" value="2016-11-11 16:24:06" type="text"
+                       data-date-format="yyyy-mm-dd" readonly="readonly" title="提交时间"></td>
+        </tr>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">订单号:</td>
+            <td><input type="text" value="" maxlength="32" title="订单号" readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td style="width:150px;text-align: right;padding-top: 13px;">车辆VIN:</td>
+            <td><input type="text" value="" maxlength="32" title="车辆VIN"
+                       readonly="readonly"></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;" colspan="10">
+                <!-- <a class="btn btn-mini btn-primary" onclick="save();">保存</a> -->
+                <a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>

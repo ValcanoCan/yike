@@ -1,0 +1,80 @@
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">权限管理&nbsp;>&nbsp;权限列表&nbsp;>&nbsp;</span>权限<span style="color:deepskyblue;">({{navRoleName}})</span>和菜单绑定列表</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>菜单名称</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in roleNavsInfo">
+                        <td style="width: 30px;">{{item.orderNo}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.createTime}}</td>
+                        <!--<td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">报警</span></td>-->
+                        <td>{{item.modifyTime}}</td>
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown"><i
+                                            class="icon-cog icon-only"></i></button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                        <li><a style="cursor:pointer;" title="权限和菜单修改" ng-click="roleNavBindEdit(item);"
+                                               class="tooltip-success" data-rel="tooltip"
+                                               data-placement="left">
+                                            <span><i class="icon-retweet"></i></span></a></li>
+                                        <li><a style="cursor:pointer;" title="权限和菜单解绑" ng-click="roleNavBindDel(item);"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-resize-vertical"></i></span> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!--权限和菜单修改弹出框-->
+<script type="text/ng-template" id="roleNavBindEditDiag">
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>权限和菜单修改</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td style="width:120px;text-align: right;padding-top: 13px;">选择菜单:</td>
+            <td style="text-align: left !important;">
+                <select ng-model="nav" ng-change="bindEditNavsChange(nav)">
+                    <option value=""><strong>选择菜单</strong></option>
+                    <option value="{{nav.id}}" ng-repeat="nav in navsInfo">{{nav.name}}</option>
+                </select>
+                <span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;" colspan="10">
+
+                <a class="btn btn-mini btn-primary" ng-click="roleNavBindEditSave();closeThisDialog('a')">确认修改绑定</a>
+
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>退出平台</title>
+    <script src="../../public/js/jquery-last.js"></script>
+    <script src="../../static/js/jquery-1.7.2.js"></script>
+    <script src="../../static/login/js/jquery.easing.1.3.js"></script>
+    <script src="../../static/login/js/camera.min.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery.tips.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery.cookie.js"></script>
+    <script src="../../server/common.js"></script>
+</head>
+<body>
+<script>
+    var id = $.cookie("userId")
+    $.ajax({
+        url: FM_RequestUrl.loginOut,
+        type: 'post',
+        dataType: 'json',
+        cache: false,
+        beforeSend: function (request) {
+            request.setRequestHeader("userId", id);
+        },
+        contentType: "application/json;charset=utf-8",
+        success: function (jsondata) {
+            window.location.href = 'login.html'
+        }
+    })
+    function saveToken(model) {
+        $.cookie("userId", model.id, {
+            path: "/",
+            domain: "",
+            expires: 5000,
+            secure: false
+        });
+    }
+</script>
+</body>
+</html>

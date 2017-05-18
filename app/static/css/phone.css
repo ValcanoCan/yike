@@ -1,0 +1,173 @@
+body{margin:0;font-family:"microsoft yahei";font-size:13px;line-height:1.5;background:#eee;}
+.wrap{margin:10px auto 0 auto;}
+.tabs{height:40px;}
+.tabs a{display:block;float:left;width:33.33%;color:#333;text-align:center;background:#eee;line-height:40px;font-size:16px;text-decoration:none;}
+.tabs a.active{color:#333;background:#eee;border-radius:5px 5px 0px 0px;}
+.swiper-container{background:#333; min-height: 350px;;border-radius:0 0 5px 5px;width:100%;border-top:0;}
+.swiper-slide{height:325px;width:100%;background:none;color:#fff;}
+.content-slide{padding:14px;}
+.content-slide p{text-indent:2em;line-height:1.9;}
+.swiper-container {margin:0 auto;position:relative;overflow:hidden;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;backface-visibility:hidden;/* Fix of Webkit flickering */	z-index:1;}
+.swiper-wrapper {position:relative;width:100%;
+    -webkit-transition-property:-webkit-transform, left, top;
+    -webkit-transition-duration:0s;
+    -webkit-transform:translate3d(0px,0,0);
+    -webkit-transition-timing-function:ease;
+
+    -moz-transition-property:-moz-transform, left, top;
+    -moz-transition-duration:0s;
+    -moz-transform:translate3d(0px,0,0);
+    -moz-transition-timing-function:ease;
+
+    -o-transition-property:-o-transform, left, top;
+    -o-transition-duration:0s;
+    -o-transform:translate3d(0px,0,0);
+    -o-transition-timing-function:ease;
+    -o-transform:translate(0px,0px);
+
+    -ms-transition-property:-ms-transform, left, top;
+    -ms-transition-duration:0s;
+    -ms-transform:translate3d(0px,0,0);
+    -ms-transition-timing-function:ease;
+
+    transition-property:transform, left, top;
+    transition-duration:0s;
+    transform:translate3d(0px,0,0);
+    transition-timing-function:ease;
+
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.swiper-free-mode > .swiper-wrapper {
+    -webkit-transition-timing-function: ease-out;
+    -moz-transition-timing-function: ease-out;
+    -ms-transition-timing-function: ease-out;
+    -o-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    margin: 0 auto;
+}
+.swiper-slide {
+    float: left;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+p a{text-decoration:none;}
+.title{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 40px;
+    background:#4EABE8;
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+}
+.content{
+    width: 96%;
+    height: auto;
+    margin: 0px auto;
+}
+.content input{
+    width: 98%;
+    height: 40px;
+    padding-left: 5%;
+    line-height: 35px;
+    border: solid #222222 1px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+.tj{
+    width: 100%;
+    height: auto;
+    margin: 5px auto;
+}
+.btn{
+    width: 100%;
+    height: 40px;
+    margin: 10px auto;
+    border-radius: 5px;
+    background: #4cae4c;
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+.content textarea{
+    min-height: 100px;
+    width: 96%;
+    border: solid #222222 1px;
+    padding: 3%;
+    border-radius: 5px;
+    resize: none;
+
+
+}
+input[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 60%;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+    display: none;
+}
+input[type=search] {
+    background: #ededed;
+    border: solid 1px #ccc;
+    padding: 9px 10px 9px 20px ;
+    width: 10px;
+    height: 10px;
+    -webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+
+
+
+}
+input[type=search]:focus{
+    width: 80px;
+    height: 16px;
+    background-color: #ffffff;
+    border-color: #6dcff6;
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,5);
+    box-shadow:  0 0 5px rgba(109,207,246,5);
+
+}
+#page-wrap {
+    margin: 10px;
+}
+p {
+    margin: 20px 0;
+}
+
+/*
+Generic Styling, for Desktops/Laptops
+*/
+table {
+    width: 100%;
+    border-collapse: collapse; background:#fff
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}

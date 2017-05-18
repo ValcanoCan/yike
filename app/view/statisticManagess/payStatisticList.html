@@ -1,0 +1,42 @@
+
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">统计管理&nbsp;>&nbsp;</span>余额统计</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>充值金额(元)</th>
+                        <th>充值金额增长率(%)</th>
+                        <th>充值总笔数(笔)</th>
+                        <th>充值总笔数增长率(%)</th>
+                        <th>充值日期</th>
+                        <th hidden="">当前页</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in staPaysInfo">
+                        <td style="width: 30px;">{{item.orderNo}}</td>
+                        <td class="up">{{item.payIn}}</td>
+                        <td><span style="width: 50px;margin: 0 auto;display: block;text-align: right;" ng-class="{'statistic-up':item.payInIncrement>0,'statistic-down':item.payInIncrement<0}">{{item.payInIncrement}}</span></td>
+                        <td>{{item.payInTotal}}</td>
+                        <td><span style="width: 50px;margin: 0 auto;display: block;text-align: right;" ng-class="{'statistic-up':item.payInTotalIncrement>0,'statistic-down':item.payInTotalIncrement<0}">{{item.payInTotalIncrement}}</span></td>
+                        <td>{{item.dataDate}}</td>
+                        <td hidden="">{{startPage}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;">
+                    <p style="  float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                </div>
+                <tm-pagination style="margin: 10px auto 0px auto !important;"
+                               conf="paginationConf"></tm-pagination>
+            </form>
+
+        </div>
+    </div>
+</div>

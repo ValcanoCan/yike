@@ -1,0 +1,66 @@
+<style>
+    input {
+        width: 360px;
+    }
+</style>
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">电子区域管理&nbsp;>&nbsp;列表查看&nbsp;>&nbsp;</span>查看电子围栏中人员列表</div>
+            <form action="" method="post" name="Form" id="Form">
+                <!-- 检索  -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;">序号</th>
+                        <th>运维人员姓名</th>
+                        <!--<th style="min-width: 53px;">运维人员ID</th>-->
+                        <th>电子围栏ID</th>
+                        <th>创建日期</th>
+                        <th>修改日期</th>
+                        <!--<th>操作</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in railStaffInfo">
+                        <td>{{item.orderNo}}</td>
+                        <td>{{item.name}}</td>
+                        <!--<td>{{item.account}}</td>-->
+                        <td>{{item.fenceId}}</td>
+                        <td>{{item.createTime}}</td>
+                        <td>{{item.modifyTime}}</td>
+                        <!--<td>-->
+                        <!--<button style="border-radius:6px !important;" ng-click="mobileParamEdit(item)" class="btn btn-mini" data-toggle="dropdown">-->
+                        <!--<a href="" style="text-decoration: none;" title="修改参数" class="icon-edit">-->
+                        <!--</a></button>-->
+                        <!--</td>-->
+                        <!--<td style="width: 30px;">-->
+                            <!--<div class="hidden-phone visible-desktop btn-group">-->
+                                <!--<div class="inline position-relative">-->
+                                    <!--<button class="btn btn-mini btn-info" data-toggle="dropdown"><i-->
+                                            <!--class="icon-cog icon-only"></i></button>-->
+                                    <!--<ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">-->
+                                        <!--<li><a style="cursor:pointer;" title="修改电子围栏人员" ng-click="railsStaffEdit(item);"-->
+                                               <!--class="tooltip-success" data-rel="tooltip"-->
+                                               <!--data-placement="left">-->
+                                            <!--<span><i class="icon-edit"></i></span></a></li>-->
+                                        <!--<li><a style="cursor:pointer;" title="删除系统用户" ng-click="railStaffDel(item);"-->
+                                               <!--class="tooltip-error" data-rel="tooltip" data-placement="left"><span-->
+                                                <!--class="red"><i class="icon-trash"></i></span> </a></li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;">
+                    <p style="  float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                </div>
+                <tm-pagination style="margin: 10px auto 0px auto !important;"
+                               conf="paginationConf"></tm-pagination>
+            </form>
+        </div>
+    </div>
+</div>

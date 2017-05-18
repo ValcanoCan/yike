@@ -1,0 +1,137 @@
+.ngdialog, .ngdialog-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+
+@-webkit-keyframes ngdialog-fadeout {
+    0% {
+        opacity: 1
+    }
+    100% {
+        opacity: 0
+    }
+}
+
+@keyframes ngdialog-fadeout {
+    0% {
+        opacity: 1
+    }
+    100% {
+        opacity: 0
+    }
+}
+
+@-webkit-keyframes ngdialog-fadein {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+@keyframes ngdialog-fadein {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+.ngdialog {
+    box-sizing: border-box;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    /*z-index: 10000*/
+}
+
+.ngdialog *, .ngdialog :after, .ngdialog :before {
+    box-sizing: inherit
+}
+
+.ngdialog.ngdialog-disabled-animation, .ngdialog.ngdialog-disabled-animation .ngdialog-content, .ngdialog.ngdialog-disabled-animation .ngdialog-overlay {
+    -webkit-animation: none !important;
+    animation: none !important
+}
+
+.ngdialog-overlay {
+    background: rgba(0, 0, 0, .6);
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: ngdialog-fadein .5s;
+    animation: ngdialog-fadein .5s
+}
+
+.ngdialog-no-overlay {
+    pointer-events: none
+}
+
+.ngdialog.ngdialog-closing .ngdialog-overlay {
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: ngdialog-fadeout .5s;
+    animation: ngdialog-fadeout .5s
+}
+
+.ngdialog-content {
+    background: #fff;
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: ngdialog-fadein .5s;
+    animation: ngdialog-fadein .5s;
+    pointer-events: all
+}
+
+.ngdialog.ngdialog-closing .ngdialog-content {
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: ngdialog-fadeout .5s;
+    animation: ngdialog-fadeout .5s
+}
+
+.ngdialog-close:before {
+    font-family: Helvetica, Arial, sans-serif;
+    /*content: '\00D7';*/
+    cursor: pointer
+}
+
+body.ngdialog-open, html.ngdialog-open {
+    overflow: hidden
+}
+.ngdialog.ngdialog-theme-default .ngdialog-button.ngdialog-button-primary {
+    color: #fff;
+    /*background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #2c3742 0%, #28303a 100%) repeat scroll 0 0;*/
+    background-color:#2c3742
+}
+.ngdialog-titile h3
+{
+    /*background: #191e23 none repeat scroll 0 0;*/
+    color: #000;
+    /*padding:5px;*/
+    padding-left: 10px;
+    font-size:12px;
+    border-radius: 5px 5px 0 0;
+    /*background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #2c3742 0%, #28303a 100%) repeat scroll 0 0 !important;*/
+}
+
+.ngdialog-titile div
+{
+    margin-top:0px;
+}
+.ngdialog-message
+{
+    margin: 1em;
+}
+.ngdialog-content
+{
+    padding:0px !important;
+}
+.ngdialog-buttons{
+    /*text-align: center;*/
+    /*padding: 1em;*/
+    /*margin-top: 56px;*/
+}
+.ngdialog-button
+{
+    float: none!important;
+}

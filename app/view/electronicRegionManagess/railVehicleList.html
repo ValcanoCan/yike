@@ -1,0 +1,68 @@
+<style>
+    input {
+        width: 360px;
+    }
+</style>
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">电子区域管理&nbsp;>&nbsp;列表查看&nbsp;>&nbsp;</span>查看电子围栏中车辆列表</div>
+            <form action="" method="post" name="Form" id="Form">
+                <!-- 检索  -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;">序号</th>
+                        <!--<th>车辆型号</th>-->
+                        <!--<th>车辆编号</th>-->
+                        <!--<th>车辆颜色</th>-->
+                        <th>电池温度</th>
+                        <th>电池电量</th>
+                        <th>充电状态</th>
+                        <th>车锁状态</th>
+                        <th>车辆是否在线</th>
+                        <th>车速</th>
+                        <th>总电流</th>
+                        <th>总电压</th>
+                        <th>总里程</th>
+                        <th>车辆ID</th>
+                        <th>电机号</th>
+                        <th>电子围栏ID</th>
+                        <th>创建日期</th>
+                        <th>修改日期</th>
+                        <!--<th>操作</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in railVehicleInfo">
+                        <td>{{item.orderNo}}</td>
+                        <!--<td>{{item.carType}}</td>-->
+                        <!--<td>{{item.carNo}}</td>-->
+                        <!--<td>{{item.carColor}}</td>-->
+                        <td>{{item.electrombileRunning.batteryTemp}}</td>
+                        <td>{{item.electrombileRunning.chargeNum}}</td>
+                        <td>{{item.electrombileRunning.chargeStatus}}</td>
+                        <td>{{item.electrombileRunning.lockStatus}}</td>
+                        <td>{{item.electrombileRunning.onlineStatus}}</td>
+                        <td>{{item.electrombileRunning.speed}}</td>
+                        <td>{{item.electrombileRunning.totalCurrent}}</td>
+                        <td>{{item.electrombileRunning.totalVoltage}}</td>
+                        <td>{{item.electrombileRunning.totalMileage}}</td>
+                        <td>{{item.vehicleId}}</td>
+                        <td>{{item.engineNo}}</td>
+                        <td>{{item.fenceId}}</td>
+                        <td>{{item.createTime}}</td>
+                        <td>{{item.modifyTime}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;">
+                    <p style="  float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                </div>
+                <tm-pagination style="margin: 10px auto 0px auto !important;"
+                               conf="paginationConf"></tm-pagination>
+            </form>
+        </div>
+    </div>
+</div>

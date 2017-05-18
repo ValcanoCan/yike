@@ -1,0 +1,185 @@
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">车辆管理&nbsp;>&nbsp;</span>车辆报警</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <!--<table>-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+							<!--<span class="input-icon">-->
+								<!--<input autocomplete="off" type="text" value="" ng-model="keyword"-->
+                                       <!--placeholder="这里输入车辆VIN查询" style="width: 360px;">-->
+								<!--<i class="icon-search"></i>-->
+							<!--</span>-->
+                        <!--</td>-->
+
+                        <!--<td style="vertical-align:top;">-->
+                            <!--<div class="radius" style="width: 28px;height: 28px;background-color: lightgray;position: relative;top: 0px;" ng-click="vehicleSearch()">-->
+                                <!--<span class="icon-search" style="position: absolute;top: 7px;left: 8px;"></span>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+                <!-- 检索  -->
+
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>车辆VIN</th>
+                        <th>电池故障报警</th>
+                        <th>总电压超限报警</th>
+                        <th>总电流超限报警</th>
+                        <!--<th>车辆状态</th>-->
+                        <th>当前电量超限报警</th>
+                        <th>电池温度超限报警</th>
+                        <th>电机控制器通讯故障报警</th>
+                        <th>T-box工作电压超限报警</th>
+                        <th>电池盒锁异常打开报警</th>
+                        <th>电机锁未开车辆移动报警</th>
+                        <th>内电池异常报警</th>
+                        <th hidden="">当前页</th>
+                        <!--<th>查看车辆位置</th>-->
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr>
+                        <td style="width: 30px;">1</td>
+                        <td>FMSTVINFORWDH0004</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <!--<td>{{item.}}</td>-->
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <!--<td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">正常</span></td>-->
+                        <td><span>正常</span></td>
+                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">报警</span></td>
+                        <td>正常</td>
+                        <td hidden="">{{startPage}}</td>
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown">
+                                        <i class="icon-cog icon-only"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                        <li><a style="cursor: pointer;" title="删除车辆" ng-click="vehicleDel(item)"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 30px;">2</td>
+                        <td>FMSTVINFORWDH0003</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <!--<td>{{item.}}</td>-->
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">报警</span></td>
+                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">报警</span></td>
+                        <td>正常</td>
+                        <td hidden="">{{startPage}}</td>
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown">
+                                        <i class="icon-cog icon-only"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                        <li><a style="cursor: pointer;" title="删除车辆" ng-click="vehicleDel(item)"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 30px;">3</td>
+                        <td>FMSTVINFORWDH0002</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <!--<td>{{item.}}</td>-->
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">报警</span></td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td hidden="">{{startPage}}</td>
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown">
+                                        <i class="icon-cog icon-only"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                        <li><a style="cursor: pointer;" title="删除车辆" ng-click="vehicleDel(item)"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 30px;">4</td>
+                        <td>FMSTVINFORWDH0001</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <!--<td>{{item.}}</td>-->
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td>正常</td>
+                        <td hidden="">{{startPage}}</td>
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown">
+                                        <i class="icon-cog icon-only"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                        <li><a style="cursor: pointer;" title="删除车辆" ng-click="vehicleDel(item)"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--<div>-->
+                    <!--<div style="float: left;">-->
+                        <!--<a class="btn btn-small btn-success" ng-click="vehicleRegister()">添加新车辆</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <tm-pagination style="margin: 10px auto 0px auto !important;"
+                               conf="paginationConf"></tm-pagination>
+            </form>
+
+        </div>
+    </div>
+</div>

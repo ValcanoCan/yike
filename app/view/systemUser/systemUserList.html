@@ -1,0 +1,195 @@
+<style>
+    input {
+        width: 360px;
+    }
+</style>
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">系统用户管理&nbsp;>&nbsp;</span>查看系统用户</div>
+            <form action="" method="post" name="Form" style="margin: 0;">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                <span class="input-icon">
+                <input autocomplete="off" type="text" value="" ng-model="keyword"
+                       placeholder="这里输入用户名称、用户登录名称查询" style="width: 300px;">
+                <i class="icon-search"></i>
+                </span>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div class="radius"
+                                 style="width: 28px;height: 28px;background-color: lightgray;position: relative;top: 1px;"
+                                 ng-click="systemUserSearch()">
+                                <span class="icon-search" style="position: absolute;top: 7px;left: 8px;"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </form>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+
+                <!-- 检索  -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;">序号</th>
+                        <th>用户名称</th>
+                        <th style="min-width: 53px;">用户登录名称</th>
+                        <th>用户手机号</th>
+                        <!--<th>密码</th>-->
+                        <th>创建日期</th>
+                        <th>修改日期</th>
+                        <th hidden="">当前页</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in systemUserInfo">
+                        <td>{{item.orderNo}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.account}}</td>
+                        <td>{{item.mobileNo}}</td>
+                        <!--<td>{{item.password}}</td>-->
+                        <td>{{item.createTime}}</td>
+                        <td>{{item.modifyTime}}</td>
+                        <td hidden="">{{startPage}}</td>
+                        <!--<td>-->
+                        <!--<button style="border-radius:6px !important;" ng-click="mobileParamEdit(item)" class="btn btn-mini" data-toggle="dropdown">-->
+                        <!--<a href="" style="text-decoration: none;" title="修改参数" class="icon-edit">-->
+                        <!--</a></button>-->
+                        <!--</td>-->
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown"><i
+                                            class="icon-cog icon-only"></i></button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                        <li><a style="cursor:pointer;" title="修改系统用户" ng-click="systemUserEdit(item,startPage);"
+                                               class="tooltip-success" data-rel="tooltip"
+                                               data-placement="left">
+                                            <span><i class="icon-edit"></i></span></a></li>
+                                        <li><a style="cursor:pointer;" title="删除系统用户" ng-click="systemUserDel(item);"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div>
+                    <div>
+                        <a class="btn btn-small btn-success" ng-click="systemUserAdd()">新增系统用户</a>
+                    </div>
+                    <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -25px;">
+                        <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                    </div>
+                </div>
+
+                <tm-pagination style="margin: 10px auto 0px auto !important;"
+                               conf="paginationConf"></tm-pagination>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--新增系统用户-->
+<script type="text/ng-template" id="systemUserAddDiag">
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>新增系统用户</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td style="width:120px;text-align: right;padding-top: 13px;">用户姓名:</td>
+            <td style="text-align: left !important;">
+                <input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"
+                       type="text" value="" maxlength="32" placeholder="这里输入用户姓名"
+                       title="用户姓名" ng-model="name" ng-change="addParamsChange(name,mobileNo,account,password)">
+                <span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:120px;text-align: right;padding-top: 13px;">用户手机号:</td>
+            <td style="text-align: left !important;">
+                <input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"
+                       type="text" value="" maxlength="32" placeholder="这里输入用户手机号"
+                       title="用户手机号" ng-model="mobileNo" ng-change="addParamsChange(name,mobileNo,account,password)">
+                <span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:120px;text-align: right;padding-top: 13px;">用户登录名称:</td>
+            <td style="text-align: left !important;">
+                <input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"
+                       type="text" value="" maxlength="32" placeholder="这里输入用户登录名称"
+                       title="用户登录名称" ng-model="account" ng-change="addParamsChange(name,mobileNo,account,password)">
+                <span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:120px;text-align: right;padding-top: 13px;">密码:</td>
+            <td style="text-align: left !important;">
+                <input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"
+                       type="text" value="" maxlength="32" placeholder="这里输入密码"
+                       title="密码" ng-model="password" ng-change="addParamsChange(name,mobileNo,account,password)">
+                <span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;" colspan="10">
+
+                <a class="btn btn-mini btn-primary" ng-click="systemUserAddSave();">确认添加</a>
+
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+<!--更改系统用户-->
+<script type="text/ng-template" id="systemUserEditDiag">
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>修改系统用户</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td style="width:120px;text-align: right;padding-top: 13px;">用户姓名:</td>
+            <td style="text-align: left !important;">
+                <input type="text" value="" maxlength="32" placeholder="{{editSystemUser.name}}"
+                       title="用户姓名" ng-model="name" ng-change="editParamsChange(name,password)">
+            </td>
+        </tr>
+        <tr>
+            <td style="width:120px;text-align: right;padding-top: 13px;">密码:</td>
+            <td style="text-align: left !important;">
+                <input type="password" value="" maxlength="32" placeholder="这里输入新密码"
+                       title="密码" ng-model="password" ng-change="editParamsChange(name,password)">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;" colspan="10">
+
+                <a class="btn btn-mini btn-primary" ng-click="systemUserEditSave();closeThisDialog('a')">确认修改</a>
+
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>

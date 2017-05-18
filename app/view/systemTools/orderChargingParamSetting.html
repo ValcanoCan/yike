@@ -1,0 +1,241 @@
+<style>
+    input {
+        width: 300px;
+    }
+</style>
+<div id="page-content" class="clearfix">
+
+    <div class="row-fluid">
+
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">系统工具&nbsp;>&nbsp;</span>订单计费参数设置</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <!-- 检索  -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>名称</th>
+                        <th>说明</th>
+                        <th>预约订单收费额度(元)</th>
+                        <th>基础时间(分钟)</th>
+                        <th>基础行驶里程(公里)</th>
+                        <th>基础费用(元)</th>
+                        <th>按行使里程计算的费用(元/公里)</th>
+                        <th>按行使时间计算的费用(元/分钟)</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr>
+                        <td style="width: 30px;">1</td>
+                        <td>预约租车</td>
+                        <td>132132</td>
+                        <td>20.00</td>
+                        <td>120</td>
+                        <td>60</td>
+                        <td>60.00</td>
+                        <td>0.40</td>
+                        <td>0.66</td>
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+
+
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown"><i
+                                            class="icon-cog icon-only"></i></button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+
+                                        <li><a style="cursor:pointer;" title="编辑" ng-click="paramEdit('1');"
+                                               class="tooltip-success" data-rel="tooltip" data-placement="left"><span
+                                                class="green"><i class="icon-edit"></i></span></a></li>
+
+
+                                        <li><a style="cursor:pointer;" title="删除" ng-click="paramDel('1');"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <!--<td class="center" style="width: 30px;">-->
+                        <!--<label><input type="checkbox" name="ids" value="7"><span class="lbl"></span></label>-->
+                        <!--</td>-->
+                        <td style="width: 30px;">2</td>
+                        <td>实时租车</td>
+                        <td>1</td>
+                        <td>0.00</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0.00</td>
+                        <td>0.40</td>
+                        <td>0.66</td>
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+
+
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown"><i
+                                            class="icon-cog icon-only"></i></button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+
+                                        <li><a style="cursor:pointer;" title="编辑" ng-click="paramEdit('7');"
+                                               class="tooltip-success" data-rel="tooltip" data-placement="left"><span
+                                                class="green"><i class="icon-edit"></i></span></a></li>
+
+
+                                        <li><a style="cursor:pointer;" title="删除" ng-click="paramDel('7');"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <div>
+                        <a class="btn btn-small btn-success" ng-click="paramAdd()">新增计费参数</a>
+                    </div>
+                    <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -25px;">
+                        <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                    </div>
+                </div>
+                <tm-pagination style="margin: 0px auto 0px auto !important;" conf="paginationConf"></tm-pagination>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--订单计费参数修改-->
+<script type="text/ng-template" id="orderChargingParamEditDiag">
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>修改计费参数</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">名称:</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="预约租车" maxlength="20" placeholder="这里输入" title=""></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">说明:</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="132132" maxlength="32" placeholder="这里输入"
+                       title=""></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">预约订单收费额度(元):</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="20.00" maxlength="5"
+                       placeholder="这里输入预约订单收费额度(元)" title="预约订单收费额度(元)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">基础时间(分钟):</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="120" maxlength="5"
+                       placeholder="这里输入基础时间(分钟)" title="基础行驶时间(分钟)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">基础行驶里程(公里):</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="60" maxlength="5"
+                       placeholder="这里输入基础行驶里程(公里)" title="基础行驶里程(公里)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">基础费用(元):</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="60.00" maxlength="5" placeholder="这里输入基础费用(元)"
+                       title="基础费用(元)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">按行驶里程计算的费用(元/公里):</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="0.66" maxlength="5"
+                       placeholder="这里输入按行驶里程计算的费用额度(元/公里)" title="按里程计算的费用额度(元/公里)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">按行驶时间计算的费用(元/分钟):</td>
+            <td class="text-left"><input style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="0.40" maxlength="5"
+                       placeholder="这里输入按时间计算的费用(元/分钟)" title="按时间计算的费用(元/分钟)"></td>
+        </tr>
+        <!--<tr>-->
+        <!--<td style="width:240px;text-align: right;padding-top: 13px;">按停车时间计算的费用额度（元/分钟）:</td>-->
+        <!--<td><input type="text" name="STOP_TIME_FEE" id="STOP_TIME_FEE" value="0.40" maxlength="5" placeholder="这里输入按停车时间计算的费用额度（元/分钟）" title="按停车时间计算的费用额度（元/分钟）"></td>-->
+        <!--</tr>-->
+        <tr>
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="editParamSave()">保存</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+<!--新增订单计费参数设置-->
+<script type="text/ng-template" id="orderChargingParamAddDiag">
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>新增计费参数</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">名称:</td>
+            <td class="text-left"><input type="text"style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="20" placeholder="这里输入" title=""></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">说明:</td>
+            <td class="text-left"><input type="text" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="32" placeholder="这里输入" title=""></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">预约订单收费额度(元):</td>
+            <td class="text-left"><input type="text" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="5"
+                       placeholder="这里输入预约订单收费额度(元)" title="预约订单收费额度(元)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">基础时间(分钟):</td>
+            <td class="text-left"><input type="text" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="5"
+                       placeholder="这里输入基础时间(分钟)" title="基础行驶时间(分钟)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">基础行驶里程(公里):</td>
+            <td class="text-left"><input type="text" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="5"
+                       placeholder="这里输入基础行驶里程(公里)" title="基础行驶里程(公里)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">基础费用(元):</td>
+            <td class="text-left"><input type="text" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="5" placeholder="这里输入基础费用(元)"
+                       title="基础费用(元)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">按行驶里程计算的费用(元/公里):</td>
+            <td class="text-left"><input type="text" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="5"
+                       placeholder="这里输入按行驶里程计算的费用(元/公里)" title="按行驶里程计算的费用(元/公里)"></td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:240px;padding-top: 13px;">按行驶时间计算的费用(元/分钟):</td>
+            <td class="text-left"><input type="text" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" value="" maxlength="5"
+                       placeholder="这里输入按行驶时间计算的费用(元/分钟)" title="按行驶时间计算的费用(元/分钟)"></td>
+        </tr>
+        <!--<tr>-->
+            <!--<td style="width:260px;text-align: right;padding-top: 13px;">按停车时间计算的费用额度（元/分钟):</td>-->
+            <!--<td><input type="text" name="STOP_TIME_FEE" id="STOP_TIME_FEE" value="" maxlength="5"-->
+                       <!--placeholder="这里输入按停车时间计算的费用额度(元/分钟)" title="按停车时间计算的费用额度(元/分钟)"></td>-->
+        <!--</tr>-->
+        <tr>
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="addParamSave()">保存</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>

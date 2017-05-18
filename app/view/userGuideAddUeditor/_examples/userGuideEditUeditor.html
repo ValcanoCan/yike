@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="userGuideEditUeditor">
+<head>
+    <title>编辑用户指南文本</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link rel="stylesheet" href="./bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="./ngDialog.min.css">
+    <link rel="stylesheet" type="text/css" href="./ngDialog-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="./ngDialog-theme-plain.css">
+    <style>
+        body{
+            margin: 8px;
+        }
+        #edui1_iframeholder {
+            width: 100%;
+            height: 240px;
+        }
+        #edui1{
+            width: 100% !important;
+        }
+        table {
+            margin-bottom: 0 !important;
+        }
+
+        input {
+            width: 400px;
+            border-radius: 6px !important;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+            min-height: 27px;
+        }
+    </style>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js" charset=""></script>
+    <script type="text/javascript" charset="utf-8" src="../ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./editor_api.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./angular.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./ngDialog.js"></script>
+</head>
+<body ng-controller="userGuideEditUeditorCtrl">
+<form id="form" method="post" target="_self">
+    <div id="ngdialog-titile" class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 50px;line-height: 50px;font-size: 24px;padding-left: 30px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>编辑用户指南</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td class="text-right" style="width:170px;padding-top: 13px;">用户指南标题名称:</td>
+            <td style="text-align:left !important;"><input type="text" value="" maxlength="32"
+                                                           placeholder="这里输入用户指南标题名称"
+                                                           title="用户指南标题名称" ng-model="title"
+                                                           ng-change="editParamsChange(title,subhead,keyword)">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:170px;padding-top: 13px;">用户指南副标题名称:</td>
+            <td style="text-align:left !important;"><input type="text" value="" maxlength="32"
+                                                           placeholder="这里输入用户指南副标题名称"
+                                                           title="用户指南副标题名称" ng-model="subhead"
+                                                           ng-change="editParamsChange(title,subhead,keyword)">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:170px;text-align: right;padding-top: 13px;">搜索关键词:</td>
+            <td style="text-align: left !important;"><input type="text" value="" maxlength="16" placeholder="这里输入搜索关键词"
+                                                            title="搜索关键词" ng-model="keyword"
+                                                            ng-change="editParamsChange(title,subhead,keyword)">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <script type="text/plain" id="myEditor" name="myEditor">
+        加载数据中...
+    </script>
+
+    <div style="text-align: center;margin-top: 15px;" colspan="10">
+        <a id="btn" class="btn btn-mini btn-primary" ng-click="saveEdit()">确认修改</a>
+        <a class="btn btn-mini btn-danger" ng-click="returnGuideList()">返回指南列表</a>
+        <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+    </div>
+
+</form>
+</body>
+<script src="./userGuideEditUeditor.js"></script>
+</html>

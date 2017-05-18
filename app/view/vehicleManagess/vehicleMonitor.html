@@ -1,0 +1,184 @@
+<style>
+
+    .pagination{
+        margin-bottom: 0 !important;
+    }
+
+    @keyframes showlist
+    {
+        from {height: 0;}
+        to {height: auto;}
+    }
+
+    @-moz-keyframes showlist /* Firefox */
+    {
+        from {height: 0;}
+        to {height: auto;}
+    }
+
+    @-webkit-keyframes showlist /* Safari 和 Chrome */
+    {
+        from {height: 0;}
+        to {height: auto;}
+    }
+
+    @-o-keyframes showlist /* Opera */
+    {
+        from {height: 0;}
+        to {height: auto;}
+    }
+    .showlist
+    {
+        animation: showlist 5s;
+        -moz-animation: showlist 5s;	/* Firefox */
+        -webkit-animation: showlist 5s;	/* Safari 和 Chrome */
+        -o-animation: showlist 5s;	/* Opera */
+    }
+
+    .rotate {
+        transition: All 0.4s ease-in-out;
+        -webkit-transition: All 0.4s ease-in-out;
+        -moz-transition: All 0.4s ease-in-out;
+        -o-transition: All 0.4s ease-in-out;
+        transform-origin: center center;
+        -webkit-transform-origin: 20% center;
+        -moz-transform-origin: 20% center;
+        -o-transform-origin: 20% center;
+        -ms-transform-origin: 20% center;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+    }
+
+    body table >tbody>tr>td,body table >thead>tr>td,
+    body table >tbody >tr>th,body table >thead >tr>th{
+        background-color: transparent;
+    }
+
+    body table.table-hover >tbody >tr:hover>td,
+    body table.table-hover >tbody >tr:hover>th{
+        background-color: limegreen;
+        color: #000;
+    }
+    body table.table-hover>tbody >tr>td{
+        color: crimson;
+    }
+</style>
+<div id="page-content">
+    <div class="show-title"><span style="color:#787878;font-size: 14px;">车辆管理&nbsp;>&nbsp;</span>车辆监控</div>
+    <div id="ext-element-1" class="x-body x-webkit x-chrome">
+        <!--<table>-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td>-->
+                    <!--<select onchange="showIcon(this)">-->
+                        <!--<option value="1">按租用状态标识车辆</option>-->
+                        <!--<option value="2">按故障状态标识车辆</option>-->
+                        <!--&lt;!&ndash; <option value="3">按在线状态显示车辆图标</option> &ndash;&gt;-->
+                    <!--</select>-->
+                <!--</td>-->
+                <!--<td id="shuoming">-->
+                    <!--<div style="width: 20px;height: 20px;background-color: #00e500;float: left;margin-left: 100px;border-radius:10px"></div>-->
+                    <!--<div style="float: left;margin-left: 5px;">空闲</div>-->
+                    <!--<div style="width: 20px;height: 20px;background-color: #ff2121;float: left;margin-left: 10px;border-radius:10px"></div>-->
+                    <!--<div style="float: left;margin-left: 5px;">租用中</div>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+        <!--<div id="tip"></div>-->
+        <div class="container-fluid" id="main-container">
+            <div id="container" class="amap-container"
+                 style="background: rgb(252, 249, 242); margin: 8px 20px;border: 3px solid #0000cc;background: #FFF;">
+                <div id="allmap" style="width:100%;min-height:660px;position:relative;"></div>
+            </div>
+            <div class="list-title" style="width: 80%;height: 30px;line-height: 30px;position: absolute;top: 11px;left: 23px;background-color: cyan;">
+                <div style="float: left;padding-left: 10px;font-size: 16px;color: #000;font-weight: 700;">车辆信息列表</div>
+                <div style="float: right;padding-right: 10px;" ng-click="renovateVehicleList()">
+                    <img src="static/images/renovate.png" alt=""/>
+                </div>
+                <div style="float: right;padding-right: 10px;" id="rotate" ng-click="showVehicleList()">
+                    <img src="static/images/down-list.png" alt=""/>
+                </div>
+
+            </div>
+            <div id="vehicle-list" style="width: 80%;position: absolute;top: 41px;left: 23px;background: url('static/images/vehicleForm.jpg')">
+                <div style="width: 100%;height: 60px;">
+                   <table style="margin: 4px 0 -5px 0;float: left;">
+                       <tbody>
+                       <tr>
+                           <td>
+							<span class="input-icon">
+								<input autocomplete="off" type="text" value="" ng-model="keyword"
+                                       placeholder="这里输入车型、车辆颜色、车辆编号、电机号查询" style="width: 360px;">
+								<i class="icon-search"></i>
+							</span>
+                           </td>
+
+                           <td style="vertical-align:top;">
+                               <div class="radius" style="width: 28px;height: 28px;background-color: lightgray;position: relative;top: 0px;" ng-click="vehicleSearch()">
+                                   <span class="icon-search" style="position: absolute;top: 7px;left: 8px;"></span>
+                               </div>
+                           </td>
+                       </tr>
+                       </tbody>
+                   </table>
+               </div>
+
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr style="background: transparent;color: #0000ff;">
+                        <th hidden="">车辆颜色</th>
+                        <th>序号</th>
+                        <th>车型</th>
+                        <th>车辆颜色</th>
+                        <th>车辆VIN</th>
+                        <th>车辆编号</th>
+                        <!--<th>车辆状态</th>-->
+                        <th>电机号</th>
+                        <th>SIM卡号</th>
+                        <th>添加时间</th>
+                        <th>车辆生产日期</th>
+                        <th>车辆是否上线</th>
+                        <th>车辆所属电子围栏</th>
+                        <th>车辆位置</th>
+                        <th hidden="">当前页</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in vehicleInfo">
+                        <td hidden="">{{item.carColor}}</td>
+                        <td style="width: 30px;">{{item.orderNo}}</td>
+                        <td>{{item.carType}}</td>
+                        <td>{{item.carColor}}</td>
+                        <td>{{item.vehicleCode}}</td>
+                        <td>{{item.carNo}}</td>
+                        <!--<td>{{item.}}</td>-->
+                        <td>{{item.engineNo}}</td>
+                        <td>{{item.simCode}}</td>
+                        <td>{{item.createTime}}</td>
+                        <td>{{item.productDate}}</td>
+                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">{{item.isRegist==1?"已上线":"未上线"}}</span></td>
+                        <td>{{item.fences[0].name?item.fences[0].name:"车辆未加入电子围栏"}}</td>
+                        <td>
+                            <button style="border-radius:6px !important;" ng-click="searchVehicle(item,startPage)" class="btn btn-mini" data-toggle="dropdown">
+                                <a href="" style="text-decoration: none;" title="点击查看车辆位置" class="icon-map-marker">
+                                </a></button>
+                        </td>
+                        <td hidden="">{{startPage}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -16px;">
+                        <p style="float:right;margin: 5px 10px !important;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                    </div>
+                </div>
+                <tm-pagination style="margin: 10px auto 0px auto !important;" conf="paginationConf"></tm-pagination>
+            </div>
+        </div>
+    </div>
+</div>

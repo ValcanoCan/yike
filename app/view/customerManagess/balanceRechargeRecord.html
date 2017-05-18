@@ -1,0 +1,66 @@
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">用户管理&nbsp;>&nbsp;查看用户信息&nbsp;>&nbsp;<span style="color: #08c;font-size: 18px;">{{customerRealName}}</span></span>的余额充值缴费记录</div>
+            <!-- 检索  -->
+            <!--<form action="car_user/list.do" method="post" name="Form" id="Form" style="margin: 0;">-->
+            <!--<form action="" method="post" name="Form" id="Form" style="margin: 0;">-->
+                <!--<table>-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+							<!--<span class="input-icon">-->
+								<!--<input autocomplete="off" type="text" value=""-->
+                                       <!--placeholder="这里输入信息查询" style="width: 300px;">-->
+								<!--<i class="icon-search"></i>-->
+							<!--</span>-->
+                        <!--</td>-->
+
+                        <!--<td style="vertical-align:top;">-->
+                            <!--<button class="btn btn-mini btn-light" onclick="search();" title="检索"><i-->
+                                    <!--class="icon-search"></i></button>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</form>-->
+            <!-- 检索  -->
+            <table id="table_report" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                <tr>
+                    <th>序号</th>
+                    <th>充值用户</th>
+                    <th>充值时间</th>
+                    <th>充值金额(元)</th>
+                    <th>充值渠道</th>
+                    <th>账户押金(元)</th>
+                    <th>账户余额(元)</th>
+                    <th>充值流水号</th>
+                    <th>充值状态</th>
+                </tr>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- 开始循环 -->
+                <tr>
+                <tr ng-repeat="item in rechargeInfo">
+                    <td style="width: 30px;">{{item.orderNo}}</td>
+                    <td>{{item.realName}}</td>
+                    <td>{{item.createTime}}</td>
+                    <td>{{item.payAmount}}</td>
+                    <td>{{item.payType==1?"支付宝":"微信"}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{item.payWalletId}}</td>
+                    <td>{{item.payStatus==1?"成功":"失败"}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;">
+                <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+            </div>
+            <tm-pagination style="margin: 10px auto 0px auto !important;" conf="paginationConf"></tm-pagination>
+        </div>
+    </div>
+</div>

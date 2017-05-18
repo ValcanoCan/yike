@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FMsainuoyi">
+<head>
+    <meta charset="utf-8"/>
+    <title>赛诺伊共享车运营管理平台</title>
+    <meta name="description" content="overview & stats"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- basic styles -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="static/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="static/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-dialog/css/ngDialog-theme-plain.css">
+    <link type="text/css" rel="stylesheet" href="bower_components/angular-date/css/ng-bs3-datepicker.css">
+    <!-- 下拉框-->
+    <link rel="stylesheet" href="static/css/chosen.css"/>
+    <link rel="stylesheet" href="static/css/hotStyle.css"/>
+    <!-- ace styles -->
+    <link rel="stylesheet" href="static/css/ace.min.css"/>
+    <link rel="stylesheet" href="static/css/ace-responsive.min.css"/>
+    <link rel="stylesheet" href="static/css/ace-skins.min.css"/>
+    <script type="text/javascript" src="static/js/jquery-1.7.2.js"></script>
+    <link rel="stylesheet" href="static/css/datepicker.css"/>
+
+    <!--及时通知-->
+    <link rel="stylesheet" href="public/css/jquery.toast.css"/>
+
+
+    <!-- 日期框 -->
+    <script src="public/js/jquery-last.js"></script>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <!--<script src="public/js/jquery.cookie.js"></script>-->
+    <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
+    <script src="bower_components/angular-date/js/moment.js"></script>
+
+    <script src="bower_components/angular-date/js/fr-ca.js"></script>
+    <script src="bower_components/angular-date/js/ng-bs3-datepicker.js"></script>
+
+
+    <!--依赖注入-->
+    <script src="app.js"></script>
+    <!--依赖注入end-->
+
+    <!--路由-->
+    <script src="config/route.js"></script>
+    <!--路由 end-->
+
+    <!--server start-->
+    <script src="server/dbServer.js"></script>
+    <script src="server/common.js"></script>
+    <script src="server/powerServer.js"></script>
+    <script src="server/systemUserServer.js"></script>
+    <script src="server/userServer.js"></script>
+    <script src="server/ordersServer.js"></script>
+    <script src="server/systemToolServer.js"></script>
+    <script src="server/repairWorkOrdersServer.js"></script>
+    <script src="server/electronicRegionServer.js"></script>
+    <script src="server/vehicleManagessServer.js"></script>
+    <script src="server/operationTaskServer.js"></script>
+    <script src="server/statisticManagess.js"></script>
+    <!--server end-->
+
+    <!--视图js开始-->
+    <script src="view/loginDefault/loginDefaultIndex.js"></script>
+    <script src="view/powerManagess/navPowerList.js"></script>
+    <script src="view/powerManagess/roleNavsList.js"></script>
+    <script src="view/powerManagess/roleUsersList.js"></script>
+    <script src="view/powerManagess/urlPowerList.js"></script>
+    <script src="view/systemUser/systemUserList.js"></script>
+    <script src="view/customerManagess/customerManagement.js"></script>
+    <script src="view/customerManagess/ridingRecord.js"></script>
+    <script src="view/customerManagess/depositRechargeRecord.js"></script>
+    <script src="view/customerManagess/balanceRechargeRecord.js"></script>
+    <script src="view/customerManagess/shareSectionList.js"></script>
+    <script src="view/ordersManagess/checkOrderInfo.js"></script>
+    <script src="view/ordersManagess/chargeManagement.js"></script>
+    <script src="view/ordersManagess/depositManagement.js"></script>
+    <script src="view/ordersManagess/returnDepositManagement.js"></script>
+    <script src="view/ordersManagess/rechargeManagement.js"></script>
+    <script src="view/ordersManagess/personalOrderInfo.js"></script>
+    <script src="view/ordersManagess/activitiesManagement.js"></script>
+    <script src="view/systemTools/messagePush.js"></script>
+    <script src="view/systemTools/userGuideEdit.js"></script>
+    <script src="view/systemTools/userGuideList.js"></script>
+    <script src="view/systemTools/advertisement.js"></script>
+    <!--<script src="view/userGuideAddUeditor/_examples/userGuideAddUeditor.js"></script>-->
+    <script src="view/systemTools/mobileParamSetting.js"></script>
+    <script src="view/systemTools/orderChargingParamSetting.js"></script>
+    <script src="view/systemTools/serviceChargeSetting.js"></script>
+    <script src="view/vehicleManagess/vehicleView.js"></script>
+    <script src="view/vehicleManagess/electromotorManagement.js"></script>
+    <script src="view/vehicleManagess/vehicleMonitor.js"></script>
+    <script src="view/vehicleManagess/vehicleAlarm.js"></script>
+    <script src="view/electronicRegionManagess/electronicRegionInfo.js"></script>
+    <script src="view/electronicRegionManagess/railStaffList.js"></script>
+    <script src="view/electronicRegionManagess/railVehicleList.js"></script>
+
+    <script src="view/vehicleIssueManagess/vehicleShowInfo.js"></script>
+    <script src="view/vehicleIssueManagess/operationTaskList.js"></script>
+
+    <script src="view/operationTaskManagess/operationTaskManagement.js"></script>
+    <script src="view/faultRepairManagess/repairWorkOrders.js"></script>
+    <script src="view/faultRepairManagess/tboxUploadFault.js"></script>
+    <script src="view/customerInfoFeedback/customerInfoFeedback.js"></script>
+
+    <script src="view/statisticManagess/orderStatisticList.js"></script>
+    <script src="view/statisticManagess/payStatisticList.js"></script>
+    <script src="view/statisticManagess/pledgeStatisticList.js"></script>
+
+    <!--<script src="view/diag/promptDiag.js"></script>-->
+    <!--视图js结束-->
+
+    <!--指令js开始-->
+    <script src="pagination/tm.pagination.js"></script>
+    <!--指令js结束-->
+
+    <!--百度地图API-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Ar51bSGbDdPhh5up7x2DRYDKIjb3Uujj"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css"/>
+    <!--百度地图API end-->
+
+    <!--引入弹窗组件start-->
+    <!--<script type="text/javascript" src="plugins/attention/zDialog/zDrag.js"></script>-->
+    <!--<script type="text/javascript" src="plugins/attention/zDialog/zDialog.js"></script>-->
+    <!--<script type="text/javascript" src="plugins/common/jquery.json-2.4.js"></script>-->
+    <!--引入弹窗组件end-->
+    <script type="text/javascript" src="static/js/jquery.tips.js"></script>
+    <script type="text/javascript" src="static/js/infoBox.min.js"></script>
+    <script type="text/javascript" src="static/js/modernizr.custom.49511.js"></script>
+    <script type="text/javascript" src="static/js/jquery.hotspot.min.js"></script>
+    <!--<script type="text/javascript" src="plugins/common/laydate/laydate.js"></script>-->
+
+    <!--即时通知-->
+    <script type="text/javascript" src="public/js/jquery.toast.js"></script>
+
+    <style type="text/css">
+        .commitopacity {
+            position: absolute;
+            width: 100%;
+            height: 300px;
+            background: #7f7f7f;
+            filter: alpha(opacity=50);
+            -moz-opacity: 0.8;
+            -khtml-opacity: 0.3;
+            opacity: 0.3;
+            top: 0px;
+            z-index: 99999;
+        }
+
+        .ul-show {
+            display: block !important;
+        }
+
+        .nav-list > li.active.open > .submenu > li.active > a:after {
+            top: 2px;
+        }
+
+        .nav-list > li.active > a:after, .nav-list > li.open > .submenu > li.active > a:after {
+            display: inline-block;
+            content: "";
+            position: absolute !important;
+            right: 0;
+            top: 4px;
+            border: 8px solid transparent;
+            border-width: 14px 10px;
+            border-right-color: #0b6cbc;
+        }
+
+        .show-title{
+            font-size: 18px;
+            font-weight: 700;
+            height: 30px;
+            line-height: 30px;
+            margin: 15px 0;
+            width: 100%;
+            border-bottom: 3px solid  #D31322;
+        }
+        body{
+            font-family: 'Arial','Microsoft Yahei' !important;
+        }
+        .accordion-toggle .btn{
+            width: 80% !important;
+        }
+        .glyphicon-chevron-up::before{
+            content:url("public/img/up.png");
+            top: 6px;
+            position:relative;
+        }
+        .glyphicon-chevron-down::before{
+            content: url("public/img/down.png") ;
+            top: 6px;
+            position:relative;
+        }
+
+        input[type="text"],input[type="password"],select,button.btn, input[type="submit"].btn{
+            border-radius: 6px !important;
+        }
+
+        input[type="submit"]{
+            background-color: blueviolet;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            width: 80px;
+        }
+
+        .radius{
+            border-radius: 6px !important;
+        }
+        input, textarea, .uneditable-input {
+            width: 300px;
+        }
+        th,td{
+            text-align: center !important;
+        }
+        .text-right{
+            text-align: right !important;
+        }
+        .text-left{
+            text-align: left !important;
+        }
+        .bootstrap-datetimepicker-widget .btn{
+            background-color: transparent !important;
+            border: none !important;
+            font-weight: 700 !important;
+            color:#000 !important;
+        }
+        form{
+            margin-bottom: 0;
+        }
+        .btn{
+            border-radius: 5px !important;
+        }
+        .ngdialog-content{
+            border-radius: 6px !important;
+            width: 600px !important;
+            padding: 3px !important;
+        }
+        .ngdialog-content input[type="text"], .ngdialog-content input[type="password"]{
+            min-height: 27px;
+        }
+        /*状态*/
+        .inclose{
+            color:#D31322;
+        }
+        .isclose{
+            color:green;
+        }
+        .isconfirm{
+            color:orange;
+        }
+        .applying{
+            color:purple;
+        }
+        .section{
+            color:deepskyblue;
+        }
+        .agree{
+            color:orangered;
+        }
+
+        .statistic-up::after{
+            content:url("static/images/up.png");
+            margin-left: 5px;
+            position: absolute;
+        }
+        .statistic-down::after{
+            content:url("static/images/down.png");
+            margin-left: 5px;
+            position: absolute;
+        }
+
+        /*车辆位置弹框样式*/
+        .detailsMenu{
+            background: url("static/images/stopPoint.png");
+            border-radius: 6px;
+        }
+        .bikeInfoMenu{
+            background: url("static/images/infoBox.png");
+            border-radius: 6px;
+        }
+
+        .detailsMenu li, .bikeInfoMenu li {
+            /*margin-left: 10px;*/
+            height: 18px;
+            /*vertical-align: top;*/
+            font-size: 16px;
+            /*color:#c3272b;*/
+            color:deeppink;
+            font-weight: 300;
+            background-color: transparent !important;
+            padding: 2px 0 2px 10px;
+        }
+        .bikeInfoMenu li {
+            color:#ff0000;
+        }
+
+        .detailsMenu li .title, .bikeInfoMenu li .title {
+            display: inline-block;
+            width: 180px;
+            color: #000;
+        }
+
+        body table >tbody>tr>td,body table >thead>tr>td,
+        body table >tbody >tr>th,body table >thead >tr>th{
+            background-color: #fff;
+            color: #000;
+        }
+        .table-striped tbody>tr:nth-child(odd)>td, .table-striped tbody>tr:nth-child(odd)>th{
+            background-color: #fff;
+            color: #000;
+        }
+
+        body table.table-hover >tbody >tr:hover>td,
+        body table.table-hover >tbody >tr:hover>th{
+            background-color: aliceblue;
+            color: crimson;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- 页面顶部¨ -->
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <div class="container-fluid" style="background-color: #393939 !important;">
+            <a class="brand">
+                <small>
+                    <image width='30' height='30' src='static/images/logo1.jpg'/>
+                    </i> 赛诺伊共享车运营管理平台
+                </small>
+            </a>
+
+            <div id="notify" class="brand" style="margin-left: 100px;font-size: 15px;color: red"></div>
+            <!--<ul class="nav ace-nav pull-right">-->
+
+                <!--<li class="purple">-->
+                    <!--<a href="javascript:alert('预留功能,待开发');" class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<i class="icon-bell-alt icon-animated-bell icon-only"></i>-->
+                        <!--<span class="badge badge-success" id="allMessageNum">0</span>-->
+                    <!--</a>-->
+                    <!--<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer" id="messages">-->
+                        <!--<li class="nav-header" id="allMessage">-->
+                            <!--<i class="icon-bell"></i> 0 条通知-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="light-blue user-profile">-->
+                    <!--<a class="user-menu dropdown-toggle" href="javascript:;" data-toggle="dropdown">-->
+                        <!--<img alt="FH" src="static/avatars/user.jpg" class="nav-user-photo"/>-->
+							<!--<span id="user_info">-->
+							<!--</span>-->
+                        <!--<i class="icon-caret-down"></i>-->
+                    <!--</a>-->
+                    <!--<ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">-->
+                        <!--&lt;!&ndash;<li><a onclick="editUserH();" style="cursor:pointer;"><i class="icon-user"></i> 修改资料</a></li>&ndash;&gt;-->
+                        <!--&lt;!&ndash; <li id="systemset"><a onclick="editSys();" style="cursor:pointer;"><i class="icon-cog"></i> 系统设置</a></li> &ndash;&gt;-->
+                        <!--&lt;!&ndash;<li id="productCode"><a onclick="productCode();" style="cursor:pointer;"><i&ndash;&gt;-->
+                                <!--&lt;!&ndash;class="icon-cogs"></i> 代码生成</a></li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                        <!--<li>-->
+                            <!--<a href="javascript:if(confirm('确定要退出吗?'))location='./view/login/login.html'"><i-->
+                                    <!--class="icon-off"></i> 退出</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            <!--</ul>-->
+
+            <div class="brand" style="float: right;margin: 0;">
+                <a style="text-decoration: none;font-size: 20px;line-height: 24px;" href="javascript:if(confirm('确定要退出吗?'))location='./view/login/login.html'"><i
+                        class="icon-off"></i> 退出</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 引入 -->
+<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+<!--提示框-->
+
+<!--引入属于此页面的js -->
+<script type="text/javascript" src="static/js/myjs/view.js"></script>
+
+<div id="websocket_button"></div>
+<div ng-controller="navsCtrl" class="container-fluid" id="main-container">
+
+    <div ng-click="tboxLoadFaultShow($event)" class="brand" style="float: right;margin-right: 20px;margin-top: 5px;">
+        <a style="text-decoration: none;font-size: 20px;line-height: 24px;" href="" id="forthwithWarn">
+            <small>
+                <image width='30' height='30' src='./static/images/warning_2.gif'/>
+            </small>
+        </a>
+        <!--<pre><code>$.toast({-->
+            <!--heading: 'Warning',-->
+            <!--text: 'It is going to be supper easy for you to use ;)',-->
+            <!--showHideTransition: 'plain',-->
+            <!--icon: 'warning'-->
+            <!--})</code></pre>-->
+    </div>
+    <a href="#" id="menu-toggler"><span></span></a>
+    <!-- menu toggler -->
+
+    <!-- 左侧菜单 -->
+    <!-- 本页面涉及的js函数，都在view.js中     -->
+    <div id="sidebar" class="menu-min">
+
+        <div id="sidebar-shortcuts">
+
+            <!--<div id="sidebar-shortcuts-large">-->
+                <!--&lt;!&ndash;<button class="btn btn-small btn-danger" title="菜单管理" id="adminmenu" onclick="menu();"><i&ndash;&gt;-->
+                <!--&lt;!&ndash;<button class="btn btn-small btn-danger" title="菜单管理" id="adminmenu"><i&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="icon-folder-open"></i></button>&ndash;&gt;-->
+            <!--</div>-->
+
+            <div id="sidebar-shortcuts-mini">
+                <span class="btn btn-success"></span>
+
+                <span class="btn btn-info"></span>
+
+                <span class="btn btn-warning"></span>
+
+                <span class="btn btn-danger"></span>
+            </div>
+
+        </div>
+        <!-- #sidebar-shortcuts -->
+        <ul class="nav nav-list">
+            <li class="active" id="fhindex">
+                <a href="index.html#/"><i class="icon-dashboard"></i><span ng-click="childMenu($event,'fhindex')">后台首页</span></a>
+            </li>
+            <li ng-repeat="item in navsInfo" id="p{{item.id}}" ng-click="clickMenu('p'+item.id)">
+                <a style="cursor:pointer;" class="dropdown-toggle">
+                    <i class="{{item.iconImg}}"></i>
+                    <span>{{item.name}}</span>
+                    <b class="arrow icon-angle-down"></b>
+                </a>
+                <ul class="submenu" id="u{{item.id}}">
+                    <li ng-repeat="child in item.childMenus" class="add-active" id="c{{child.value}}">
+                        <a style="cursor:pointer;" target="mainFrame"
+                           ng-click="childMenu($event,child,'c'+child.value,'u'+item.id)"><i
+                                class="icon-double-angle-right"></i>{{child.name}}</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!--/.nav-list-->
+
+        <div id="sidebar-collapse"><i class="icon-double-angle-left" style="background-color: aliceblue;color: orchid;font-weight: 700;font-size: 16px" onclick="ifHasangleright()">open</i></div>
+
+    </div>
+    <!--/#sidebar-->
+    <div id="main-content" class="clearfix" style="width: auto">
+
+        <div id="jzts" style="display:none; width:100%; position:fixed; z-index:99999999;">
+            <div class="commitopacity" id="bkbgjz"></div>
+            <div style="padding-left: 70%;padding-top: 1px;">
+                <div style="float: left;margin-top: 3px;"><img src="static/images/jiazai4.gif"/></div>
+                <div style="margin-top: 5px;"><h4 class="lighter block red">&nbsp;加载中 ...</h4></div>
+            </div>
+        </div>
+        <!--<div>-->
+        <!--<iframe name="mainFrame" id="mainFrame" frameborder="0" src="tab.do" style="margin:0 auto;width:100%;height:100%;"></iframe>-->
+        <!--</div>-->
+
+        <!--页面局部刷新区域-->
+        <div ng-view></div>
+
+        <!-- 换肤 -->
+        <div id="ace-settings-container"></div>
+
+    </div>
+
+</div>
+<!-- 引入 -->
+<script type="text/javascript">window.jQuery || document.write("<script src='static/js/jquery-1.9.1.min.js'>\x3C/script>");</script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/ace-elements.min.js"></script>
+<script src="static/js/ace.min.js"></script>
+<!-- 引入 -->
+
+<script type="text/javascript" src="static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="static/js/myjs/menusf.js"></script>
+
+<!--引入属于此页面的js -->
+<!--<script type="text/javascript" src="static/js/myjs/index.js"></script>-->
+</body>
+</html>

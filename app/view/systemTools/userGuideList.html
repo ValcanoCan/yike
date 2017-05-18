@@ -1,0 +1,199 @@
+<style>
+    input, textarea {
+        width: 350px;
+    }
+
+    textarea {
+        height: 120px;
+    }
+</style>
+<div id="page-content" class="clearfix">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="show-title"><span style="color:#787878;font-size: 14px;">系统工具&nbsp;>&nbsp;</span>用户指南编辑管理</div>
+            <!-- 检索  -->
+            <form action="" method="post" name="Form" id="Form">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+						<span class="input-icon">
+							<input autocomplete="off" style="width:300px;" type="text" ng-model="title"
+                                   placeholder="这里输入用户指南标题名称查询">
+							<i class="icon-search"></i>
+						</span>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="">
+                                    <label class="labelFont">&nbsp;</label>
+
+                                    <div class='input-group date'>
+                                        <input style="width: 130px !important;margin-left: 5px;height: 20px !important;margin-top: -28px !important;
+                           border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker1"
+                                               data-date-format="YYYY-MM-DD" placeholder="创建日期"
+                                               type='text' class="form-control"
+                                               ng-model="createTime"
+                                               ng-change="timeStatusChange(createTime,modifyTime)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="">
+                                    <label class="labelFont">&nbsp;</label>
+
+                                    <div class='input-group date'>
+                                        <input style="width: 130px !important;margin-left: 5px;height: 20px !important;margin-top: -28px !important;
+                           border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker2"
+                                               data-date-format="YYYY-MM-DD" placeholder="修改日期"
+                                               type='text' class="form-control"
+                                               ng-model="endTime" ng-change="timeStatusChange(createTime,modifyTime)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div class="radius"
+                                 style="width: 30px;height: 30px;background-color: lightgray;position: relative;top: 2px;"
+                                 ng-click="userGuideSearch()">
+                                <span class="icon-search" style="position: absolute;top: 8px;left: 9px;"></span>
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- 检索  -->
+                <table id="table_report1" class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;">序号</th>
+                        <th style="min-width: 53px;">用户指南标题</th>
+                        <th>用户指南副标题</th>
+                        <th>用户指南地址</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                        <th>修改人</th>
+                        <th>修改时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 开始循环 -->
+                    <tr ng-repeat="item in userGuideInfo">
+                        <td>{{item.orderNo}}</td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.subhead}}</td>
+                        <td>{{item.url}}</td>
+                        <td>{{item.createUser}}</td>
+                        <td>{{item.createTime}}</td>
+                        <td>{{item.modifyUser}}</td>
+                        <td>{{item.modifyTime}}</td>
+                        <!--<td>-->
+                            <!--<button style="border-radius:6px !important;" ng-click="viewGuide(item.title)"-->
+                                    <!--class="btn btn-mini" data-toggle="dropdown">-->
+                                <!--<a href="" style="text-decoration: none;" title="查看指南" class="icon-file-alt">-->
+                                <!--</a></button>-->
+                        <!--</td>-->
+                        <td style="width: 30px;">
+                            <div class="hidden-phone visible-desktop btn-group">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-mini btn-info" data-toggle="dropdown">
+                                        <i class="icon-cog icon-only"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                        <li>
+                                            <a style="cursor: pointer;" title="查看用户指南"
+                                               ng-click="viewGuide(item.title)"
+                                               class="tooltip-success" data-rel="tooltip" data-placement="left">
+                                                <span><i class="icon-file-alt"></i></span> </a></li>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a style="cursor: pointer;" title="修改用户指南"
+                                               ng-click="userGuideEdit(item);"
+                                               class="tooltip-success" data-rel="tooltip" data-placement="left">
+                                                <span><i class="icon-edit"></i></span> </a></li>
+                                            </a>
+                                        </li>
+                                        <li><a style="cursor: pointer;" title="删除用户指南" ng-click="userGuideDel(item)"
+                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                                class="red"><i class="icon-trash"></i></span> </a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <div>
+                        <a class="btn btn-small btn-success" ng-click="userGuideAdd()">新增用户指南</a>
+                    </div>
+                    <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -25px;">
+                        <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                    </div>
+                </div>
+                <tm-pagination style="margin: 10px auto 0px auto !important;"
+                               conf="paginationConf"></tm-pagination>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--新增用户指南弹出框-->
+<script type="text/ng-template" id="userGuideListDiag">
+    <div id="ngdialog-titile" class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>新增用户指南</span>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <td class="text-right" style="width:150px;padding-top: 13px;">用户指南标题名称:</td>
+            <td style="text-align:left !important;"><input type="text" value="" maxlength="32"
+                                                           placeholder="这里输入用户指南标题名称"
+                                                           title="用户指南标题名称" ng-model="title"
+                                                           ng-change="addParamsChange(title,subhead,keyword,mainBody)">
+                <span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:150px;padding-top: 13px;">用户指南副标题名称:</td>
+            <td style="text-align:left !important;"><input type="text" value="" maxlength="32"
+                                                           placeholder="这里输入用户指南副标题名称"
+                                                           title="用户指南副标题名称" ng-model="subhead"
+                                                           ng-change="addParamsChange(title,subhead,keyword,mainBody)">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:150px;text-align: right;padding-top: 13px;">搜索关键词:</td>
+            <td style="text-align: left !important;"><input type="text" value="" maxlength="16" placeholder="这里输入搜索关键词"
+                                                            title="搜索关键词" ng-model="keyword"
+                                                            ng-change="addParamsChange(title,subhead,keyword,mainBody)">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width:150px;padding-top: 13px;">用户指南文本内容:</td>
+            <td style="text-align:left !important;"><textarea type="text" value="" placeholder="这里输入用户指南文本内容"
+                                                              title="用户指南文本内容" ng-model="mainBody"
+                                                              ng-change="addParamsChange(title,subhead,keyword,mainBody)"></textarea>
+                <span style="color: #d80c18;font-size: 16px;margin-left: 6px;">*(必填项)</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="10">
+
+                <a class="btn btn-mini btn-primary" ng-click="saveAdd();closeThisDialog('a')">确认新增</a>
+
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>

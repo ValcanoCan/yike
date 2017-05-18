@@ -1,0 +1,31 @@
+<div class="position-relative">
+    <table style="width:100%;">
+        <tbody>
+        <tr>
+            <td style="vertical-align:top;">
+                <div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">
+                    <ul>
+                        <li style="cursor:pointer;"><a ng-click="firstPage(conf.page)">首页</a></li>
+                        <li style="cursor:pointer;"><a ng-class="{disabled: conf.page == 1}"  ng-click="prevPage(conf.page)">上页</a></li>
+                        <!--<li><a><font color="#808080">1</font></a></li>-->
+                        <li ng-repeat="item in pageList track by $index" ng-class="{active: item == conf.page,separate: item =='...'}" style="cursor:pointer;"><a ng-click="changeCurrentPage(item)">{{item}}</a></li>
+                        <li style="cursor:pointer;"><a ng-class="{disabled: conf.page == conf.numberOfPages}" ng-click="nextPage(conf.page)">下页</a></li>
+                        <li style="cursor:pointer;"><a ng-click="lastPage(conf.page)">尾页</a></li>
+                        <li><a>第<font color="#f00">{{conf.page}}</font>页</a></li>
+                        <li><a>共{{conf.numberOfPages}}页</a></li>
+                        <li><input type="number" value="" id="toGoPage"  ng-model="jumpPageNum"
+                                   style="width:50px;text-align:center;float:left;margin-right: 0;" placeholder="页码"></li>
+                        <li style="cursor:pointer;"><a  ng-click="jumpPage(jumpPageNum)"
+                                                        class="btn btn-mini btn-success">跳转</a></li>
+                        <!--<li><select title="显示条数" style="width:55px;float:left;"-->
+                                    <!--onchange="changeCount(this.value)">-->
+                            <!--<option value="" ng-repeat="itemNum in defaultPerPageOptions">{{itemNum}}</option>-->
+                        <!--</select>-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
