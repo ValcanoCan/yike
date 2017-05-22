@@ -132,6 +132,7 @@ angular.module("FMsainuoyi").controller('mobileParamSettingCtrl', function (syst
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         })
     }
 

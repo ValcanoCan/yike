@@ -94,7 +94,7 @@
                                 </a></button>
                         </td>
                         <!--<td>{{item.checkStatus==1?"未审核":(item.checkStatus==2?"已审核":"")}}</td>-->
-                        <td><span ng-class="{'isconfirm':item.confirmStatus==3,'isclose':item.confirmStatus==1,'inclose':item.confirmStatus==2}">{{item.confirmStatus==3?"未审核":(item.confirmStatus==1?"同意":"拒绝")}}</span></td>
+                        <td><span id="confirmStatus" ng-class="{'isconfirm':item.confirmStatus==3,'isclose':item.confirmStatus==1,'inclose':item.confirmStatus==2}">{{item.confirmStatus==3?"未审核":(item.confirmStatus==1?"同意":"拒绝")}}</span></td>
                         <td>{{item.remark}}</td>
                         <!--<td>-->
                             <!--<button style="border-radius:6px !important;" ng-click="auditWorksheet(item.confirmStatus)" class="btn btn-mini" data-toggle="dropdown">-->

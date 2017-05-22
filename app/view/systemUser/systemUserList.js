@@ -98,7 +98,8 @@ angular.module("FMsainuoyi").controller('systemUserCtrl', function (systemUser, 
             template:'systemUserAddDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })
@@ -181,7 +182,8 @@ angular.module("FMsainuoyi").controller('systemUserCtrl', function (systemUser, 
             template:'systemUserEditDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })

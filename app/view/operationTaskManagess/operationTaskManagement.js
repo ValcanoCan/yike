@@ -2,8 +2,8 @@ angular.module("FMsainuoyi").controller('operationTaskManagementCtrl',function(o
     $scope.paginationConf = {
         page: 1,
         //totalItems:$scope.paginationConf.totalItems,
-        itemsPerPage: 20,
-        pagesLength: 20,
+        itemsPerPage: 10,
+        pagesLength: 10,
         perPageOptions: [10, 20, 30, 40, 50],
         onChange: function () {
         }
@@ -76,7 +76,8 @@ angular.module("FMsainuoyi").controller('operationTaskManagementCtrl',function(o
             template:'operationTaskEditDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })
@@ -141,6 +142,7 @@ angular.module("FMsainuoyi").controller('operationTaskManagementCtrl',function(o
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         }).then(function(res){
 
         })
@@ -204,13 +206,14 @@ angular.module("FMsainuoyi").controller('operationTaskManagementCtrl',function(o
 
     //分配下发运维任务
     $scope.addTaskStaff=function(item){
-        console.log(item)
+        //console.log(item)
         $scope.addStaffParams.taskId=item.id;
         ngDialog.openConfirm({
             template:'addTaskStaffDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })
@@ -249,6 +252,7 @@ angular.module("FMsainuoyi").controller('operationTaskManagementCtrl',function(o
                     preCloseCallback:'preCloseCallbackOnScope',
                     scope:$scope
                 })
+                ngDialog.closeAll();
             }
             $scope.pageSelect();
             $scope.systemUserData();

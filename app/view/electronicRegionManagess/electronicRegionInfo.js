@@ -746,6 +746,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         }).then(function () {
 
         })
@@ -852,6 +853,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope
                 })
+                ngDialog.closeAll();
             }
             $scope.pageSelect();
             $scope.loadData();
@@ -867,7 +869,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                     templateUrl: 'view/diag/promptDiag.html',
                     calssName: 'ngdialog-theme-default',
                     preCloseCallback: 'preCloseCallbackOnScope',
-                    scope: $scope
+                    scope: $scope,
+                    closeByDocument:false
                 })
                 $scope.railsInfo.splice($scope.railsInfo.indexOf(item, 1))
             }
@@ -885,7 +888,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             template: 'editRailDiag',
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
+            scope: $scope,
+            closeByDocument:false
         }).then(function (res) {
 
         })
@@ -991,7 +995,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             template: 'addRailStaffDiag',
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
+            scope: $scope,
+            closeByDocument:false
         }).then(function (res) {
 
         })
@@ -1055,6 +1060,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope
                 })
+                ngDialog.closeAll();
             }
             $scope.pageSelect();
             $scope.systemUserData();
@@ -1069,7 +1075,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             template: 'editRailStaffDiag',
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
+            scope: $scope,
+            closeByDocument:false
         }).then(function (res) {
 
         })
@@ -1131,6 +1138,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope
                 })
+                ngDialog.closeAll();
             }
             $scope.selectModel.startPage = $scope.startPage;
             $scope.pageSelect();
@@ -1156,7 +1164,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             template: 'delRailStaffDiag',
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
+            scope: $scope,
+            closeByDocument:false
         }).then(function (res) {
 
         })
@@ -1257,7 +1266,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             template: 'addRailVehicleDiag',
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
+            scope: $scope,
+            closeByDocument:false
         }).then(function (res) {
 
         })
@@ -1321,6 +1331,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope
                 })
+                ngDialog.closeAll();
             }
             $scope.pageSelect();
             $scope.vehicleData();
@@ -1335,7 +1346,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             template: 'editRailVehicleDiag',
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
+            scope: $scope,
+            closeByDocument:false
         }).then(function (res) {
 
         })
@@ -1397,6 +1409,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope
                 })
+                ngDialog.closeAll();
             }
             $scope.selectModel.startPage = $scope.startPage;
             $scope.pageSelect();

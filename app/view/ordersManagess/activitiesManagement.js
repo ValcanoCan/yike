@@ -65,6 +65,7 @@ angular.module("FMsainuoyi").controller('activitiesManagementCtrl', function (or
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         }).then(function () {
 
         })

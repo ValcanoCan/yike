@@ -53,6 +53,7 @@ angular.module("FMsainuoyi").controller('advertisementCtrl', function (systemToo
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         })
     }
 

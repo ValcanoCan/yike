@@ -87,6 +87,7 @@ angular.module("FMsainuoyi")
                 className: 'ngdialog-theme-default',
                 preCloseCallback: 'preCloseCallbackOnScope',
                 scope: $scope,
+                closeByDocument:false
             }).then(function () {
 
             })
@@ -121,6 +122,7 @@ angular.module("FMsainuoyi")
                         preCloseCallback: 'preCloseCallbackOnScope',
                         scope: $scope,
                     })
+                    ngDialog.closeAll();
                     $scope.selectModel.startPage=$scope.startPage;
                     $scope.pageSelect();
                 }else if(res.data.RESULT=='SUCCESS'&&res.data.resultCode==10){

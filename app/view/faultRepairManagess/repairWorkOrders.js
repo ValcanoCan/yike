@@ -63,6 +63,17 @@ angular.module("FMsainuoyi").controller('repairWorkOrdersCtrl',function(repairWo
     $scope.auditWorkAgree=function(item){
         $scope.auditParams.id=item.id;
         $scope.auditParams.confirmStatus=1;
+        var status=angular.element('#confirmStatus').html();
+        if(status=='同意'){
+            $scope.promptContent='已同意，不能重复操作';
+            ngDialog.openConfirm({
+                templateUrl:'view/diag/promptDiag.html',
+                className:'ngdialog-theme-default',
+                preCloseCallback:'preCloseCallbackOnScope',
+                scope:$scope,
+            })
+            return;
+        }
         repairWorkOrders.maintain_approve($scope.auditParams).then(function(res){
             if(res.data.RESULT=='SUCCESS'){
                 $scope.promptContent='审核同意';

@@ -56,6 +56,7 @@ angular.module("FMsainuoyi").controller('returnDepositManagementCtrl',function(o
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         }).then(function(){
 
         })
@@ -100,6 +101,7 @@ angular.module("FMsainuoyi").controller('returnDepositManagementCtrl',function(o
                     preCloseCallback:'preCloseCallbackOnScope',
                     scope:$scope,
                 })
+                ngDialog.closeAll();
                 $scope.selectModel.startPage=$scope.startPage;
                 $scope.pageSelect();
             }
@@ -119,6 +121,7 @@ angular.module("FMsainuoyi").controller('returnDepositManagementCtrl',function(o
                     className:'ngdialog-theme-default',
                     preCloseCallback:'preCloseCallbackOnScope',
                     scope:$scope,
+                    closeByDocument:false
                 })
             }
         })
@@ -141,7 +144,8 @@ angular.module("FMsainuoyi").controller('returnDepositManagementCtrl',function(o
             template:'auditDepositDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){})
     }
 

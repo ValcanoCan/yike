@@ -2,7 +2,7 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
     $scope.paginationConf = {
         page: 1,
         //totalItems:$scope.paginationConf.totalItems,
-        itemsPerPage: 20,
+        itemsPerPage: 10,
         pagesLength: 10,
         perPageOptions: [10, 20, 30, 40, 50],
         onChange: function () {
@@ -70,7 +70,8 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
             template:'roleAddDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })
@@ -122,7 +123,8 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
             template:'roleEditDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })
@@ -205,7 +207,8 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
             template:'roleNavBindDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })
@@ -283,7 +286,8 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
             template:'roleUserBindDiag',
             className:'ngdialog-theme-default',
             preCloseCallback:'preCloseCallbackOnScope',
-            scope:$scope
+            scope:$scope,
+            closeByDocument:false
         }).then(function(res){
 
         })

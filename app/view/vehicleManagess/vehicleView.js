@@ -90,6 +90,7 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         }).then(function (res) {})
     }
 
@@ -140,6 +141,7 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         }).then(function () {
 
         })
@@ -273,6 +275,7 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
+            closeByDocument:false
         })
     }
 
@@ -330,7 +333,8 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
             template: 'registerToIOTDiag',
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
-            scope: $scope
+            scope: $scope,
+            closeByDocument:false
         }).then(function (res) {
 
         })
@@ -392,6 +396,7 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope
                 })
+                ngDialog.closeAll();
             }
             $scope.pageSelect();
             $scope.vehicleData();
