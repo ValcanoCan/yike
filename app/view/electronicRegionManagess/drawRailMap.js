@@ -69,7 +69,7 @@ angular.module("drawRailMap", ['ngDialog']).controller('drawRailMapCtrl', ['$sco
                 headers: {'Content-Type': 'application/json;charset=UTF-8'},
             }).success(function (res) {
                 if (res.RESULT == 'SUCCESS') {
-                    $scope.railCitiesInfo = res.data[0];
+                    $scope.railCitiesInfo = res.data[0].list;
                     console.log($scope.railCitiesInfo)
                     $scope.railCountiesData();
                 }

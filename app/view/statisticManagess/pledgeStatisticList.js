@@ -26,12 +26,12 @@ angular.module("FMsainuoyi").controller('pledgeStatisticsCtrl', function (statis
         jzts()
         statisticManagess.statistics_pledges($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.staPledgesInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                console.log($scope.staPledgesInfo)
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.staPledgesInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                //console.log($scope.staPledgesInfo)
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.staPledgesInfo, function (data, index) {
                     if ($scope.startPage > 1) {
                         data.orderNo = ($scope.startPage - 1) * 10 + index + 1;

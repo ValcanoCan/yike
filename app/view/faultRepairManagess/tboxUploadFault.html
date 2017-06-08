@@ -75,6 +75,13 @@
                         <th>电池盒锁状态</th>
                         <th>车辆位置状态</th>
                         <th>内部电池状态</th>
+                        <th>任务状态</th>
+                        <th>下发任务</th>
+                        <!--<th>-->
+                            <!--<button style="border-radius:6px !important;" ng-click="issueTask(item,startPage)" class="btn btn-mini" data-toggle="dropdown">-->
+                                <!--<a href="" style="text-decoration: none;" title="下发任务" class="icon-user-md">-->
+                                <!--</a></button>-->
+                        <!--</th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -95,7 +102,12 @@
                         <td><span ng-class="{true:'statistic',false:'inclose'}[item.batBoxLockF==0]">{{item.batBoxLockF==0?"正常":"异常打开"}}</span></td>
                         <td><span ng-class="{true:'statistic',false:'inclose'}[item.moveF==0]">{{item.moveF==0?"正常":"未开锁移动"}}</span></td>
                         <td><span ng-class="{true:'statistic',false:'inclose'}[item.innerBatF==0]">{{item.innerBatF==0?"正常":"异常"}}</span></td>
-
+                        <td><span id="isDispatch" ng-class="{true:'statistic',false:'inclose'}[item.isDispatch==1]">{{item.isDispatch==0?"未下发":"已下发"}}</span></td>
+                        <td>
+                            <button style="border-radius:6px !important;" ng-click="issueTask(item,startPage)" class="btn btn-mini" data-toggle="dropdown">
+                                <a href="" style="text-decoration: none;" title="下发任务" class="icon-user-md">
+                                </a></button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

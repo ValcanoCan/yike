@@ -27,12 +27,12 @@ angular.module("FMsainuoyi").controller('activitiesManagementCtrl', function (or
         jzts()
         ordersManagess.activity_list($scope.selectModel).then(function(res){
             if(res.data.RESULT=='SUCCESS'){
-                $scope.activityInfo=res.data.data[0];
-                $scope.confTotalItems=res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems=res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage=res.data.data[1].offset;
-                console.log($scope.activityInfo);
-                $scope.startPage=res.data.data[1].startPage;
+                $scope.activityInfo=res.data.data[0].list;
+                $scope.confTotalItems=res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems=res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage=res.data.data[0].pagenation.offset;
+                //console.log($scope.activityInfo);
+                $scope.startPage=res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.activityInfo,function(data,index){
                     switch(data.target){
                         case 1:data.target='普通会员';
@@ -90,6 +90,7 @@ angular.module("FMsainuoyi").controller('activitiesManagementCtrl', function (or
     }
 
     //保存添加
+    var clicktag = 0;
     $scope.addSave = function () {
         console.log($scope.activityParam)
         if ($scope.activityParam.startTime == null||$scope.activityParam.startTime==''||$scope.activityParam.startTime=='undefined' ||
@@ -103,19 +104,26 @@ angular.module("FMsainuoyi").controller('activitiesManagementCtrl', function (or
             })
             return;
         }
-        ordersManagess.activity_add($scope.activityParam).then(function (res) {
-            if (res.data.RESULT == 'SUCCESS') {
-                $scope.promptContent = '活动添加成功'
-                ngDialog.openConfirm({
-                    templateUrl: "view/diag/promptDiag.html",
-                    className: 'ngdialog-theme-default',
-                    preCloseCallback: 'preCloseCallbackOnScope',
-                    scope: $scope,
-                })
-                ngDialog.closeAll();
-                $scope.pageSelect();
-            }
-        })
+        if (clicktag == 0) {
+            clicktag = 1;
+            ordersManagess.activity_add($scope.activityParam).then(function (res) {
+                if (res.data.RESULT == 'SUCCESS') {
+                    $scope.promptContent = '活动添加成功'
+                    ngDialog.openConfirm({
+                        templateUrl: "view/diag/promptDiag.html",
+                        className: 'ngdialog-theme-default',
+                        preCloseCallback: 'preCloseCallbackOnScope',
+                        scope: $scope,
+                    })
+                    ngDialog.closeAll();
+                    $scope.pageSelect();
+                }
+            })
+            setTimeout(function () {
+                clicktag = 0
+            }, 5000);
+        }
+
         $scope.activityParam.startTime=null;
         $scope.activityParam.endTime=null;
         $scope.activityParam.target=null;
@@ -123,6 +131,16 @@ angular.module("FMsainuoyi").controller('activitiesManagementCtrl', function (or
 
     //关闭活动操作
     $scope.activityDel=function(item,event){
+        if(item.status==1){
+            $scope.promptContent='活动已关闭，请勿重复操作';
+            ngDialog.openConfirm({
+                templateUrl:'view/diag/promptDiag.html',
+                className:'ngdialog-theme-default',
+                preCloseCallback:'preCloseCallbackOnScope',
+                scope:$scope,
+            })
+            return;
+        }
         ordersManagess.activity_close({id:item.id}).then(function(res){
             if(res.data.RESULT=='SUCCESS'){
                 $scope.promptContent = '关闭活动成功'

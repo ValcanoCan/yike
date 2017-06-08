@@ -149,6 +149,8 @@ var FM_RequestUrl={
     maintain_approve:RequestUrl+"/maintain/approve",//故障审核
     maintain_assign:RequestUrl+"/maintain/assign",//下发工单
     loadFault_list:RequestUrl+"/loadFault/list",//查看t-box报上来的故障
+    loadFault_dispatch:RequestUrl+"/loadFault/dispatch",//将TBOX上报的故障数据生成任务
+
     //--故障报修管理end
 
     //--统计管理start

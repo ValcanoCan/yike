@@ -19,7 +19,7 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
     $scope.selectModel = {
         keyword: null,
         startPage: $scope.paginationConf.currentPage,
-        offset: $scope.paginationConf.itemsPerPage
+        offset: $scope.paginationConf.itemsPerPage,
     }
 
     //模糊查询
@@ -42,21 +42,25 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
         jzts()
         vehicleManagess.vehicle_list($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.vehicleInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
-                angular.forEach($scope.vehicleInfo, function (data, index) {
+                $scope.vehiclesInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
+                angular.forEach($scope.vehiclesInfo, function (data, index) {
                     if ($scope.startPage > 1) {
                         data.orderNo = ($scope.startPage - 1) * 10 + index + 1;
                     } else {
                         data.orderNo = index + 1;
                     }
-                    //data.createTime = transTime(data.createTime);
-                    data.productDate = transTime(data.productDate);
+                    //console.log(data.orderNo)
+                    //data.productDate = transTime(data.productDate);
                 })
-                //console.log($scope.vehicleInfo)
+                setTimeout(function(){
+                    $scope.checkAll()
+                },700)
+
+                //console.log($scope.vehiclesInfo)
             }
             hangge()
         })
@@ -74,7 +78,7 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope
                 })
-                $scope.vehicleInfo.splice($scope.vehicleInfo.indexOf(item, 1))
+                $scope.vehiclesInfo.splice($scope.vehiclesInfo.indexOf(item, 1))
             }
             $scope.selectModel.startPage=$scope.startPage;
             $scope.pageSelect();
@@ -204,16 +208,36 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
             })
             return;
         }
-        //if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test($scope.registerParams.simCode))){
-        //    $scope.promptContent = '不是完整的11位手机号或者正确的手机号前七位';
-        //    ngDialog.openConfirm({
-        //        templateUrl: 'view/diag/promptDiag.html',
-        //        className: 'ngdialog-theme-default',
-        //        preCloseCallback: 'preCloseCallbackOnScope',
-        //        scope: $scope
-        //    })
-        //    return;
-        //}
+        if(!(/^1[3|4|5|7|8][0-9]\d{8}$/.test($scope.registerParams.simCode))){
+            $scope.promptContent = '不是完整的11位手机号或者正确的手机号前七位';
+            ngDialog.openConfirm({
+                templateUrl: 'view/diag/promptDiag.html',
+                className: 'ngdialog-theme-default',
+                preCloseCallback: 'preCloseCallbackOnScope',
+                scope: $scope
+            })
+            return;
+        }
+        if (/[\u4E00-\u9FA5]/i.test($scope.registerParams.vin)) {
+            $scope.promptContent = '车辆VIN号不能有中文';
+            ngDialog.openConfirm({
+                templateUrl: 'view/diag/promptDiag.html',
+                className: 'ngdialog-theme-default',
+                preCloseCallback: 'preCloseCallbackOnScope',
+                scope: $scope
+            })
+            return;
+        }
+        if ($scope.registerParams.vin.length!=17) {
+            $scope.promptContent = '车辆VIN号必须为17位';
+            ngDialog.openConfirm({
+                templateUrl: 'view/diag/promptDiag.html',
+                className: 'ngdialog-theme-default',
+                preCloseCallback: 'preCloseCallbackOnScope',
+                scope: $scope
+            })
+            return;
+        }
         vehicleManagess.vehicle_add($scope.registerParams).then(function (res) {
             if (res.data.RESULT == 'SUCCESS' && res.data.resultCode == 1) {
                 $scope.promptContent = '车辆VIN号重复,请重新输入';
@@ -243,7 +267,7 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
                 })
                 return;
             }
-           else if (res.data.RESULT == 'SUCCESS' && res.data.resultCode == 0) {
+            else if (res.data.RESULT == 'SUCCESS' && res.data.resultCode == 0) {
                 $scope.promptContent = '添加车辆成功';
                 ngDialog.openConfirm({
                     templateUrl: 'view/diag/promptDiag.html',
@@ -304,16 +328,33 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity
         }).success(function (res) {
+            var failVehicle='';
             $scope.uploadFileModel = res.data;
             console.log($scope.uploadFileModel)
-            $scope.promptContent = '批量添加车辆成功';
-            ngDialog.openConfirm({
-                templateUrl: 'view/diag/promptDiag.html',
-                className: 'ngdialog-theme-default',
-                preCloseCallback: 'preCloseCallbackOnScope',
-                scope: $scope
-            })
-            $scope.pageSelect();
+            if($scope.uploadFileModel[0].length==0){
+                $scope.promptContent = '批量添加车辆成功';
+                ngDialog.openConfirm({
+                    templateUrl: 'view/diag/promptDiag.html',
+                    className: 'ngdialog-theme-default',
+                    preCloseCallback: 'preCloseCallbackOnScope',
+                    scope: $scope
+                })
+                $scope.pageSelect();
+            }else if($scope.uploadFileModel[0].length!=0){
+                console.log($scope.uploadFileModel[0].length)
+                for(var i=0;i<$scope.uploadFileModel.length;i++){
+                    failVehicle+=$scope.uploadFileModel[i];
+                }
+                //console.log(failVehicle);
+                $scope.promptContent = '车辆编号分别为:'+failVehicle+'的车辆为重复添加';
+                ngDialog.openConfirm({
+                    templateUrl: 'view/diag/promptDiag.html',
+                    className: 'ngdialog-theme-default',
+                    preCloseCallback: 'preCloseCallbackOnScope',
+                    scope: $scope
+                })
+            }
+
         });
     }
 
@@ -491,18 +532,18 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
                 content += ' <li><span class="title">当前电量(%)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.soc + '</span></li>';
                 content += ' <li><span class="title">总电流(A)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalCurrent + '</span></li>';
                 content += ' <li><span class="title">总电压(V)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalVoltage + '</span></li>';
-                content += ' <li><span class="title">删除状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.status==1]">' + (marker.bikeInfo.electrombileRunning.status==1?"未删除":"已删除") + '</span></li>';
+                content += ' <li><span class="title">删除状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.status==1?"未删除":"已删除") + '</span></li>';
                 content += ' <li><span class="title">累积里程(km)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalMileage + '</span></li>';
-                content += ' <li><span class="title">电池盒锁状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==1]">' + (marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==0?"锁关闭":(marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==1?"锁开启":"未知")) + '</span></li>';
-                content += ' <li><span class="title">车锁状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.lockStatus==1]">' + (marker.bikeInfo.electrombileRunning.lockStatus==0?"锁关闭":(marker.bikeInfo.electrombileRunning.lockStatus==1?"锁开启":"未知")) + '</span></li>';
-                content += ' <li><span class="title">充电状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.chargeStatus==1]">' + (marker.bikeInfo.electrombileRunning.chargeStatus==0?"放电":(marker.bikeInfo.electrombileRunning.chargeStatus==1?"充电":"未知")) + '</span></li>';
-                content += ' <li><span class="title">在线状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.onlineStatus==1]">' + (marker.bikeInfo.electrombileRunning.onlineStatus==1?"在线":(marker.bikeInfo.electrombileRunning.onlineStatus==2?"离线":"未知")) + '</span></li>';
+                content += ' <li><span class="title">电池盒锁状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==0?"锁关闭":(marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==1?"锁开启":"未知")) + '</span></li>';
+                content += ' <li><span class="title">车锁状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.lockStatus==0?"锁关闭":(marker.bikeInfo.electrombileRunning.lockStatus==1?"锁开启":"未知")) + '</span></li>';
+                content += ' <li><span class="title">充电状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.chargeStatus==0?"放电":(marker.bikeInfo.electrombileRunning.chargeStatus==1?"充电":"未知")) + '</span></li>';
+                content += ' <li><span class="title">在线状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.onlineStatus==1?"在线":(marker.bikeInfo.electrombileRunning.onlineStatus==2?"离线":"未知")) + '</span></li>';
                 content += ' <li><span class="title">力矩(Nm)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.torque + '</span></li>';
                 content += ' <li><span class="title">充放电次数(次)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.chargeNum + '</span></li>';
-                content += ' <li><span class="title">电源状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.power==1]">' + (marker.bikeInfo.electrombileStatus.power==0?"电源异常":(marker.bikeInfo.electrombileStatus.power==1?"电源正常":"未知")) + '</span></li>';
-                content += ' <li><span class="title">告警状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.warning==1]">' + (marker.bikeInfo.electrombileStatus.warning==0?"告警异常":(marker.bikeInfo.electrombileStatus.warning==1?"告警正常":"未知")) + '</span></li>';
-                content += ' <li><span class="title">SIM卡状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.sim==1]">' + (marker.bikeInfo.electrombileStatus.sim==0?"SIM卡异常":(marker.bikeInfo.electrombileStatus.sim==1?"SIM卡正常":"未知")) + '</span></li>';
-                content += ' <li><span class="title">acc状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.acc==1]">' + (marker.bikeInfo.electrombileStatus.acc==0?"断电":(marker.bikeInfo.electrombileStatus.acc==1?"通电":"未知")) + '</span></li>';
+                content += ' <li><span class="title">电源状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.power==0?"异常":(marker.bikeInfo.electrombileStatus.power==1?"正常":"未知")) + '</span></li>';
+                content += ' <li><span class="title">告警状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.warning==0?"异常":(marker.bikeInfo.electrombileStatus.warning==1?"正常":"未知")) + '</span></li>';
+                content += ' <li><span class="title">SIM卡状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.sim==0?"异常":(marker.bikeInfo.electrombileStatus.sim==1?"正常":"未知")) + '</span></li>';
+                content += ' <li><span class="title">acc状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.acc==0?"断电":(marker.bikeInfo.electrombileStatus.acc==1?"通电":"未知")) + '</span></li>';
                 content += ' <li><span class="title">上报时间：</span><span style="font-weight: 200;">' + $scope.uploadTime + '</span></li>';
                 //content += ' <li><span class="title">在线状态：</span><span style="font-weight: 200;">' + ($scope.infoModel.onlineStatus == 1 ? "在线" : "离线") + '</span></li>';
                 content += ' </ul>';
@@ -523,6 +564,32 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
                     ,align: INFOBOX_AT_TOP});
                 infoBox.open(marker);
                 //marker.enableDragging();
+
+                var vehicleDetails=angular.element('.vehicle-status');
+                for(var i=0;i<vehicleDetails.length;i++){
+                    switch (vehicleDetails[i].innerHTML){
+                        case '异常':
+                            vehicleDetails[i].className='vehicle-status'+' '+'inclose';
+                            console.log(vehicleDetails[i].className)
+                            break;
+                        case '断电':
+                            vehicleDetails[i].className='vehicle-status'+' '+'inclose';
+                            console.log(vehicleDetails[i].className)
+                            break;
+                        case '离线':
+                            vehicleDetails[i].className='vehicle-status'+' '+'inclose';
+                            console.log(vehicleDetails[i].className)
+                            break;
+                        case '已删除':
+                            vehicleDetails[i].className='vehicle-status'+' '+'inclose';
+                            console.log(vehicleDetails[i].className)
+                            break;
+                        case '锁开启':
+                            vehicleDetails[i].className='vehicle-status'+' '+'inclose';
+                            console.log(vehicleDetails[i].className)
+                            break;
+                    }
+                }
             })
         }
     }
@@ -533,6 +600,102 @@ angular.module("FMsainuoyi").controller('vehicleViewCtrl', function (vehicleMana
         angular.element('#page-content').show();
         $scope.selectModel.startPage = $scope.thisVehiclePage;
         $scope.pageSelect();
+    }
+
+    //全选操作
+    $scope.checkAll = function () {
+        //console.log($scope.vehiclesInfo)
+        var checkboxes=angular.element('.registerId');
+        //console.log(checkboxes)
+        for (var i = 0; i <$scope.vehiclesInfo.length; i++) {
+                //console.log($scope.ischeck)
+                if ($scope.ischeck) {
+                    $scope.selected.push($scope.vehiclesInfo[i].id)
+                    $scope.selected=removalArr($scope.selected)
+                    $scope.registerVehicleParams.vechicleIds=$scope.selected;
+                    //console.log($scope.selected)
+                    for(var j=0;j<checkboxes.length;j++){
+                        checkboxes[j].checked='checked';
+                        //console.log(checkboxes[j].checked)
+                    }
+                    //$scope.vehiclesInfo[i].ischeck = true;
+                    //$scope.selectIdArray();
+                }
+                else if($scope.selected==[]){
+                    for(var j=0;j<checkboxes.length;j++){
+                        checkboxes[j].checked='';
+                        //console.log(checkboxes[j].checked)
+                    }
+                }
+                else if($scope.ischeck==false) {
+                    for(var j=0;j<checkboxes.length;j++){
+                        checkboxes[j].checked='';
+                        //console.log(checkboxes[j].checked)
+                    }
+                    $scope.selected=[]
+                    $scope.registerVehicleParams.vechicleIds=$scope.selected;
+                    //$scope.vehiclesInfo[i].ischeck = false
+                }
+            }
+    }
+
+    $scope.selectIdArray = function () {
+        var selectItems = new Array()
+        for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
+            if ($scope.vehiclesInfo[i].ischeck) {
+                selectItems.push($scope.vehiclesInfo[i])
+            }
+        }
+        return selectItems;
+    }
+
+    //解决导出多选的BUG
+    $scope.selected = [];
+    var exportSelected = function (action, id) {
+        if (action == 'add' && $scope.selected.indexOf(id) == -1) {
+            $scope.selected.push(id);
+            $scope.ids = $scope.selected.join(',')
+            //console.log($scope.selected)
+            //console.log($scope.ids)
+        }
+        if (action == 'remove' && $scope.selected.indexOf(id) != -1) {
+            var idx = $scope.selected.indexOf(id);
+            $scope.selected.splice(idx, 1);
+            $scope.ids = $scope.selected.join(',')
+        }
+        console.log($scope.selected)
+        $scope.registerVehicleParams.vechicleIds=$scope.selected;
+    }
+    $scope.exportSelection = function ($event, id,isCheck) {
+        var checkbox = $event.target;
+        //console.log(isCheck)
+        if(isCheck==undefined||isCheck==''){
+            checkbox.checked='';
+        }
+        var action = (checkbox.checked ? 'add' : 'remove');
+        exportSelected(action, id);
+
+        //复选框全选与单选
+        $scope.registerId = angular.element('.registerId');
+        var checkArr = [];
+        for (var i = 0; i < $scope.registerId.length; i++) {
+            checkArr.push($scope.registerId[i].checked)
+            if ($scope.registerId[i].checked) {
+                $scope.ischeck = true;
+            } else {
+
+            }
+        }
+        for (var j = 0; j < checkArr.length; j++) {
+            if (checkArr[j] == false) {
+                $scope.ischeck = false;
+            } else if (checkArr[j] == true) {
+            }
+        }
+
+    }
+    $scope.isSelected = function (id) {
+        return $scope.selected.indexOf(id) >= 0;
     }
 
     //日期弹出框

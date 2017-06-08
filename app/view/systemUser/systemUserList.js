@@ -43,11 +43,11 @@ angular.module("FMsainuoyi").controller('systemUserCtrl', function (systemUser, 
         jzts();
         systemUser.sysuser_list($scope.selectParams).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.systemUserInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.systemUserInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.systemUserInfo, function (data, index) {
                     data.createTime = transTime(data.createTime);
                     data.modifyTime=transTime(data.modifyTime);
@@ -220,21 +220,21 @@ angular.module("FMsainuoyi").controller('systemUserCtrl', function (systemUser, 
     }
 
     //删除系统用户操作
-    //$scope.systemUserDel=function(item){
-    //    systemUser.sysuser_del({id:item.id}).then(function(res){
-    //        if (res.data.RESULT == 'SUCCESS') {
-    //            $scope.promptContent = '删除系统用户成功';
-    //            ngDialog.openConfirm({
-    //                templateUrl: 'view/diag/promptDiag.html',
-    //                calssName: 'ngdialog-theme-default',
-    //                preCloseCallback: 'preCloseCallbackOnScope',
-    //                scope: $scope
-    //            })
-    //            $scope.systemUserInfo.splice($scope.systemUserInfo.indexOf(item, 1))
-    //        }
-    //$scope.selectModel.startPage=$scope.startPage;
-    //        $scope.pageSelect();
-    //    })
-    //}
+    $scope.systemUserDel=function(item){
+        systemUser.sysuser_del({id:item.id}).then(function(res){
+            if (res.data.RESULT == 'SUCCESS') {
+                $scope.promptContent = '删除系统用户成功';
+                ngDialog.openConfirm({
+                    templateUrl: 'view/diag/promptDiag.html',
+                    calssName: 'ngdialog-theme-default',
+                    preCloseCallback: 'preCloseCallbackOnScope',
+                    scope: $scope
+                })
+                $scope.systemUserInfo.splice($scope.systemUserInfo.indexOf(item, 1))
+            }
+            $scope.selectParams.startPage=$scope.startPage;
+            $scope.pageSelect();
+        })
+    }
 
 })

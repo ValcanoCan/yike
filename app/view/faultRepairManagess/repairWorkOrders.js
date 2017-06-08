@@ -28,11 +28,11 @@ angular.module("FMsainuoyi").controller('repairWorkOrdersCtrl',function(repairWo
         jzts()
         repairWorkOrders.maintain_list($scope.selectParams).then(function(res){
             if(res.data.RESULT=='SUCCESS'){
-                $scope.repairWorkInfo=res.data.data[0];
-                $scope.confTotalItems=res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems=res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage=res.data.data[1].offset;
-                $scope.startPage=res.data.data[1].startPage;
+                $scope.repairWorkInfo=res.data.data[0].list;
+                $scope.confTotalItems=res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems=res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage=res.data.data[0].pagenation.offset;
+                $scope.startPage=res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.repairWorkInfo,function(data,index){
                     data.createTime=transTime(data.createTime);
                     if($scope.startPage>1){
@@ -63,9 +63,9 @@ angular.module("FMsainuoyi").controller('repairWorkOrdersCtrl',function(repairWo
     $scope.auditWorkAgree=function(item){
         $scope.auditParams.id=item.id;
         $scope.auditParams.confirmStatus=1;
-        var status=angular.element('#confirmStatus').html();
+        var status=angular.element('#confirmStatus'+item.orderNo).html();
         if(status=='同意'){
-            $scope.promptContent='已同意，不能重复操作';
+            $scope.promptContent='已同意，请勿重复操作';
             ngDialog.openConfirm({
                 templateUrl:'view/diag/promptDiag.html',
                 className:'ngdialog-theme-default',
@@ -92,6 +92,17 @@ angular.module("FMsainuoyi").controller('repairWorkOrdersCtrl',function(repairWo
     $scope.auditWorkRefuse=function(item){
         $scope.auditParams.id=item.id;
         $scope.auditParams.confirmStatus=2;
+        var status1=angular.element('#confirmStatus'+item.orderNo).html();
+        if(status1=='拒绝'){
+            $scope.promptContent='已拒绝，请勿重复操作';
+            ngDialog.openConfirm({
+                templateUrl:'view/diag/promptDiag.html',
+                className:'ngdialog-theme-default',
+                preCloseCallback:'preCloseCallbackOnScope',
+                scope:$scope,
+            })
+            return;
+        }
         repairWorkOrders.maintain_approve($scope.auditParams).then(function(res){
             if(res.data.RESULT=='SUCCESS'){
                 $scope.promptContent='审核拒绝';
@@ -115,6 +126,16 @@ angular.module("FMsainuoyi").controller('repairWorkOrdersCtrl',function(repairWo
 
     //显示图片弹出框
     $scope.showImage = function (item) {
+        if(item.imagePath==null||item.imagePath==''||item.imagePath=='undefind'){
+            $scope.promptContent='该工单无图片';
+            ngDialog.openConfirm({
+                templateUrl:'view/diag/promptDiag.html',
+                className:'ngdialog-theme-default',
+                preCloseCallback:'preCloseCallbackOnScope',
+                scope:$scope
+            })
+            return;
+        }
         $scope.thisImagePath=item.imagePath;
         ngDialog.openConfirm({
             template: "showImageDiag",

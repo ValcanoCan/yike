@@ -15,126 +15,97 @@
     <script src="../../bower_components/angular/angular.js"></script>
 
     <style>
+        body{
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+        }
         .accordion-toggle{
             display:none;
         }
         ul{
             list-style: none;
             width: 100%;
-            margin-top: 30px;
+            margin: 0 10px;
         }
         ul li{
-            width: 33.333%;
+            font-size: 2.7rem;
+            line-height: 250%;
+        }
+        #achievement li{
             float: left;
-            position: relative;
+        }
+        #achievement{
+            margin-bottom: 0;
         }
 
-        .half-width{
-            width: 25%;
-            height: 77%;
-            /*font-size: 40px;*/
-            position: absolute;
-            left: 36%;
-            clear: both;
-
-        }
-        .total-width{
-            width: 100%;
-            height: 50%;
-            clear: both;
-        }
-        .total-font{
-            text-align: center;
-            margin-top: 28%;
-        }
-        .rotate {
-            transition: All 0.4s ease-in-out;
-            -webkit-transition: All 0.4s ease-in-out;
-            -moz-transition: All 0.4s ease-in-out;
-            -o-transition: All 0.4s ease-in-out;
-        }
-        .rotate:hover {
-            transform-origin: center center;
-            -webkit-transform-origin: center center;
-            -moz-transform-origin: center center;
-            -o-transform-origin:  center center;
-            -ms-transform-origin:  center center;
-            transform: rotate(360deg) scale(1.2);
-            -webkit-transform: rotate(360deg) scale(1.2);
-            -moz-transform: rotate(360deg) scale(1.2);
-            -o-transform: rotate(360deg) scale(1.2);
-            -ms-transform: rotate(360deg) scale(1.2);
+        #achievement ul li{
+            /*min-width: 210px;*/
+            margin-right: 15px;
         }
 
-        .rotateY {
-            transition: All 0.4s ease-in-out;
-            -webkit-transition: All 0.4s ease-in-out;
-            -moz-transition: All 0.4s ease-in-out;
-            -o-transition: All 0.4s ease-in-out;
-        }
-        .rotateY:hover {
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
-            -moz-transform: rotateY(180deg);
-            -o-transform: rotateY(180deg);
-            -ms-transform: rotateY(180deg);
-        }
-        @media screen and (min-width:321px) and (max-width:375px){div{font-size:11px}}
-        @media screen and (min-width:376px) and (max-width:414px){div{font-size:12px}}
-        @media screen and (min-width:415px) and (max-width:639px){div{font-size:15px}}
-        @media screen and (min-width:640px) and (max-width:719px){div{font-size:20px}}
-        @media screen and (min-width:720px) and (max-width:749px){div{font-size:22.5px}}
-        @media screen and (min-width:750px) and (max-width:799px){div{font-size:23.5px}}
-        @media screen and (min-width:800px){div{font-size:25px}}
+        /*@media screen and (min-width:321px) and (max-width:375px){li{font-size:20px}}*/
+        /*@media screen and (min-width:376px) and (max-width:414px){li{font-size:20px}}*/
+        /*@media screen and (min-width:415px) and (max-width:639px){li{font-size:20px}}*/
+        /*@media screen and (min-width:640px) and (max-width:719px){li{font-size:20px}}*/
+        /*@media screen and (min-width:720px) and (max-width:749px){li{font-size:16px}}*/
+        /*@media screen and (min-width:750px) and (max-width:799px){li{font-size:16px}}*/
+        /*@media screen and (min-width:800px){div{font-size:16px}}*/
     </style>
 </head>
 <body ng-controller="orderShareInfoCtrl">
 <!--查看车辆轨迹-->
-<div id="map-container" class="amap-container"
-     style="position: relative;background: rgb(252, 249, 242); margin: 8px 20px;border: 3px solid #0000cc;background: #FFF;">
-    <!--<input class="btn btn-sm btn-danger" type="button" style="position: absolute;top: 5px;left: 5px;z-index: 9;min-width: 120px;" value="{{realName}}的骑行记录">-->
-    <button class="btn btn-sm btn-danger"  style="position: absolute;top: 5px;left: 5px;z-index: 9;min-width: 120px;" value=""><span style="color: lime;">{{realName}}</span> 的骑行记录</button>
-    <!--<input class="btn btn-sm btn-primary" type="button" style="position: absolute;top: 5px;left: 160px;z-index: 9;" value="返回订单页面" ng-click="returnThisOrder()">-->
-    <div id="allmap" style="width:100%;height:320px;position:relative;"></div>
-</div>
-    <ul>
-        <li style="width: 100%;">
-            <div style="width: 25%;margin: 0 auto;">
-                <div style="float: left;" class="rotateY">
-                    <img src="../../static/images/rideMeter.png" alt=""/>
-                </div>
-                <div class="half-width map-font" style="color:deepskyblue;float: left;margin-left: 24%;margin-top: 5%;">{{thisOrderInfo.rideMeter}}</div>
-            </div>
-            <div class="map-font" style="width: 100%;text-align: center;margin: 20px 0;color: deepskyblue;clear: both;padding: 20px 0 40px 0;">骑行距离(m)</div>
-        </li>
-        <li>
-            <div style="width: 100%;">
-                <div class="half-width rotate">
-                    <img src="../../static/images/clock1.png" alt=""/>
-                </div>
-                <div class="half-width" style="left: 62%;color:blue;">{{thisOrderInfo.rideTime}}</div>
-            </div>
 
-            <div class="total-width total-font" style="color:blue;">骑行时间(min)</div>
-        </li>
-        <li>
-            <div class="half-width rotate">
-                <img src="../../static/images/carbon.png" alt=""/>
-            </div>
-            <div class="half-width" style="left: 62%;color:#00e500;">{{thisOrderInfo.carbon}}</div>
-            <div class="total-width total-font" style="color:#00e500;">节约碳排量(g)</div>
-        </li>
-        <li>
-            <div class="half-width rotate">
-                <img src="../../static/images/kCal.png" alt=""/>
-            </div>
-            <div class="half-width" style="left: 62%;color:orangered;">{{thisOrderInfo.movement}}</div>
-            <div class="total-width total-font" style="color:orangered;">燃烧卡路里(kCal)</div>
-        </li>
-    </ul>
-    <div style="margin: 20px;clear: both;padding-top: 20px;">
-        <img src="{{thisOrderInfo.sysShare.bottomImgPath}}" alt=""/>
+    <div style="overflow: hidden;background-color: aliceblue;">
+        <ul>
+            <li>
+                <span>起点：</span><span id="startAddress"></span>
+            </li>
+            <li>
+                <span>终点：</span><span id="endAddress"></span>
+            </li>
+        </ul>
     </div>
+
+    <div id="map-container" class="amap-container"
+         style="position: relative;background: rgb(252, 249, 242); margin:  0px;border: 2px solid azure;background: #FFF;">
+        <!--<input class="btn btn-sm btn-danger" type="button" style="position: absolute;top: 5px;left: 5px;z-index: 9;min-width: 120px;" value="{{realName}}的骑行记录">-->
+        <!--<button class="btn btn-sm btn-danger"  style="position: absolute;top: 5px;left: 5px;z-index: 9;min-width: 120px;" value=""><span style="color: lime;">{{realName}}</span> 的骑行记录</button>-->
+        <!--<input class="btn btn-sm btn-primary" type="button" style="position: absolute;top: 5px;left: 160px;z-index: 9;" value="返回订单页面" ng-click="returnThisOrder()">-->
+        <div id="allmap" style="width:100%;height:1100px;position:relative;"></div>
+    </div>
+    <div style="overflow: hidden;background-color: aliceblue;margin: 0;">
+        <ul id="achievement">
+            <li style="width: 50%;">
+                <ul>
+                    <li>骑行公里数(m)</li>
+                    <li>{{thisOrderInfo.rideMeter}}</li>
+                </ul>
+            </li>
+            <li style="width: 50%;">
+                <ul>
+                    <li>节约碳排量(g)</li>
+                    <li>{{thisOrderInfo.carbon}}</li>
+                </ul>
+            </li>
+            <li style="width: 50%;">
+                <ul>
+                    <li>骑行时间(min)</li>
+                    <li>{{thisOrderInfo.rideTime}}</li>
+                </ul>
+            </li>
+            <li style="width: 50%;">
+                <ul>
+                    <li>卡路里(kCal)&nbsp;&nbsp;</li>
+                    <li>{{thisOrderInfo.movement}}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!--<div style="margin: 20px;clear: both;padding-top: 20px;">-->
+        <!--<img src="{{thisOrderInfo.sysShare.bottomImgPath}}" alt=""/>-->
+    <!--</div>-->
 </body>
 <script src="./orderShareInfo.js"></script>
 </html>

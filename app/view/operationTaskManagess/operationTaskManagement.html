@@ -19,11 +19,11 @@
                             <select style="width: 120px;" ng-model="status" ng-change="taskStatusChange(status)">
                                 <option value=""><strong> 任务状态查询</strong></option>
                                 <option value="0">未下发</option>
-                                <option value="1">命令已下发</option>
-                                <option value="2">在路上</option>
-                                <option value="3">正在修</option>
+                                <option value="1">已下发</option>
+                                <!--<option value="2">在路上</option>-->
+                                <option value="3">未完成</option>
                                 <option value="4">已完成</option>
-                                <option value="5">特殊原因</option>
+                                <!--<option value="5">特殊原因</option>-->
                             </select>
                         </td>
                         <td style="vertical-align:top;">
@@ -41,9 +41,11 @@
                     <tr>
                         <th>序号</th>
                         <th>任务标题</th>
-                        <th>车辆ID</th>
+                        <!--<th>车辆ID</th>-->
                         <th>任务描述</th>
                         <!-- <th class="center">是否结束订单</th> -->
+                        <th>任务编号</th>
+                        <th>指定人员</th>
                         <th>任务处理状态</th>
                         <th>任务创建时间</th>
                         <th>任务修改时间</th>
@@ -56,9 +58,17 @@
                     <tr ng-repeat="item in taskInfo">
                         <td style="width: 30px;">{{item.orderNo}}</td>
                         <td>{{item.title}}</td>
-                        <td>{{item.vehicleId}}</td>
-                        <td>{{item.mainbody}}</td>
-                        <td>{{item.status==0?"未下发":(item.status==1?"命令已下发":(item.status==2?"在路上":(item.status==3?"正在维修":(item.status==4?"已完成":(item.status==5?"特殊原因":"未知状态")))))}}</td>
+                        <!--<td>{{item.vehicleId}}</td>-->
+                        <!--<td>{{item.mainbody}}</td>-->
+                        <td>
+                            <button style="border-radius:6px !important;" ng-click="showShareContent(item,startPage)" class="btn btn-mini" data-toggle="dropdown">
+                                <a href="" style="text-decoration: none;" title="查看任务描述" class="icon-file-alt">
+                                </a></button>
+                        </td>
+                        <td>{{item.taskNo}}</td>
+                        <td>{{item.userName?item.userName:"未指定"}}</td>
+                        <!--<td>{{item.status==0?"未下发":(item.status==1?"命令已下发":(item.status==2?"在路上":(item.status==3?"正在维修":(item.status==4?"已完成":(item.status==5?"特殊原因":"未知状态")))))}}</td>-->
+                        <td><span ng-class="{'isconfirm':item.status==0,'isclose':item.status==4,'inclose':item.status==3}">{{item.status==0?"未下发":(item.status==1?"已下发":(item.status==3?"未完成":(item.status==4?"已完成":"未知状态")))}}</span></td>
                         <td>{{item.createTime}}</td>
                         <td>{{item.modifyTime}}</td>
                         <td style="width: 30px;">
@@ -114,13 +124,13 @@
                 <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
             </td>
         </tr>
-        <tr>
-            <td class="text-right" style="width:120px;padding-top: 13px;">车辆ID:</td>
-            <td class="text-left">
-                <input ng-model="addVehicleId" ng-change="addTaskParamChange(addTitle,addVehicleId,addDescription,addRemark)" style="height: 30px;line-height: 30px;margin-bottom: 0;" type="text" value="" maxlength="17" placeholder="这里输入车辆ID" title="车辆ID">
-                <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
-            </td>
-        </tr>
+        <!--<tr>-->
+            <!--<td class="text-right" style="width:120px;padding-top: 13px;">车辆ID:</td>-->
+            <!--<td class="text-left">-->
+                <!--<input ng-model="addVehicleId" ng-change="addTaskParamChange(addTitle,addVehicleId,addDescription,addRemark)" style="height: 30px;line-height: 30px;margin-bottom: 0;" type="text" value="" maxlength="17" placeholder="这里输入车辆ID" title="车辆ID">-->
+                <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+            <!--</td>-->
+        <!--</tr>-->
         <tr>
             <td class="text-right" style="width:120px;padding-top: 13px;">运维任务描述:</td>
             <td class="text-left">
@@ -177,13 +187,13 @@
                 <select style="width: 120px;" ng-model="status" ng-change="editTaskParamChange(editTitle,editVehicleId,editDescription,status,editRemark)">
                     <!--<option value="" style="display:none"><strong> 修改状态</strong></option>-->
                     <!--<option value="" style="display:none"><strong> {{editTaskInfo.status==0?"未下发":(editTaskInfo.status==1?"命令已下发":(editTaskInfo.status==2?"在路上":(editTaskInfo.status==3?"正在维修":(editTaskInfo.status==4?"已完成":(editTaskInfo.status==5?"特殊原因":"未知状态")))))}}</strong></option>-->
-                    <option value=""><strong>  {{editTaskInfo.status==0?"未下发":(editTaskInfo.status==1?"命令已下发":(editTaskInfo.status==2?"在路上":(editTaskInfo.status==3?"正在维修":(editTaskInfo.status==4?"已完成":(editTaskInfo.status==5?"特殊原因":"未知状态")))))}}</strong></option>
+                    <option value=""><strong>  {{editTaskInfo.status==0?"未下发":(editTaskInfo.status==1?"已下发":(editTaskInfo.status==3?"未完成":(editTaskInfo.status==4?"已完成":"未知状态")))}}</strong></option>
 
-                    <option value="1">命令已下发</option>
-                    <option value="2">在路上</option>
-                    <option value="3">正在修</option>
+                    <option value="1">已下发</option>
+                    <!--<option value="2">在路上</option>-->
+                    <option value="3">未完成</option>
                     <option value="4">已完成</option>
-                    <option value="5">特殊原因</option>
+                    <!--<option value="5">特殊原因</option>-->
                 </select>
             </td>
         </tr>
@@ -225,11 +235,31 @@
             </tr>
             <tr>
                 <td style="text-align: center;" colspan="10">
-                    <a class="btn btn-mini btn-primary" ng-click="addStaffSave();">确认分配任务</a>
+                    <a id="clicktag" class="btn btn-mini btn-primary" ng-click="addStaffSave();">确认分配任务</a>
                     <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
+</script>
+
+<!--查看任务描述-->
+<script type="text/ng-template" id="showContentDiag">
+    <style>
+        .ngdialog-content{
+            text-align: left;
+        }
+    </style>
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>任务描述</span>
+    </div>
+    <div>
+        <p>{{thisContent}}</p>
+    </div>
+    <div style="text-align: center;margin: 5px 0;padding: 5px;background-color: lavender;">
+        <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">关闭</a>
     </div>
 </script>

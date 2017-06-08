@@ -45,12 +45,12 @@ angular.module("FMsainuoyi")
             jzts()
             ordersManagess.deposit_list($scope.selectModel).then(function (res) {
                 if (res.data.RESULT == 'SUCCESS') {
-                    $scope.depositInfo = res.data.data[0];
-                    console.log($scope.depositInfo);
-                    $scope.confTotalItems=res.data.data[1].totalCount;
-                    $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                    $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                    $scope.startPage=res.data.data[1].startPage;
+                    $scope.depositInfo = res.data.data[0].list;
+                    //console.log($scope.depositInfo);
+                    $scope.confTotalItems=res.data.data[0].pagenation.totalCount;
+                    $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                    $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                    $scope.startPage=res.data.data[0].pagenation.startPage;
                     angular.forEach($scope.depositInfo,function(data,index){
                         data.createTime=transTime(data.createTime)
                         if($scope.startPage>1){
@@ -81,6 +81,16 @@ angular.module("FMsainuoyi")
 
         //点击增加扣费
         $scope.chargeManage = function (charge) {
+            if(charge.payAmount<=0){
+                $scope.promptContent='押金不足，请提醒用户充值押金';
+                ngDialog.openConfirm({
+                    templateUrl:'view/diag/promptDiag.html',
+                    className:'ngdialog-theme-default',
+                    preCloseCallback:'preCloseCallbackOnScope',
+                    scope:$scope,
+                })
+                return;
+            }
             saveParam.userId=charge.userId;
             ngDialog.openConfirm({
                 template: 'chargeManagementDiag',
@@ -94,6 +104,7 @@ angular.module("FMsainuoyi")
         }
 
         //保存新增扣费
+        var clicktag = 0;
         $scope.addSave = function () {
             //传参设置
             $scope.deductMoneyParam = {
@@ -101,10 +112,9 @@ angular.module("FMsainuoyi")
                 reason: saveParam.reason,
                 change: saveParam.change,
             }
-            console.log($scope.deductMoneyParam)
-            if ($scope.deductMoneyParam.reason == null||$scope.deductMoneyParam.reason==''||$scope.deductMoneyParam.reason=='undefined' ||
-                $scope.deductMoneyParam.change == null||$scope.deductMoneyParam.change==''||$scope.deductMoneyParam.change=='undefined') {
-                $scope.promptContent = '请输入扣款原因、扣款金额'
+            //console.log($scope.deductMoneyParam)
+            if ($scope.deductMoneyParam.reason == null||$scope.deductMoneyParam.reason==''||$scope.deductMoneyParam.reason=='undefined' ) {
+                $scope.promptContent = '请输入扣款原因'
                 ngDialog.openConfirm({
                     templateUrl: "view/diag/promptDiag.html",
                     className: "ngdialog-theme-default",
@@ -113,31 +123,48 @@ angular.module("FMsainuoyi")
                 })
                 return;
             }
-            ordersManagess.charging_sub($scope.deductMoneyParam).then(function (res) {
-                if (res.data.RESULT=='SUCCESS'&&res.data.resultCode == 0) {
-                    $scope.promptContent = '扣费成功'
-                    ngDialog.openConfirm({
-                        templateUrl: "view/diag/promptDiag.html",
-                        className: 'ngdialog-theme-default',
-                        preCloseCallback: 'preCloseCallbackOnScope',
-                        scope: $scope,
-                    })
-                    ngDialog.closeAll();
-                    $scope.selectModel.startPage=$scope.startPage;
-                    $scope.pageSelect();
-                }else if(res.data.RESULT=='SUCCESS'&&res.data.resultCode==10){
-                    $scope.promptContent='押金余额不足,请提醒用户充值';
-                    ngDialog.openConfirm({
-                        templateUrl:'view/diag/promptDiag.html',
-                        calssName:'ngdialog-theme-default',
-                        preCloseCallback:'preCloseCallbackOnScope',
-                        scope:$scope,
-                    })
-                }
+            if ($scope.deductMoneyParam.change == null||$scope.deductMoneyParam.change==''||$scope.deductMoneyParam.change=='undefined') {
+                $scope.promptContent = '请输入扣款金额'
+                ngDialog.openConfirm({
+                    templateUrl: "view/diag/promptDiag.html",
+                    className: "ngdialog-theme-default",
+                    preCloseCallback: "preCloseCallbackOnScope",
+                    scope: $scope,
+                })
+                return;
+            }
+            if (clicktag == 0) {
+                //alert(clicktag)
+                clicktag = 1;
+                ordersManagess.charging_sub($scope.deductMoneyParam).then(function (res) {
+                    if (res.data.RESULT=='SUCCESS'&&res.data.resultCode == 0) {
+                        $scope.promptContent = '扣费成功'
+                        ngDialog.openConfirm({
+                            templateUrl: "view/diag/promptDiag.html",
+                            className: 'ngdialog-theme-default',
+                            preCloseCallback: 'preCloseCallbackOnScope',
+                            scope: $scope,
+                        })
+                        ngDialog.closeAll();
+                        $scope.selectModel.startPage=$scope.startPage;
+                        $scope.pageSelect();
+                    }else if(res.data.RESULT=='SUCCESS'&&res.data.resultCode==10){
+                        $scope.promptContent='押金余额不足,请提醒用户充值';
+                        ngDialog.openConfirm({
+                            templateUrl:'view/diag/promptDiag.html',
+                            calssName:'ngdialog-theme-default',
+                            preCloseCallback:'preCloseCallbackOnScope',
+                            scope:$scope,
+                        })
+                    }
 
-            })
-            saveParam.reason=null;
-            saveParam.change=null;
+                })
+                setTimeout(function () {
+                    clicktag = 0
+                }, 5000);
+            }
+            //saveParam.reason=null;
+            //saveParam.change=null;
         }
 
     ////点击查看退押金页面

@@ -35,7 +35,7 @@
                         <!--<td>{{item.status==1?"支付宝退款":"微信退款"}}</td>-->
                         <td>{{item.createTime}}</td>
                         <td>{{item.modifyTime}}</td>
-                        <td><span ng-class="{'applying':item.status==1,'isclose':item.status==2,'inclose':item.status==3,'section':item.status==4,'agree':item.status==5}">{{item.status==1?"申请中":(item.status==2?"成功退押金":(item.status==3?"拒绝退押金":(item.status==4?"退一部分押金":"同意退押金")))}}</span></td>
+                        <td><span id="returnStatus" ng-class="{'applying':item.status==1,'isclose':item.status==2,'inclose':item.status==3,'section':item.status==4,'agree':item.status==5}">{{item.status==1?"申请中":(item.status==2?"成功退押金":(item.status==3?"拒绝退押金":(item.status==4?"退一部分押金":(item.status==5?"同意退押金":"数据错误"))))}}</span></td>
                         <td hidden="">{{startPage}}</td>
                         <td>
                             <button style="border-radius:6px !important;" ng-click="auditDeposit(item)" class="btn btn-mini" data-toggle="dropdown">
@@ -75,17 +75,18 @@
                     <option value="3">拒绝</option>
                     <option value="5">同意</option>
                 </select>
-                <span style="color: #d80c18;font-size: 16px;margin-left: 67px;">*(必填项)</span></td>
+                <span style="color: #d80c18;font-size: 16px;margin-left: 142px;">*(必填项)</span></td>
             </td>
         </tr>
         <tr>
             <td style="width:120px;text-align: right;padding-top: 13px;">审核原因:</td>
-            <td><textarea placeholder="这里输入退款原因" style="width: 360px;height: 120px;" type="text" value="" maxlength="32" ng-model="auditReason" ng-change="auditStatusChange(status,auditReason)"></textarea>
-                </td>
+            <td><textarea placeholder="这里输入审核原因" style="width: 360px;height: 120px;" type="text" value="" maxlength="32" ng-model="auditReason" ng-change="auditStatusChange(status,auditReason)"></textarea>
+                <span style="color: #d80c18;font-size: 16px;margin-left: 5px;">*(必填项)</span></td>
+            </td>
         </tr>
         <tr>
             <td style="text-align: center;" colspan="10">
-                <a class="btn btn-mini btn-primary" ng-click="auditSave();closeThisDialog('a')">审核确认</a>
+                <a class="btn btn-mini btn-primary" ng-click="auditSave();">审核确认</a>
                 <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
             </td>
         </tr>

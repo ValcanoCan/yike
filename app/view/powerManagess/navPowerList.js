@@ -27,11 +27,11 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
         jzts();
         powerManagess.role_listRole($scope.selectModel).then(function(res){
             if(res.data.RESULT=='SUCCESS'){
-                $scope.rolesInfo=res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.rolesInfo=res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.rolesInfo, function (data, index) {
                     data.createTime = transTime(data.createTime);
                     data.modifyTime = transTime(data.modifyTime);
@@ -190,7 +190,7 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
 
     powerManagess.url_list({parentId:0}).then(function(res){
         if(res.data.RESULT=='SUCCESS'){
-            $scope.navsInfo=res.data.data[0];
+            $scope.navsInfo=res.data.data[0].list;
         }
     })
 
@@ -269,7 +269,7 @@ angular.module("FMsainuoyi").controller('navPowerListCtrl',function(powerManages
     //获取运维人员
     systemUser.sysuser_list({offset:10000}).then(function (res) {
         if (res.data.RESULT == 'SUCCESS') {
-            $scope.systemUserInfo = res.data.data[0];
+            $scope.systemUserInfo = res.data.data[0].list;
         }
     })
 

@@ -29,11 +29,11 @@ angular.module("FMsainuoyi").controller('userGuideListCtrl', function (systemToo
         jzts();
         systemTools.writer_list($scope.selectParams).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.userGuideInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.userGuideInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.userGuideInfo, function (data, index) {
                     data.createTime = transTime(data.createTime);
                     data.modifyTime=transTime(data.modifyTime);

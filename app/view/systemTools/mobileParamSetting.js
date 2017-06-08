@@ -28,11 +28,11 @@ angular.module("FMsainuoyi").controller('mobileParamSettingCtrl', function (syst
         jzts()
         systemTools.mobile_find($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.mobileParamInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.mobileParamInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.mobileParamInfo, function (data, index) {
                     data.createTime=transTime(data.createTime);
                     if ($scope.startPage > 1) {
@@ -41,7 +41,7 @@ angular.module("FMsainuoyi").controller('mobileParamSettingCtrl', function (syst
                         data.orderNo = index + 1;
                     }
                 })
-                console.log($scope.mobileParamInfo)
+                //console.log($scope.mobileParamInfo)
             }
             hangge()
         })

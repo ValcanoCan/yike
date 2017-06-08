@@ -104,6 +104,7 @@
             }
 
             if(list) {
+                editor.fireEvent('beforeinsertimage', list);//后加入 图片上传
                 editor.execCommand('insertimage', list);
                 remote && editor.fireEvent("catchRemoteImage");
             }

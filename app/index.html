@@ -16,7 +16,7 @@
     <link type="text/css" rel="stylesheet" href="bower_components/angular-date/css/ng-bs3-datepicker.css">
     <!-- 下拉框-->
     <link rel="stylesheet" href="static/css/chosen.css"/>
-    <link rel="stylesheet" href="static/css/hotStyle.css"/>
+    <!--<link rel="stylesheet" href="static/css/hotStyle.css"/>-->
     <!-- ace styles -->
     <link rel="stylesheet" href="static/css/ace.min.css"/>
     <link rel="stylesheet" href="static/css/ace-responsive.min.css"/>
@@ -96,15 +96,16 @@
     <script src="view/systemTools/orderChargingParamSetting.js"></script>
     <script src="view/systemTools/serviceChargeSetting.js"></script>
     <script src="view/vehicleManagess/vehicleView.js"></script>
-    <script src="view/vehicleManagess/electromotorManagement.js"></script>
-    <script src="view/vehicleManagess/vehicleMonitor.js"></script>
-    <script src="view/vehicleManagess/vehicleAlarm.js"></script>
     <script src="view/electronicRegionManagess/electronicRegionInfo.js"></script>
     <script src="view/electronicRegionManagess/railStaffList.js"></script>
     <script src="view/electronicRegionManagess/railVehicleList.js"></script>
 
     <script src="view/vehicleIssueManagess/vehicleShowInfo.js"></script>
     <script src="view/vehicleIssueManagess/operationTaskList.js"></script>
+
+    <script src="view/vehicleManagess/electromotorManagement.js"></script>
+    <script src="view/vehicleManagess/vehicleMonitor.js"></script>
+    <script src="view/vehicleManagess/vehicleAlarm.js"></script>
 
     <script src="view/operationTaskManagess/operationTaskManagement.js"></script>
     <script src="view/faultRepairManagess/repairWorkOrders.js"></script>
@@ -136,8 +137,8 @@
     <!--引入弹窗组件end-->
     <script type="text/javascript" src="static/js/jquery.tips.js"></script>
     <script type="text/javascript" src="static/js/infoBox.min.js"></script>
-    <script type="text/javascript" src="static/js/modernizr.custom.49511.js"></script>
-    <script type="text/javascript" src="static/js/jquery.hotspot.min.js"></script>
+    <!--<script type="text/javascript" src="static/js/modernizr.custom.49511.js"></script>-->
+    <!--<script type="text/javascript" src="static/js/jquery.hotspot.min.js"></script>-->
     <!--<script type="text/javascript" src="plugins/common/laydate/laydate.js"></script>-->
 
     <!--即时通知-->
@@ -213,6 +214,9 @@
             color: #fff;
             width: 80px;
         }
+        input[type=checkbox]{
+            opacity: 1;
+        }
 
         .radius{
             border-radius: 6px !important;
@@ -282,11 +286,13 @@
 
         /*车辆位置弹框样式*/
         .detailsMenu{
-            background: url("static/images/stopPoint.png");
+            /*background: url("static/images/stopPoint.png");*/
+            background:lightblue;
             border-radius: 6px;
         }
         .bikeInfoMenu{
-            background: url("static/images/infoBox.png");
+            /*background: url("static/images/infoBox.png");*/
+            background:lightblue;
             border-radius: 6px;
         }
 
@@ -302,7 +308,7 @@
             padding: 2px 0 2px 10px;
         }
         .bikeInfoMenu li {
-            color:#ff0000;
+            color:#000;
         }
 
         .detailsMenu li .title, .bikeInfoMenu li .title {
@@ -398,7 +404,7 @@
     <div ng-click="tboxLoadFaultShow($event)" class="brand" style="float: right;margin-right: 20px;margin-top: 5px;">
         <a style="text-decoration: none;font-size: 20px;line-height: 24px;" href="" id="forthwithWarn">
             <small>
-                <image width='30' height='30' src='./static/images/warning_2.gif'/>
+                <image width='30' height='30' src='./static/images/warning_3.gif'/>
             </small>
         </a>
         <!--<pre><code>$.toast({-->

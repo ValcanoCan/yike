@@ -1,4 +1,4 @@
-angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleManagess,electronicRegion,ngDialog,$scope) {
+angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleManagess, electronicRegion, ngDialog, $scope) {
     // 百度地图API功能
     var map = new BMap.Map("allmap");
     var point = new BMap.Point(116.404, 39.915);
@@ -9,7 +9,7 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
     $scope.loadData = function () {
         electronicRegion.fence_find({offset: 100}).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.allRailsInfo = res.data.data[0]
+                $scope.allRailsInfo = res.data.data[0].list
             }
         })
     }
@@ -50,7 +50,7 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
         //map.addOverlay(cityLabel);
         //var marker = new BMap.Marker(point, circle);
         var marker = new BMap.Marker(point, {icon: myIcon});
-        marker.cityName=$scope.labelsModel.name;
+        marker.cityName = $scope.labelsModel.name;
         map.addOverlay(marker);
         marker.setLabel(cityLabel);
         //circle.setLabel(normalLabel);
@@ -132,22 +132,39 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
         //    for(var i=0;i<clearMapArr.length;i++){
         //        map.removeOverlay(clearMapArr[i]);
         //    }
-            $scope.selectModel.fenceId = thisRail.id;
-            $scope.railVehicleData();
+        $scope.selectModel.fenceId = thisRail.id;
+        $scope.railVehicleData();
 
-            //获取电子围栏内还车点信息
-            $scope.getPointsParam.fenceId = thisRail.id;
-            $scope.getReturnPointsData();
-
-            setTimeout(function () {
-                for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
-                    if ($scope.vehiclesInfo[i].fenceId == thisRail.id) {
-                        var point = new BMap.Point($scope.vehiclesInfo[i].lon, $scope.vehiclesInfo[i].lat);
-                        $scope.bikeInfo=$scope.vehiclesInfo[i];
-                        getPoints(point,i,map)
-                    }
+        //获取电子围栏内还车点信息
+        $scope.getPointsParam.fenceId = thisRail.id;
+        $scope.getReturnPointsData();
+        //function init3() {
+        //    var pAry = document.getElementsByTagName("p");
+        //    for( var i=0; i<pAry.length; i++ ) {
+        //        (function(arg){
+        //            pAry[i].onclick = function() {
+        //                alert(arg);
+        //            };
+        //        })(i);//调用时参数
+        //    }
+        //}
+        setTimeout(function () {
+            for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
+                if ($scope.vehiclesInfo[i].fenceId == thisRail.id) {
+                    (function (arg) {
+                        var point = new BMap.Point(arg.lon, arg.lat);
+                        $scope.bikeInfo = arg;
+                        map.bikeInfo = arg;
+                        //getPoints(point,i,map,arg)
+                        var convertor = new BMap.Convertor();
+                        var pointArray = [];
+                        pointArray.push(point);
+                        $scope.allbikeInfo = $scope.bikeInfo;
+                        convertor.translate(pointArray, 1, 5, addAllBikeCallback(pointArray, $scope.bikeInfo));
+                    })($scope.vehiclesInfo[i]);
                 }
-            }, 1000)
+            }
+        }, 2000)
 
         //})
     }
@@ -179,11 +196,16 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
     }
 
     //获取还车点,点击还车点删除
-    function getPoints(point, i,thisMap) {
+    function getPoints(point, i, thisMap, bikeInfo) {
         var convertor = new BMap.Convertor();
         var pointArray = [];
         pointArray.push(point);
-        convertor.translate(pointArray, 1, 5, addBikeCallback)
+        $scope.allbikeInfo = bikeInfo;
+        convertor.translate(pointArray, 1, 5, addAllBikeCallback);
+        //console.log(convertor.translate)
+
+        //console.log(bikeInfo)
+        //drawBike(convertor.translate(pointArray, 1, 5, addBikeCallback),bikeInfo)
     }
 
     //地图缩放方法
@@ -212,7 +234,7 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
     $scope.getReturnPointsData = function () {
         electronicRegion.point_list($scope.getPointsParam).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.returnPointsInfo = res.data.data[0];
+                $scope.returnPointsInfo = res.data.data[0].list;
             }
         })
     }
@@ -222,22 +244,62 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
         $scope.selectModel.offset = 100000;
         electronicRegion.fenceVehicle_list($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.vehiclesInfo = res.data.data[0];
+                $scope.vehiclesInfo = res.data.data[0].list;
             }
         })
     }
 
     //获取城市信息
+    $scope.citiesInfo = [];
+    $scope.allVehiclesArr = [];
     $scope.railCitiesData = function () {
-        electronicRegion.fenceCity_list({offset: 100}).then(function (res) {
+        //electronicRegion.fenceCity_list({offset: 100}).then(function (res) {
+        //    if (res.data.RESULT == 'SUCCESS') {
+        //        $scope.citiesInfo = res.data.data[0];
+        //        for (var i = 0; i < $scope.citiesInfo.length; i++) {
+        //            $scope.labelsModel = $scope.citiesInfo[i];
+        //            $scope.labelsModel.index = i;
+        //            var point = new BMap.Point($scope.citiesInfo[i].lon, $scope.citiesInfo[i].lat);
+        //            getCities(point, i)
+        //        }
+        //    }
+        //})
+        vehicleManagess.vehicle_list({offset: 1000000}).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.citiesInfo = res.data.data[0];
-                for (var i = 0; i < $scope.citiesInfo.length; i++) {
-                    $scope.labelsModel = $scope.citiesInfo[i];
-                    $scope.labelsModel.index = i;
-                    var point = new BMap.Point($scope.citiesInfo[i].lon, $scope.citiesInfo[i].lat);
-                    getCities(point, i)
-                }
+                $scope.vehicleInfo = res.data.data[0].list;
+                electronicRegion.fenceCity_list({offset: 100}).then(function (res) {
+                    if (res.data.RESULT == 'SUCCESS') {
+                        $scope.citiesInfos = res.data.data[0].list;
+                        for (var i = 0; i < $scope.vehicleInfo.length; i++) {
+                            if ($scope.vehicleInfo[i].fences.length != 0) {
+                                //console.log($scope.vehicleInfo[i].fences[0])
+                                $scope.allVehiclesArr.push($scope.vehicleInfo[i].fences[0].cityName);
+                            }
+                            //$scope.allVehiclesArr.push($scope.vehicleInfo[i].fences[0].cityName);
+                        }
+                        for (var j = 0; j < $scope.citiesInfos.length; j++) {
+                            contains($scope.allVehiclesArr, $scope.citiesInfos[j], $scope.citiesInfo)
+                        }
+                        //判别所含城市
+                        function contains(arr, obj, newArr) {
+                            var i = arr.length;
+                            while (i--) {
+                                if (arr[i] === obj.name) {
+                                    newArr.push(obj);
+                                    return newArr;
+                                }
+                            }
+                            return false;
+                        }
+
+                        for (var i = 0; i < $scope.citiesInfo.length; i++) {
+                            $scope.labelsModel = $scope.citiesInfo[i];
+                            $scope.labelsModel.index = i;
+                            var point = new BMap.Point($scope.citiesInfo[i].lon, $scope.citiesInfo[i].lat);
+                            getCities(point, i)
+                        }
+                    }
+                })
             }
         })
     }
@@ -256,34 +318,34 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
     };
 
     $scope.$watch('paginationConf.page+paginationConf.itemsPerPage', function () {
-        $scope.selectModel.startPage = $scope.paginationConf.page
-        $scope.selectModel.offset = $scope.paginationConf.itemsPerPage
+        $scope.selectModels.startPage = $scope.paginationConf.page
+        $scope.selectModels.offset = $scope.paginationConf.itemsPerPage
         $scope.loadVehicleData()
     });
 
     //加载车辆列表传参配置
-    $scope.selectModel = {
+    $scope.selectModels = {
         keyword: null,
         startPage: $scope.paginationConf.currentPage,
         offset: $scope.paginationConf.itemsPerPage
     }
 
     //获取所有车辆信息
-    $scope.loadVehicleData=function(){
-        vehicleManagess.vehicle_list($scope.selectModel).then(function (res) {
+    $scope.loadVehicleData = function () {
+        vehicleManagess.vehicle_list($scope.selectModels).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.vehicleInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.vehicleInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                //$scope.paginationConf.itemsPerPage = res.data.data[1].offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.vehicleInfo, function (data, index) {
                     if ($scope.startPage > 1) {
                         data.orderNo = ($scope.startPage - 1) * 10 + index + 1;
                     } else {
                         data.orderNo = index + 1;
                     }
-                    data.createTime = transTime(data.createTime);
+                    //data.createTime = transTime(data.createTime);
                     data.productDate = transTime(data.productDate);
                 })
             }
@@ -307,33 +369,37 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
 
     //显示车辆列表
     angular.element('#vehicle-list').hide();
-    $scope.isOpen=false;
-    $scope.showVehicleList=function(){
-        $scope.isOpen=!$scope.isOpen;
-        if($scope.isOpen==true){
+    $scope.isOpen = false;
+    $scope.showVehicleList = function () {
+        $scope.isOpen = !$scope.isOpen;
+        if ($scope.isOpen == true) {
             angular.element('#vehicle-list').show();
+            $scope.loadVehicleData()
             angular.element('#rotate').addClass('rotate')
-        }else if($scope.isOpen==false){
+        } else if ($scope.isOpen == false) {
             angular.element('#vehicle-list').hide();
+            $scope.loadVehicleData()
             angular.element('#rotate').removeClass('rotate');
         }
     }
 
     //刷新车辆列表
-    $scope.renovateVehicleList=function(){
+    $scope.renovateVehicleList = function () {
         angular.element('#vehicle-list').show();
+        $scope.loadVehicleData()
     }
 
     //点击查看车辆位置
-    $scope.searchVehicle=function(item){
-        vehicleManagess.vehicle_find({id:item.id}).then(function(res){
-            if(res.data.RESULT=='SUCCESS'){
+    $scope.searchVehicle = function (item) {
+        vehicleManagess.vehicle_find({id: item.id}).then(function (res) {
+            if (res.data.RESULT == 'SUCCESS') {
                 angular.element('#vehicle-list').hide();
+                $scope.loadVehicleData()
                 //console.log(res.data.data)
-                $scope.thisVehicleInfo=res.data.data[0];
+                $scope.thisVehicleInfo = res.data.data[0];
                 map.clearOverlays();
                 var vehiclePoint = new BMap.Point($scope.thisVehicleInfo.lon, $scope.thisVehicleInfo.lat);
-                if($scope.thisVehicleInfo.lon==null||$scope.thisVehicleInfo.lat==null){
+                if ($scope.thisVehicleInfo.lon == null || $scope.thisVehicleInfo.lat == null) {
                     $scope.promptContent = '该车辆未加入电子围栏,不能在地图显示';
                     ngDialog.openConfirm({
                         templateUrl: 'view/diag/promptDiag.html',
@@ -344,7 +410,7 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
                     return;
                 }
                 map.centerAndZoom(vehiclePoint, 14);
-                $scope.bikeInfo=$scope.thisVehicleInfo;
+                $scope.bikeInfo = $scope.thisVehicleInfo;
 
                 var convertor = new BMap.Convertor();
                 var pointArray = [];
@@ -371,54 +437,58 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
             map.addOverlay(marker);
             //map.setCenter(data.points[0]);
 
-            marker.bikeInfo=$scope.bikeInfo;
+            console.log(data.points[0])
+
+            //console.log($scope.bikeInfo)
+            marker.bikeInfo = $scope.bikeInfo;
             //marker.pointAddress=$scope.pointAddress;
             //获取车辆当前位置
             var getLocation = new BMap.Geocoder();
-            getLocation.getLocation(data.points[0], function(rs) {
+            getLocation.getLocation(data.points[0], function (rs) {
                 var thisAddress = rs.addressComponents;
                 $scope.pointAddress = thisAddress.district + thisAddress.street + thisAddress.streetNumber;
-                marker.pointAddress=$scope.pointAddress;
+                marker.pointAddress = $scope.pointAddress;
             })
             //console.log(marker)
 
             //还车点点击显示详细信息
             marker.addEventListener('click', function () {
 
-                $scope.uploadTime='';
-                marker.bikeInfo.electrombileStatus.uploadTime=marker.bikeInfo.electrombileStatus.uploadTime.toString();
-                var Ystr,Mstr,Dstr,Hstr,mstr,sstr;
-                Ystr=marker.bikeInfo.electrombileStatus.uploadTime.slice(0,4);
-                Mstr=marker.bikeInfo.electrombileStatus.uploadTime.slice(4,6);
-                Dstr=marker.bikeInfo.electrombileStatus.uploadTime.slice(6,8);
-                Hstr=marker.bikeInfo.electrombileStatus.uploadTime.slice(8,10);
-                mstr=marker.bikeInfo.electrombileStatus.uploadTime.slice(10,12);
-                sstr=marker.bikeInfo.electrombileStatus.uploadTime.slice(12,14);
-                $scope.uploadTime=Ystr+'-'+Mstr+'-'+Dstr+'  '+Hstr+':'+mstr+':'+sstr;
+                $scope.uploadTime = '';
+                marker.bikeInfo.electrombileRunning.infoTime = marker.bikeInfo.electrombileRunning.infoTime.toString();
+                var Ystr, Mstr, Dstr, Hstr, mstr, sstr;
+                Ystr = marker.bikeInfo.electrombileRunning.infoTime.slice(0, 4);
+                Mstr = marker.bikeInfo.electrombileRunning.infoTime.slice(4, 6);
+                Dstr = marker.bikeInfo.electrombileRunning.infoTime.slice(6, 8);
+                Hstr = marker.bikeInfo.electrombileRunning.infoTime.slice(8, 10);
+                mstr = marker.bikeInfo.electrombileRunning.infoTime.slice(10, 12);
+                sstr = marker.bikeInfo.electrombileRunning.infoTime.slice(12, 14);
+                $scope.infoTime = Ystr + '-' + Mstr + '-' + Dstr + '  ' + Hstr + ':' + mstr + ':' + sstr;
 
-                var content = '<div class="bikeInfoMenu" style="background-color: #fff;min-width:360px;min-height:80px;margin: 0;padding: 0;">';
-                content += ' <h4 style="width: 100%;font-weight: 700;border-bottom: 2px solid #000;padding-left: 10px;box-sizing:border-box;height: 40px;line-height: 40px;">车辆详情信息</h4>';
+                var content = '<div class="bikeInfoMenu" style="min-width:360px;min-height:80px;margin: 0;padding: 0;">';
+                content += ' <h4 style="width: 100%;border-bottom:2px solid #000;padding-left: 10px;box-sizing:border-box;height: 40px;line-height: 40px;font-weight: 700;">车辆详情信息</h4>';
                 content += '<ul style="list-style: none;padding: 0;margin: 0;">';
                 content += ' <li><span class="title">车辆当前位置：</span><span style="font-weight: 200;">' + marker.pointAddress + '</span></li>';
-                content += ' <li><span class="title">设备号：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.vehicleCode + '</span></li>';
+                content += ' <li><span class="title">车辆编号：</span><span style="font-weight: 200;">' + marker.bikeInfo.carNo + '</span></li>';
                 content += ' <li><span class="title">车速(m/s)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.speed + '</span></li>';
                 content += ' <li><span class="title">电池温度(℃)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.batteryTemp + '</span></li>';
                 content += ' <li><span class="title">当前电量(%)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.soc + '</span></li>';
                 content += ' <li><span class="title">总电流(A)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalCurrent + '</span></li>';
                 content += ' <li><span class="title">总电压(V)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalVoltage + '</span></li>';
-                content += ' <li><span class="title">删除状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.status==1]">' + (marker.bikeInfo.electrombileRunning.status==1?"未删除":"已删除") + '</span></li>';
+                content += ' <li><span class="title">设备标识号：</span><span class="vehicle-status" style="font-weight: 200;">' + marker.bikeInfo.electrombileStatus.deviceId + '</span></li>';
+                content += ' <li><span class="title">删除状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.status == 1 ? "未删除" : "已删除") + '</span></li>';
                 content += ' <li><span class="title">累积里程(km)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalMileage + '</span></li>';
-                content += ' <li><span class="title">电池盒锁状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==1]">' + (marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==0?"锁关闭":(marker.bikeInfo.electrombileRunning.batteryBoxLockStatus==1?"锁开启":"未知")) + '</span></li>';
-                content += ' <li><span class="title">车锁状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.lockStatus==1]">' + (marker.bikeInfo.electrombileRunning.lockStatus==0?"锁关闭":(marker.bikeInfo.electrombileRunning.lockStatus==1?"锁开启":"未知")) + '</span></li>';
-                content += ' <li><span class="title">充电状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.chargeStatus==1]">' + (marker.bikeInfo.electrombileRunning.chargeStatus==0?"放电":(marker.bikeInfo.electrombileRunning.chargeStatus==1?"充电":"未知")) + '</span></li>';
-                content += ' <li><span class="title">在线状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileRunning.onlineStatus==1]">' + (marker.bikeInfo.electrombileRunning.onlineStatus==1?"在线":(marker.bikeInfo.electrombileRunning.onlineStatus==2?"离线":"未知")) + '</span></li>';
+                content += ' <li><span class="title">电池盒锁状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.batteryBoxLockStatus == 0 ? "锁关闭" : (marker.bikeInfo.electrombileRunning.batteryBoxLockStatus == 1 ? "锁开启" : "未知")) + '</span></li>';
+                content += ' <li><span class="title">车锁状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.lockStatus == 0 ? "锁关闭" : (marker.bikeInfo.electrombileRunning.lockStatus == 1 ? "锁开启" : "未知")) + '</span></li>';
+                content += ' <li><span class="title">充电状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.chargeStatus == 0 ? "放电" : (marker.bikeInfo.electrombileRunning.chargeStatus == 1 ? "充电" : "未知")) + '</span></li>';
+                content += ' <li><span class="title">在线状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.onlineStatus == 1 ? "在线" : (marker.bikeInfo.electrombileRunning.onlineStatus == 2 ? "离线" : "未知")) + '</span></li>';
                 content += ' <li><span class="title">力矩(Nm)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.torque + '</span></li>';
                 content += ' <li><span class="title">充放电次数(次)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.chargeNum + '</span></li>';
-                content += ' <li><span class="title">电源状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.power==1]">' + (marker.bikeInfo.electrombileStatus.power==0?"电源异常":(marker.bikeInfo.electrombileStatus.power==1?"电源正常":"未知")) + '</span></li>';
-                content += ' <li><span class="title">告警状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.warning==1]">' + (marker.bikeInfo.electrombileStatus.warning==0?"告警异常":(marker.bikeInfo.electrombileStatus.warning==1?"告警正常":"未知")) + '</span></li>';
-                content += ' <li><span class="title">SIM卡状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.sim==1]">' + (marker.bikeInfo.electrombileStatus.sim==0?"SIM卡异常":(marker.bikeInfo.electrombileStatus.sim==1?"SIM卡正常":"未知")) + '</span></li>';
-                content += ' <li><span class="title">acc状态：</span><span style="font-weight: 200;" ng-class="{true:statistic,false:inclose}[marker.bikeInfo.electrombileStatus.acc==1]">' + (marker.bikeInfo.electrombileStatus.acc==0?"断电":(marker.bikeInfo.electrombileStatus.acc==1?"通电":"未知")) + '</span></li>';
-                content += ' <li><span class="title">上报时间：</span><span style="font-weight: 200;">' + $scope.uploadTime + '</span></li>';
+                content += ' <li><span class="title">电源状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.power == 0 ? "异常" : (marker.bikeInfo.electrombileStatus.power == 1 ? "正常" : "未知")) + '</span></li>';
+                content += ' <li><span class="title">告警状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.warning == 0 ? "异常" : (marker.bikeInfo.electrombileStatus.warning == 1 ? "正常" : "未知")) + '</span></li>';
+                content += ' <li><span class="title">SIM卡状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.sim == 0 ? "异常" : (marker.bikeInfo.electrombileStatus.sim == 1 ? "正常" : "未知")) + '</span></li>';
+                content += ' <li><span class="title">acc状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.acc == 0 ? "断电" : (marker.bikeInfo.electrombileStatus.acc == 1 ? "通电" : "未知")) + '</span></li>';
+                content += ' <li><span class="title">上报时间：</span><span style="font-weight: 200;">' + $scope.infoTime + '</span></li>';
                 //content += ' <li><span class="title">在线状态：</span><span style="font-weight: 200;">' + ($scope.infoModel.onlineStatus == 1 ? "在线" : "离线") + '</span></li>';
                 content += ' </ul>';
                 //content += ' <button id="del-point" style="position: absolute;left: 120px;margin-top: 10px;width: 120px;height: 25px;background-color: #D70C18;color:#fff;border-radius: 5px">确认删除还车点</button>';
@@ -426,18 +496,145 @@ angular.module("FMsainuoyi").controller('vehicleMonitorCtrl', function (vehicleM
                 //$compile(content)($scope)
                 //content = $compile(content)($scope);
                 //var windowSize = {
-                //    //width:600,
-                //    'min-height':500
+                //    background: 'url("static/login/images/banner_slide_03.jpg")'
                 //}
                 //var infowindow = new BMap.InfoWindow(content,windowSize);
                 //this.openInfoWindow(infowindow);
-
-                var infoBox = new BMapLib.InfoBox(map,content,{windowSize:{
-                },closeIconMargin: "18px 5px 0 0"
-                    ,enableAutoPan: true
-                    ,align: INFOBOX_AT_TOP});
+                var infoBox = new BMapLib.InfoBox(map, content, {
+                    windowSize: {
+                        //width:'360px',
+                        //height:'500px',
+                    }, closeIconMargin: "18px 5px 0 0"
+                    , enableAutoPan: true
+                    , align: INFOBOX_AT_TOP
+                });
                 infoBox.open(marker);
+                marker.enableDragging();
+
+                var vehicleDetails = angular.element('.vehicle-status');
+                for (var i = 0; i < vehicleDetails.length; i++) {
+                    switch (vehicleDetails[i].innerHTML) {
+                        case '异常':
+                            vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                            //console.log(vehicleDetails[i].className)
+                            break;
+                        case '断电':
+                            vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                            break;
+                        case '离线':
+                            vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                            break;
+                        case '已删除':
+                            vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                            break;
+                        case '锁开启':
+                            vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                            break;
+                    }
+                }
             })
         }
+    }
+
+    function addAllBikeCallback(data, bikeInfo) {
+        $scope.allbikeInfo = bikeInfo;
+        data = GpsToBaiduPoints(data)
+        var myIcon = new BMap.Icon("static/images/bike.png", new BMap.Size(35, 40))
+        var marker = new BMap.Marker(data[0], {icon: myIcon});
+        //map.setCenter(data.points[0]);
+
+        marker.bikeInfo = $scope.allbikeInfo;
+        var getLocation = new BMap.Geocoder();
+        getLocation.getLocation(data[0], function (rs) {
+            var thisAddress = rs.addressComponents;
+            $scope.pointAddress = thisAddress.district + thisAddress.street + thisAddress.streetNumber;
+            marker.pointAddress = $scope.pointAddress;
+        })
+        //console.log(marker)
+
+        //还车点点击显示详细信息
+        marker.addEventListener('click', function () {
+
+            $scope.uploadTime = '';
+            marker.bikeInfo.electrombileRunning.infoTime = marker.bikeInfo.electrombileRunning.infoTime.toString();
+            var Ystr, Mstr, Dstr, Hstr, mstr, sstr;
+            Ystr = marker.bikeInfo.electrombileRunning.infoTime.slice(0, 4);
+            Mstr = marker.bikeInfo.electrombileRunning.infoTime.slice(4, 6);
+            Dstr = marker.bikeInfo.electrombileRunning.infoTime.slice(6, 8);
+            Hstr = marker.bikeInfo.electrombileRunning.infoTime.slice(8, 10);
+            mstr = marker.bikeInfo.electrombileRunning.infoTime.slice(10, 12);
+            sstr = marker.bikeInfo.electrombileRunning.infoTime.slice(12, 14);
+            $scope.infoTime = Ystr + '-' + Mstr + '-' + Dstr + '  ' + Hstr + ':' + mstr + ':' + sstr;
+
+            var content = '<div class="bikeInfoMenu" style="min-width:360px;min-height:80px;margin: 0;padding: 0;">';
+            content += ' <h4 style="width: 100%;border-bottom:2px solid #000;padding-left: 10px;box-sizing:border-box;height: 40px;line-height: 40px;font-weight: 700;">车辆详情信息</h4>';
+            content += '<ul style="list-style: none;padding: 0;margin: 0;">';
+            content += ' <li><span class="title">车辆当前位置：</span><span style="font-weight: 200;">' + marker.pointAddress + '</span></li>';
+            content += ' <li><span class="title">车辆编号：</span><span style="font-weight: 200;">' + marker.bikeInfo.carNo + '</span></li>';
+            content += ' <li><span class="title">车速(m/s)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.speed + '</span></li>';
+            content += ' <li><span class="title">电池温度(℃)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.batteryTemp + '</span></li>';
+            content += ' <li><span class="title">当前电量(%)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.soc + '</span></li>';
+            content += ' <li><span class="title">总电流(A)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalCurrent + '</span></li>';
+            content += ' <li><span class="title">总电压(V)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalVoltage + '</span></li>';
+            content += ' <li><span class="title">设备标识号：</span><span class="vehicle-status" style="font-weight: 200;">' + marker.bikeInfo.electrombileStatus.deviceId + '</span></li>';
+            content += ' <li><span class="title">删除状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.status == 1 ? "未删除" : "已删除") + '</span></li>';
+            content += ' <li><span class="title">累积里程(km)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.totalMileage + '</span></li>';
+            content += ' <li><span class="title">电池盒锁状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.batteryBoxLockStatus == 0 ? "锁关闭" : (marker.bikeInfo.electrombileRunning.batteryBoxLockStatus == 1 ? "锁开启" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">车锁状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.lockStatus == 0 ? "锁关闭" : (marker.bikeInfo.electrombileRunning.lockStatus == 1 ? "锁开启" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">充电状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.chargeStatus == 0 ? "放电" : (marker.bikeInfo.electrombileRunning.chargeStatus == 1 ? "充电" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">在线状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileRunning.onlineStatus == 1 ? "在线" : (marker.bikeInfo.electrombileRunning.onlineStatus == 2 ? "离线" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">力矩(Nm)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.torque + '</span></li>';
+            content += ' <li><span class="title">充放电次数(次)：</span><span style="font-weight: 200;">' + marker.bikeInfo.electrombileRunning.chargeNum + '</span></li>';
+            content += ' <li><span class="title">电源状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.power == 0 ? "异常" : (marker.bikeInfo.electrombileStatus.power == 1 ? "正常" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">告警状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.warning == 0 ? "异常" : (marker.bikeInfo.electrombileStatus.warning == 1 ? "正常" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">SIM卡状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.sim == 0 ? "异常" : (marker.bikeInfo.electrombileStatus.sim == 1 ? "正常" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">acc状态：</span><span class="vehicle-status" style="font-weight: 200;">' + (marker.bikeInfo.electrombileStatus.acc == 0 ? "断电" : (marker.bikeInfo.electrombileStatus.acc == 1 ? "通电" : "未知")) + '</span></li>';
+            content += ' <li><span class="title">上报时间：</span><span style="font-weight: 200;">' + $scope.infoTime + '</span></li>';
+            //content += ' <li><span class="title">在线状态：</span><span style="font-weight: 200;">' + ($scope.infoModel.onlineStatus == 1 ? "在线" : "离线") + '</span></li>';
+            content += ' </ul>';
+            //content += ' <button id="del-point" style="position: absolute;left: 120px;margin-top: 10px;width: 120px;height: 25px;background-color: #D70C18;color:#fff;border-radius: 5px">确认删除还车点</button>';
+            content += '</div>';
+            //$compile(content)($scope)
+            //content = $compile(content)($scope);
+            //var windowSize = {
+            //    background: 'url("static/login/images/banner_slide_03.jpg")'
+            //}
+            //var infowindow = new BMap.InfoWindow(content,windowSize);
+            //this.openInfoWindow(infowindow);
+            var infoBox = new BMapLib.InfoBox(map, content, {
+                windowSize: {
+                    //width:'360px',
+                    //height:'500px',
+                }, closeIconMargin: "18px 5px 0 0"
+                , enableAutoPan: true
+                , align: INFOBOX_AT_TOP
+            });
+            infoBox.open(marker);
+            marker.enableDragging();
+
+            var vehicleDetails = angular.element('.vehicle-status');
+            for (var i = 0; i < vehicleDetails.length; i++) {
+                switch (vehicleDetails[i].innerHTML) {
+                    case '异常':
+                        vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                        //console.log(vehicleDetails[i].className)
+                        break;
+                    case '断电':
+                        vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                        break;
+                    case '离线':
+                        vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                        break;
+                    case '已删除':
+                        vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                        break;
+                    case '锁开启':
+                        vehicleDetails[i].className = 'vehicle-status' + ' ' + 'inclose';
+                        break;
+                }
+            }
+        })
+        map.addOverlay(marker);
+
     }
 })

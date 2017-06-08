@@ -1,12 +1,65 @@
 angular.module("userGuideAddUeditor", ['ngDialog']).controller('userGuideAddUeditorCtrl', ['$scope', '$rootScope', '$http', 'ngDialog', function ($scope, $rootScope, $http, ngDialog) {
     $(function () {
-        var ue = UE.getEditor('myEditor');
+        UE.getEditor('myEditor',{
+            //focus时自动清空初始化时的内容
+            autoClearinitialContent:true,
+            //关闭字数统计
+            wordCount:false,
+            //关闭elementPath
+            elementPathEnabled:false,
+            //默认的编辑区域高度
+            initialFrameHeight:300
+            //更多其他参数，请参考ueditor.config.js中的配置项
+        });
         $scope.getLocalData=function () {
             $scope.addParams.mainBody = UE.getEditor('myEditor').execCommand( "getlocaldata" );
             console.log($scope.addParams.mainBody)
         }
         //console.log(ue.getContent())
     })
+
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return 'http://121.43.32.168:8080/admin/upfile';
+        } else if (action == 'uploadvideo') {
+            return 'http://a.b.com/video.php';
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+
+    //重新实例化一个编辑器，防止在上面的editor编辑器中显示上传的图片或者文件
+    //var _editor = UE.getEditor('upload_ue');
+    //_editor.ready(function () {
+    //    //设置编辑器不可用
+    //    //_editor.setDisabled();
+    //    //隐藏编辑器，因为不会用到这个编辑器实例，所以要隐藏
+    //    _editor.hide();
+    //    //侦听图片上传
+    //    _editor.addListener('beforeInsertImage', function (t, arg) {
+    //        //将地址赋值给相应的input
+    //        $("#picture").attr("value", arg[0].src);
+    //        //图片预览
+    //        $("#preview").attr("src", arg[0].src);
+    //    })
+    //    //侦听文件上传
+    //    _editor.addListener('afterUpfile', function (t, arg) {
+    //        $("#file").attr("value", _editor.options.filePath + arg[0].url);
+    //    })
+    //});
+    ////弹出图片上传的对话框
+    //function upImage() {
+    //    var myImage = _editor.getDialog("insertimage");
+    //    myImage.open();
+    //}
+    ////弹出文件上传的对话框
+    //function upFiles() {
+    //    var myFiles = _editor.getDialog("attachment");
+    //    myFiles.open();
+    //}
+
+
     //新增传参配置
     $scope.addParams = {
         title: null,

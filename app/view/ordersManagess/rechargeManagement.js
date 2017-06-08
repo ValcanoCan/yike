@@ -27,12 +27,12 @@ angular.module("FMsainuoyi").controller('rechargeManagementCtrl', function (orde
         jzts()
         ordersManagess.order_currList($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.rechargeInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                console.log($scope.rechargeInfo)
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.rechargeInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                //console.log($scope.rechargeInfo)
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.rechargeInfo, function (data, index) {
                     data.createTime=transTime(data.createTime);
                     if ($scope.startPage > 1) {
@@ -85,5 +85,13 @@ angular.module("FMsainuoyi").controller('rechargeManagementCtrl', function (orde
             preCloseCallback: "preCloseCallbackOnScope",
             scope: $scope,
         })
+    }
+
+    //点击查看余额充值缴费记录信息
+    $scope.balanceRechargeRecord = function (customer) {
+        localStorage.setItem('customerUserId', customer.userId)
+        localStorage.setItem('customerRealName', customer.realName)
+        //console.log(customer)
+        window.location.href = window.location.href.split('#/')[0] + '#/balanceRechargeRecord';
     }
 })

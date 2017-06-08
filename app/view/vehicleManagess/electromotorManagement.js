@@ -24,13 +24,12 @@ angular.module("FMsainuoyi").controller('electromotorManagementCtrl',function(ve
     $scope.pageSelect=function(){
         jzts();
         vehicleManagess.battery_list($scope.selectModel).then(function (res) {
-            console.log(res)
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.batteryInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.batteryInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.batteryInfo, function (data, index) {
                     data.createTime = transTime(data.createTime);
                     data.modifyTime = transTime(data.modifyTime);
@@ -40,7 +39,7 @@ angular.module("FMsainuoyi").controller('electromotorManagementCtrl',function(ve
                         data.orderNo = index + 1;
                     }
                 })
-                console.log($scope.batteryInfo)
+                //console.log($scope.batteryInfo)
             }
             hangge();
         })

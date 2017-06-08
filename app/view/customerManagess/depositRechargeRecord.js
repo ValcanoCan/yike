@@ -34,11 +34,11 @@ angular.module("FMsainuoyi").controller('depositRechargeRecordCtrl',function(use
         jzts()
         userManagess.user_deposit_currList($scope.selectModel).then(function(res){
             if(res.data.RESULT=='SUCCESS'){
-                $scope.depositInfo=res.data.data[0];
-                $scope.confTotalItems=res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage=res.data.data[1].startPage;
+                $scope.depositInfo=res.data.data[0].list;
+                $scope.confTotalItems=res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage=res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.depositInfo,function(data,index){
                     data.createTime=transTime(data.createTime)
                     if($scope.startPage>1){
@@ -47,7 +47,7 @@ angular.module("FMsainuoyi").controller('depositRechargeRecordCtrl',function(use
                         data.orderNo=index+1;
                     }
                 })
-                console.log($scope.depositInfo)
+                //console.log($scope.depositInfo)
             }else if(res.data.RESULT=='FAIL'){
                 $scope.promptContent='获取数据失败';
                 ngDialog.openConfirm({

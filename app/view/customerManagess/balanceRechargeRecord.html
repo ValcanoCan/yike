@@ -49,7 +49,7 @@
                     <td>{{item.realName}}</td>
                     <td>{{item.createTime}}</td>
                     <td>{{item.payAmount}}</td>
-                    <td>{{item.payType==1?"支付宝":"微信"}}</td>
+                    <td>{{item.payType==1?"支付宝":(item.payType==2?"微信":"数据错误")}}</td>
                     <td></td>
                     <td></td>
                     <td>{{item.payWalletId}}</td>

@@ -111,7 +111,10 @@ UE.plugin.register('simpleupload', function (){
                 }
 
                 domUtils.on(iframe, 'load', callback);
+                imageActionUrl='http://121.43.32.168:8080/admin/img/upfile'
                 form.action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?':'&') + params);
+                console.log(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?':'&') + params)
+                console.log(imageActionUrl)
                 form.submit();
             });
 

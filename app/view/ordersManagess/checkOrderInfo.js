@@ -40,16 +40,12 @@ angular.module("FMsainuoyi").controller('checkOrderInfoCtrl', function ($scope, 
         //}
         ordersManagess.order_list($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.ordersInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                console.log($scope.ordersInfo)
-                //console.log($scope.paginationConf.totalItems)
-                //console.log($scope.paginationConf.itemsPerPage)
-
-                //$scope.orderStatusModel=[];//提取状态
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.ordersInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                //console.log($scope.ordersInfo)
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.ordersInfo, function (data, index) {
                     data.createTime = transTime(data.createTime);
                     data.overTime = transTime(data.overTime);
@@ -124,9 +120,19 @@ angular.module("FMsainuoyi").controller('checkOrderInfoCtrl', function ($scope, 
     //}
 
     //结束订单
-    $scope.finishOrder = function (id) {
-        ordersManagess.order_finish({id: id}).then(function (res) {
-            console.log(res)
+    $scope.finishOrder = function (order) {
+        if(order.orderStatus==2){
+            $scope.promptContent='订单已结束，请勿重复操作';
+            ngDialog.openConfirm({
+                templateUrl:'view/diag/promptDiag.html',
+                className:'ngdialog-theme-default',
+                preCloseCallback:'preCloseCallbackOnScope',
+                scope:$scope,
+            })
+            return;
+        }
+        ordersManagess.order_finish({id: order.id}).then(function (res) {
+            //console.log(res)
             if (res.data.RESULT == 'SUCCESS') {
                 $scope.promptContent = '您已成功结束订单';
                 ngDialog.openConfirm({
@@ -192,7 +198,7 @@ angular.module("FMsainuoyi").controller('checkOrderInfoCtrl', function ($scope, 
             {
                 url: 'http://121.43.32.168:8080/admin/order/share',
                 method: 'post',
-                data: {id: $scope.orderId},
+                data: {id: $scope.orderId,type:2},
                 headers: {'Content-Type': 'application/json;charset=UTF-8'},
             }).success(function (res) {
                 if (res.RESULT == 'SUCCESS') {
@@ -200,14 +206,31 @@ angular.module("FMsainuoyi").controller('checkOrderInfoCtrl', function ($scope, 
                     $scope.thisOrderInfo.rideTime=formatSeconds($scope.thisOrderInfo.overTime-$scope.thisOrderInfo.createTime);
                     console.log($scope.thisOrderInfo)
                 }
-                $scope.thisOrderInfo.points = [
-                    new BMap.Point(116.42100, 39.910000), new BMap.Point(116.40130, 39.910000),
-                    new BMap.Point(116.40160, 39.910000), new BMap.Point(116.40200, 39.910000),
-                    new BMap.Point(116.40300, 39.910500), new BMap.Point(116.40400, 39.910000),
-                    new BMap.Point(116.40500, 39.910000), new BMap.Point(116.40505, 39.919800),
-                    new BMap.Point(116.40510, 39.910000), new BMap.Point(116.40515, 39.910000),
-                    new BMap.Point(116.40525, 39.910400), new BMap.Point(116.40537, 39.915500)
-                ];
+
+                //$scope.thisOrderInfo.points = [
+                //    new BMap.Point(116.42100, 39.910000), new BMap.Point(116.40130, 39.910000),
+                //    new BMap.Point(116.40160, 39.910000), new BMap.Point(116.40200, 39.910000),
+                //    new BMap.Point(116.40300, 39.910500), new BMap.Point(116.40400, 39.910000),
+                //    new BMap.Point(116.40500, 39.910000), new BMap.Point(116.40505, 39.919800),
+                //    new BMap.Point(116.40510, 39.910000), new BMap.Point(116.40515, 39.910000),
+                //    new BMap.Point(116.40525, 39.910400), new BMap.Point(116.40537, 39.915500)
+                //];
+                //console.log($scope.thisOrderInfo.points)
+
+                //var str='116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504933,39.895648;116.504931,39.89565;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504933,39.895653;116.504951,39.89566;116.504938,39.895676;116.5043,39.895371;116.504291,39.895398;116.504335,39.895433;116.504326,39.895413;116.504339,39.895456;116.504455,39.895796;116.504563,39.895855;116.504576,39.895845;116.504585,39.895848;116.504588,39.895848;116.504591,39.89585;116.504591,39.89585;116.504591,39.89585;116.504591,39.89585;116.5046,39.895846;116.504601,39.895845;116.504601,39.895845;116.504616,39.895845;116.504586,39.8959;116.504548,39.895995;116.504548,39.896091;116.504579,39.896243;116.504585,39.89639;116.504615,39.896516;116.504625,39.896716;116.50462,39.896863;116.504606,39.897025;116.504618,39.897131;116.504701,39.89731;116.504745,39.897456;116.504731,39.897641;116.504723,39.89776;116.504731,39.897923;116.504723,39.898038;116.504708,39.898248;116.504723,39.898398;116.504701,39.898598;116.504696,39.898741;116.504699,39.898898;116.504676,39.899051;116.504681,39.899244'
+                //var str='116.504635,39.895483;116.504635,39.895483;116.504635,39.895483;116.504635,39.895483;116.504635,39.895483;116.504635,39.895483;116.504635,39.895483;116.504635,39.895483;116.504635,39.895483;116.504676,39.895486;116.504676,39.895486;116.504676,39.895486;116.504676,39.895486;116.504676,39.895486;116.504676,39.895486;116.504699,39.895496;116.504699,39.895496;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498;116.504703,39.895498'
+                var str='116.483438,39.895278;116.483466,39.895115;116.483393,39.894945;116.483458,39.894755;116.483445,39.89452;116.483454,39.89437;116.483491,39.894183;116.483508,39.893995;116.483495,39.89383;116.483544,39.893653;116.483408,39.893383;116.483428,39.893231;116.483393,39.89306;116.483331,39.892896;116.483293,39.89271;116.483285,39.892515;116.483311,39.892356;116.483315,39.89229;116.48324,39.892176;116.483166,39.892106;116.483161,39.892098;116.483161,39.892098;116.483161,39.892098;116.48315,39.892046;116.48316,39.891963;116.483156,39.891958;116.483154,39.891958;116.483183,39.891821;116.483183,39.891633;116.483186,39.891495;116.483181,39.891436;116.483053,39.891351;116.482875,39.8912;116.48277,39.891061;116.482755,39.890903;116.482848,39.890685;116.482833,39.890585;116.483061,39.890436;116.483055,39.890319;116.483045,39.890255;116.483103,39.890296;116.483113,39.890303;116.483111,39.890305;116.483111,39.890305;116.483111,39.890305'
+                var zuobiao = str.split(';')
+                var countiesArr = [];
+                for (var i = 0; i < zuobiao.length; i++) {
+                    var counties = new BMap.Point();
+                    counties.lng = parseFloat(zuobiao[i].split(',')[0]);
+                    //counties.lat = parseFloat(zuobiao[i].split(',')[1].split(' ')[1]);
+                    counties.lat = parseFloat(zuobiao[i].split(',')[1]);
+                    countiesArr.push(counties)
+                }
+                console.log(countiesArr)
+                $scope.thisOrderInfo.points=countiesArr;
 
                 // 百度地图API功能
                 var point = new BMap.Point($scope.thisOrderInfo.points[Math.floor($scope.thisOrderInfo.points.length/2)].lng, $scope.thisOrderInfo.points[Math.floor($scope.thisOrderInfo.points.length/2)].lat);

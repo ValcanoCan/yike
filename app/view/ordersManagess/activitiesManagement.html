@@ -34,7 +34,7 @@
                         <td>{{item.endTime}}</td>
                         <td>{{item.rule1}}</td>
                         <td>{{item.rule2}}</td>
-                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.status==1]">{{item.status==0?"关闭":"未关闭"}}</span></td>
+                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.status==1]">{{item.status==1?"已关闭":"未关闭"}}</span></td>
                         <td hidden="">{{startPage}}</td>
                         <td>
                             <button style="border-radius:6px;" ng-click="activityDel(item,$event)" class="btn btn-mini" data-toggle="dropdown">

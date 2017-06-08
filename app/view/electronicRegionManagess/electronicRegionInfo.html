@@ -130,10 +130,10 @@
                     </tbody>
                 </table>
                 <div>
-                    <div style="float: left;">
-                        <a class="btn btn-small btn-success" ng-click="createRail()">坐标新建电子围栏</a>
-                    </div>
-                    <div style="margin-left: 132px;width: 500px;">
+                    <!--<div style="float: left;">-->
+                        <!--<a class="btn btn-small btn-success" ng-click="createRail()">坐标新建电子围栏</a>-->
+                    <!--</div>-->
+                    <div style="width: 500px;">
                         <a class="btn btn-small btn-success" ng-click="drawRail()">画图新建电子围栏</a>
                     </div>
                     <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -25px;">
@@ -340,22 +340,22 @@
                            title="电子围栏名称" ng-model="editRailName" ng-change="editRailNameChange(editRailName)">
                 </td>
             </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">电子围栏经度:</td>
-                <td style="text-align: left !important;">
-                    <input id="editRailLng" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"
-                           type="text" value="" maxlength="32" placeholder="这里输入电子围栏经度(保留六位小数)"
-                           title="电子围栏经度">
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">电子围栏纬度:</td>
-                <td style="text-align: left !important;">
-                    <input id="editRailLat" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"
-                           type="text" value="" maxlength="32" placeholder="这里输入电子围栏纬度(保留六位小数)"
-                           title="电子围栏纬度">
-                </td>
-            </tr>
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">电子围栏经度:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<input id="editRailLng" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"-->
+                           <!--type="text" value="" maxlength="32" placeholder="这里输入电子围栏经度(保留六位小数)"-->
+                           <!--title="电子围栏经度">-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">电子围栏纬度:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<input id="editRailLat" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;"-->
+                           <!--type="text" value="" maxlength="32" placeholder="这里输入电子围栏纬度(保留六位小数)"-->
+                           <!--title="电子围栏纬度">-->
+                <!--</td>-->
+            <!--</tr>-->
             <tr>
                 <td style="width:130px;text-align: right;padding-top: 13px;">电子围栏位号:</td>
                 <td style="text-align: left !important;">
@@ -364,145 +364,20 @@
                            title="电子围栏位号">
                 </td>
             </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、只有修改经纬度坐标时需要保存参数,修改电子围栏名称和电子围栏位号不要点击保存参数按钮</p>
-                    <p style="color: #d80c18;font-size: 16px;">2、经纬度坐标、围栏位号修改一组,点击保存参数按钮进行存储,直至参数传完,点击确认修改按钮修改电子围栏</p>
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、只有修改经纬度坐标时需要保存参数,修改电子围栏名称和电子围栏位号不要点击保存参数按钮</p>-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、经纬度坐标、围栏位号修改一组,点击保存参数按钮进行存储,直至参数传完,点击确认修改按钮修改电子围栏</p>-->
 
-                    <p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空参数按钮,重新设置</p></td>
-                </td>
-            </tr>
+                    <!--<p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空参数按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
             <tr>
                 <td style="text-align: center;" colspan="10">
-                    <a id="editSaveParams" class="btn btn-mini btn-success" ng-click="editSaveParams()">保存参数</a>
-                    <a id="editClearParams" class="btn btn-mini btn-warning" ng-click="editClearParams()">清空参数</a>
+                    <!--<a id="editSaveParams" class="btn btn-mini btn-success" ng-click="editSaveParams()">保存参数</a>-->
+                    <!--<a id="editClearParams" class="btn btn-mini btn-warning" ng-click="editClearParams()">清空参数</a>-->
                     <a class="btn btn-mini btn-primary" ng-click="editRailSave();closeThisDialog('a')">确认修改</a>
-                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</script>
-
-<!--创建电子围栏人员弹框-->
-<script type="text/ng-template" id="addRailStaffDiag">
-    <div>
-        <div class="ngdialog-titile"
-             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
-            <span class="icon-bell"></span>
-            <span>添加电子围栏人员</span>
-        </div>
-        <table class="table table-striped table-bordered table-hover">
-            <tbody>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">维修人员姓名:</td>
-                <td style="text-align: left !important;">
-                    <select ng-model="user" ng-change="addUserNameChange(user)">
-                        <option value=""><strong>选择添加人员</strong></option>
-                        <option ng-repeat="user in systemUserInfo" value="{{user.id}}">{{user.name}}</option>
-                    </select>
-                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、人员添加一个,点击保存人员按钮进行存储,直至添加完毕,点击确认添加人员按钮创建电子围栏人员</p>
-
-                    <p style="color: #d80c18;font-size: 16px;">2、若设置参数有误,可点击清空人员按钮,重新设置</p></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: center;" colspan="10">
-                    <a id="addStaffSaveParams" class="btn btn-mini btn-success" ng-click="addStaffSaveParams()">保存人员</a>
-                    <a id="addStaffClearParams" class="btn btn-mini btn-warning" ng-click="addStaffClearParams()">清空人员</a>
-                    <a class="btn btn-mini btn-primary" ng-click="addStaffSave();">确认添加人员</a>
-                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</script>
-
-<!--修改电子围栏人员弹框-->
-<script type="text/ng-template" id="editRailStaffDiag">
-    <div>
-        <div class="ngdialog-titile"
-             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
-            <span class="icon-bell"></span>
-            <span>修改电子围栏人员</span>
-        </div>
-        <table class="table table-striped table-bordered table-hover">
-            <tbody>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">维修人员姓名:</td>
-                <td style="text-align: left !important;">
-                    <select ng-model="user" ng-change="editUserNameChange(user)">
-                        <option value=""><strong>选择修改人员</strong></option>
-                        <option ng-repeat="user in systemUserInfo" value="{{user.id}}">{{user.name}}</option>
-                    </select>
-                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、替换该围栏中所有人员,若替换少量人员,请利用添加和删除功能实现</p>
-                    <p style="color: #d80c18;font-size: 16px;">2、人员添加一个,点击保存人员按钮进行存储,直至添加完毕,点击确认修改人员按钮修改电子围栏人员</p>
-
-                    <p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空人员按钮,重新设置</p></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: center;" colspan="10">
-                    <a id="editStaffSaveParams"  class="btn btn-mini btn-success" ng-click="editStaffSaveParams()">保存人员</a>
-                    <a id="editStaffClearParams" class="btn btn-mini btn-warning" ng-click="editStaffClearParams()">清空人员</a>
-                    <a class="btn btn-mini btn-primary" ng-click="editStaffSave();">确认修改人员</a>
-                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</script>
-
-<!--删除电子围栏人员弹框-->
-<script type="text/ng-template" id="delRailStaffDiag">
-    <div>
-        <div class="ngdialog-titile"
-             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
-            <span class="icon-bell"></span>
-            <span>删除电子围栏人员</span>
-        </div>
-        <table class="table table-striped table-bordered table-hover">
-            <tbody>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">维修人员姓名:</td>
-                <td style="text-align: left !important;">
-                    <select ng-model="user" ng-change="delUserNameChange(user)">
-                        <option value=""><strong>选择删除人员</strong></option>
-                        <option ng-repeat="user in delStaffInfo" value="{{user.userId}}">{{user.name}}</option>
-                    </select>
-                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、若不选择人员,点击确认删除按钮后,则会删除该电子围栏中所有人员</p>
-                    <p style="color: #d80c18;font-size: 16px;">2、若删除个别人员，则人员添加一个,点击保存人员按钮进行存储,直至添加完毕,点击确认删除人员按钮删除电子围栏人员</p>
-
-                    <p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空人员按钮,重新设置</p></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: center;" colspan="10">
-                    <a id="delStaffSaveParams"  class="btn btn-mini btn-success" ng-click="delStaffSaveParams()">保存人员</a>
-                    <a id="delStaffClearParams" class="btn btn-mini btn-warning" ng-click="delStaffClearParams()">清空人员</a>
-                    <a class="btn btn-mini btn-primary" ng-click="delStaffSave();closeThisDialog('a')">确认删除人员</a>
                     <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
                 </td>
             </tr>
@@ -513,6 +388,21 @@
 
 <!--创建电子围栏车辆弹框-->
 <script type="text/ng-template" id="addRailVehicleDiag">
+    <style>
+        .ngdialog-content{
+            width: 1000px !important;
+        }
+        input[type="number"]{
+            height: 100%;
+            padding: 6px;
+        }
+        .ngdialog-content .vechicle_diag a{
+            opacity: 0.4;
+        }
+        .ngdialog-content .vechicle_diag a:hover{
+            opacity: 1;
+        }
+    </style>
     <div>
         <div class="ngdialog-titile"
              style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
@@ -520,40 +410,80 @@
             <span>添加电子围栏车辆</span>
         </div>
         <table class="table table-striped table-bordered table-hover">
-            <tbody>
+            <thead>
             <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>
-                <td style="text-align: left !important;">
-                    <select ng-model="vehicle" ng-change="addVehicleNoChange(vehicle)">
-                        <option value=""><strong>选择车辆编号</strong></option>
-                        <option ng-repeat="vehicle in vehicleInfo" value="{{vehicle.id}}">{{vehicle.carNo}}</option>
-                    </select>
-                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认添加车辆按钮创建电子围栏车辆</p>
+                <th class="nowrapTh" style="width: 30px;padding-left: 6px !important;padding-right: 6px !important;">
+                    <div ng-style="checked" ng-show="unChecks"></div>
+                    <label style="height: 20px;position: relative;top: -2px;left: -8px;">
+                        <input styled-checkbox style="position: absolute;" ng-style="isChk" type="checkbox" ng-model="ischeck" ng-click="checkAll(ischeck)">
+                    </label>
+                </th>
+                <th>序号</th>
+                <th>车型</th>
+                <th>车辆颜色</th>
+                <th>车辆VIN号</th>
+                <th>车辆编号</th>
+                <!--<th>车辆状态</th>-->
+                <th>电机号</th>
+                <!--<th>SIM卡号</th>-->
+                <!--<th>添加时间</th>-->
+                <!--<th>车辆生产日期</th>-->
+                <th>车辆是否上线</th>
+                <th>车辆所属电子围栏</th>
+                <th hidden="">当前页</th>
 
-                    <p style="color: #d80c18;font-size: 16px;">2、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>
-                </td>
             </tr>
-            <tr>
-                <td style="text-align: center;" colspan="10">
-                    <a id="addVehicleSaveParams" class="btn btn-mini btn-success" ng-click="addVehicleSaveParams()">保存车辆</a>
-                    <a id="addVehicleClearParams" class="btn btn-mini btn-warning" ng-click="addVehicleClearParams()">清空车辆</a>
-                    <a class="btn btn-mini btn-primary" ng-click="addVehicleSave();">确认添加车辆</a>
-                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </thead>
+            <tbody>
+            <!-- 开始循环 -->
+            <tr ng-repeat="item in vehiclesInfo">
+                <td class="nowrapTb" style="padding:4px 0 4px 6px !important;">
+                    <label style="height: 20px;position: relative;top: -2px;left: -11px;">
+                        <input styled-checkbox style="position: absolute;" class="registerId" type="checkbox" id={{item.id}} ng-checked="isSelected(item.id)"ng-model="item.ischeck" ng-click="exportSelection($event,item.id,item.ischeck)">
+                    </label>
                 </td>
+                <td>{{item.orderNo}}</td>
+                <td>{{item.carType}}</td>
+                <td>{{item.carColor}}</td>
+                <td>{{item.vehicleCode}}</td>
+                <td>{{item.carNo}}</td>
+                <!--<td>{{item.}}</td>-->
+                <td>{{item.engineNo}}</td>
+                <!--<td>{{item.simCode}}</td>-->
+                <!--<td>{{item.createTime}}</td>-->
+                <!--<td>{{item.productDate}}</td>-->
+                <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">{{item.isRegist==1?"已上线":"未上线"}}</span></td>
+                <td>{{item.fences[0].name?item.fences[0].name:"车辆未加入电子围栏"}}</td>
+                <td hidden="">{{startPage}}</td>
             </tr>
             </tbody>
         </table>
+        <div class="vechicle_diag" style="position: fixed;top: 60%;left: 44%;">
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="addVehicleSave();">确认添加车辆</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </div>
     </div>
 </script>
 
 <!--修改电子围栏车辆弹框-->
 <script type="text/ng-template" id="editRailVehicleDiag">
+    <style>
+        .ngdialog-content{
+            width: 1000px !important;
+        }
+        input[type="number"]{
+            height: 100%;
+            padding: 6px;
+        }
+        .ngdialog-content .vechicle_diag a{
+            opacity: 0.4;
+        }
+        .ngdialog-content .vechicle_diag a:hover{
+            opacity: 1;
+        }
+    </style>
     <div>
         <div class="ngdialog-titile"
              style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
@@ -561,41 +491,82 @@
             <span>修改电子围栏车辆</span>
         </div>
         <table class="table table-striped table-bordered table-hover">
-            <tbody>
+            <thead>
             <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>
-                <td style="text-align: left !important;">
-                    <select ng-model="vehicle" ng-change="editVehicleNoChange(vehicle)">
-                        <option value=""><strong>选择修改车辆</strong></option>
-                        <option ng-repeat="vehicle in vehicleInfo" value="{{vehicle.id}}">{{vehicle.carNo}}</option>
-                    </select>
-                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、替换该围栏中所有车辆,若替换少量车辆,请利用添加和删除功能实现</p>
-                    <p style="color: #d80c18;font-size: 16px;">2、车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认修改车辆按钮修改电子围栏车辆</p>
+                <th class="nowrapTh" style="width: 20px;padding-left: 6px !important;padding-right: 6px !important;">
+                    <div ng-style="checked" ng-show="unChecks"></div>
+                    <label style="height: 20px;position: relative;top: -2px;left: -8px;">
+                        <input styled-checkbox style="position: absolute;" ng-style="isChk" type="checkbox" ng-model="ischeckE" ng-click="checkAll(ischeckE)">
+                    </label>
+                </th>
+                <th>序号</th>
+                <th>车型</th>
+                <th>车辆颜色</th>
+                <th>车辆VIN号</th>
+                <th>车辆编号</th>
+                <!--<th>车辆状态</th>-->
+                <th>电机号</th>
+                <!--<th>SIM卡号</th>-->
+                <!--<th>添加时间</th>-->
+                <!--<th>车辆生产日期</th>-->
+                <th>车辆是否上线</th>
+                <th>车辆所属电子围栏</th>
+                <th hidden="">当前页</th>
 
-                    <p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>
-                </td>
             </tr>
-            <tr>
-                <td style="text-align: center;" colspan="10">
-                    <a id="editVehicleSaveParams"  class="btn btn-mini btn-success" ng-click="editVehicleSaveParams()">保存车辆</a>
-                    <a id="editVehicleClearParams" class="btn btn-mini btn-warning" ng-click="editVehicleClearParams()">清空车辆</a>
-                    <a class="btn btn-mini btn-primary" ng-click="editVehicleSave();">确认修改车辆</a>
-                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </thead>
+            <tbody>
+            <!-- 开始循环 -->
+            <tr ng-repeat="itemE in vehiclesInfo">
+                <td class="nowrapTb" style="padding:4px 0 4px 6px !important;">
+                    <!--<div ng-style="checked" ng-show="unChecks"></div>-->
+                    <label style="height: 20px;position: relative;top: -2px;left: -11px;">
+                        <input styled-checkbox style="position: absolute;" class="registerId" type="checkbox" id={{itemE.id}} ng-checked="isSelected(itemE.id)"ng-model="itemE.ischeck" ng-click="exportSelection($event,itemE.id,itemE.ischeck)">
+                    </label>
+                    <!--<input ng-style="isChk" type="checkbox" ng-model="item.ischeck" ng-click="check($index+1,ischeck)">-->
                 </td>
+                <td>{{itemE.orderNo}}</td>
+                <td>{{itemE.carType}}</td>
+                <td>{{itemE.carColor}}</td>
+                <td>{{itemE.vehicleCode}}</td>
+                <td>{{itemE.carNo}}</td>
+                <!--<td>{{item.}}</td>-->
+                <td>{{itemE.engineNo}}</td>
+                <!--<td>{{item.simCode}}</td>-->
+                <!--<td>{{item.createTime}}</td>-->
+                <!--<td>{{item.productDate}}</td>-->
+                <td><span ng-class="{true:'isclose',false:'inclose'}[itemE.isRegist==1]">{{itemE.isRegist==1?"已上线":"未上线"}}</span></td>
+                <td>{{itemE.fences[0].name?itemE.fences[0].name:"车辆未加入电子围栏"}}</td>
+                <td hidden="">{{startPage}}</td>
             </tr>
             </tbody>
         </table>
+        <div class="vechicle_diag" style="position: fixed;top: 60%;left: 44%;">
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="editVehicleSave();">确认修改车辆</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </div>
     </div>
 </script>
 
 <!--删除电子围栏车辆弹框-->
 <script type="text/ng-template" id="delRailVehicleDiag">
+    <style>
+        .ngdialog-content{
+            width: 1000px !important;
+        }
+        input[type="number"]{
+            height: 100%;
+            padding: 6px;
+        }
+        .ngdialog-content .vechicle_diag a{
+            opacity: 0.4;
+        }
+        .ngdialog-content .vechicle_diag a:hover{
+            opacity: 1;
+        }
+    </style>
     <div>
         <div class="ngdialog-titile"
              style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
@@ -603,35 +574,522 @@
             <span>删除电子围栏车辆</span>
         </div>
         <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="nowrapTh" style="width: 20px;padding-left: 6px !important;padding-right: 6px !important;">
+                    <div ng-style="checked" ng-show="unChecks"></div>
+                    <label style="height: 20px;position: relative;top: -2px;left: -8px;">
+                        <input styled-checkbox style="position: absolute;" ng-style="isChk" type="checkbox" ng-model="ischeckD" ng-click="checkAll(ischeckD)">
+                    </label>
+                </th>
+                <th style="width: 30px;">序号</th>
+                <!--<th>车辆型号</th>-->
+                <!--<th>车辆编号</th>-->
+                <!--<th>车辆颜色</th>-->
+                <th>电池温度</th>
+                <th>电池电量</th>
+                <th>充电状态</th>
+                <th>车锁状态</th>
+                <th>车辆是否在线</th>
+                <th>车速</th>
+                <!--<th>总电流</th>-->
+                <!--<th>总电压</th>-->
+                <th>总里程</th>
+                <th>车辆ID</th>
+                <!--<th>电机号</th>-->
+                <th>电子围栏ID</th>
+            </tr>
+            </thead>
             <tbody>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>
-                <td style="text-align: left !important;">
-                    <select ng-model="vehicle" ng-change="delVehicleNoChange(vehicle)">
-                        <option value=""><strong>选择删除车辆</strong></option>
-                        <option ng-repeat="vehicle in delVehicleInfo" value="{{vehicle.vehicleId}}">{{vehicle.vehicleId}}</option>
-                    </select>
-                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
+            <!-- 开始循环 -->
+            <tr ng-repeat="itemD in delVehicleInfo">
+                <td class="nowrapTb" style="padding:4px 0 4px 6px !important;">
+                    <label style="height: 20px;position: relative;top: -2px;left: -11px;">
+                        <input styled-checkbox style="position: absolute;" class="registerId" type="checkbox" id={{itemD.vehicleId}} ng-checked="isSelected(itemD.vehicleId)"ng-model="itemD.ischeck" ng-click="exportSelection($event,itemD.vehicleId,itemD.ischeck)">
+                    </label>
                 </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、若不选择车辆,点击确认删除车辆按钮后,则会删除该电子围栏中所有车辆</p>
-                    <p style="color: #d80c18;font-size: 16px;">2、若删除个别车辆，则车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认删除车辆按钮删除电子围栏车辆</p>
-
-                    <p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: center;" colspan="10">
-                    <a id="delVehicleSaveParams"  class="btn btn-mini btn-success" ng-click="delVehicleSaveParams()">保存车辆</a>
-                    <a id="delVehicleClearParams" class="btn btn-mini btn-warning" ng-click="delVehicleClearParams()">清空车辆</a>
-                    <a class="btn btn-mini btn-primary" ng-click="delVehicleSave();closeThisDialog('a')">确认删除车辆</a>
-                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
-                </td>
+                <td>{{itemD.orderNo}}</td>
+                <!--<td>{{item.carType}}</td>-->
+                <!--<td>{{item.carNo}}</td>-->
+                <!--<td>{{item.carColor}}</td>-->
+                <td>{{itemD.electrombileRunning.batteryTemp}}</td>
+                <td>{{itemD.electrombileRunning.chargeNum}}</td>
+                <td>{{itemD.electrombileRunning.chargeStatus}}</td>
+                <td>{{itemD.electrombileRunning.lockStatus}}</td>
+                <td>{{itemD.electrombileRunning.onlineStatus}}</td>
+                <td>{{itemD.electrombileRunning.speed}}</td>
+                <!--<td>{{item.electrombileRunning.totalCurrent}}</td>-->
+                <!--<td>{{item.electrombileRunning.totalVoltage}}</td>-->
+                <td>{{itemD.electrombileRunning.totalMileage}}</td>
+                <td>{{itemD.vehicleId}}</td>
+                <!--<td>{{item.engineNo}}</td>-->
+                <td>{{itemD.fenceId}}</td>
             </tr>
             </tbody>
         </table>
+        <div class="vechicle_diag" style="position: fixed;top: 60%;left: 44%;">
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="delVehicleSave();closeThisDialog('a')">确认删除车辆</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </div>
     </div>
 </script>
+
+<!--创建电子围栏人员弹框-->
+<script type="text/ng-template" id="addRailStaffDiag">
+    <style>
+        .ngdialog-content{
+            width: 1000px !important;
+        }
+        input[type="number"]{
+            height: 100%;
+            padding: 6px;
+        }
+        .ngdialog-content .vechicle_diag a{
+            opacity: 0.4;
+        }
+        .ngdialog-content .vechicle_diag a:hover{
+            opacity: 1;
+        }
+    </style>
+    <div>
+        <div class="ngdialog-titile"
+             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+            <span class="icon-bell"></span>
+            <span>添加电子围栏人员</span>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="nowrapTh" style="width: 30px;padding-left: 6px !important;padding-right: 6px !important;">
+                    <div ng-style="checked" ng-show="unChecks"></div>
+                    <label style="height: 20px;position: relative;top: -2px;left: -8px;">
+                        <input styled-checkbox style="position: absolute;" ng-style="isChk" type="checkbox" ng-model="ischeckSA" ng-click="checkAll(ischeckSA)">
+                    </label>
+                </th>
+                <th style="width: 30px;">序号</th>
+                <th>用户名称</th>
+                <th style="min-width: 53px;">用户登录名称</th>
+                <th>用户手机号</th>
+                <!--<th>密码</th>-->
+                <th>创建日期</th>
+                <!--<th>修改日期</th>-->
+                <th hidden="">当前页</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 开始循环 -->
+            <tr ng-repeat="itemSA in systemUserInfo">
+                <td class="nowrapTb" style="padding:4px 0 4px 6px !important;">
+                    <label style="height: 20px;position: relative;top: -2px;left: -11px;">
+                        <input styled-checkbox style="position: absolute;" class="registerId" type="checkbox" id={{itemSA.id}} ng-checked="isSelected(itemSA.id)"ng-model="itemSA.ischeck" ng-click="exportSelection($event,itemSA.id,itemSA.ischeck)">
+                    </label>
+                </td>
+                <td>{{itemSA.orderNo}}</td>
+                <td>{{itemSA.name}}</td>
+                <td>{{itemSA.account}}</td>
+                <td>{{itemSA.mobileNo}}</td>
+                <!--<td>{{item.password}}</td>-->
+                <td>{{itemSA.createTime}}</td>
+                <!--<td>{{itemSA.modifyTime}}</td>-->
+                <td hidden="">{{startPage}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="vechicle_diag" style="position: fixed;top: 60%;left: 44%;">
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="addStaffSave();">确认添加人员</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </div>
+    </div>
+</script>
+
+<!--修改电子围栏人员弹框-->
+<script type="text/ng-template" id="editRailStaffDiag">
+    <style>
+        .ngdialog-content{
+            width: 1000px !important;
+        }
+        input[type="number"]{
+            height: 100%;
+            padding: 6px;
+        }
+        .ngdialog-content .vechicle_diag a{
+            opacity: 0.4;
+        }
+        .ngdialog-content .vechicle_diag a:hover{
+            opacity: 1;
+        }
+    </style>
+    <div>
+        <div class="ngdialog-titile"
+             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+            <span class="icon-bell"></span>
+            <span>修改电子围栏人员</span>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="nowrapTh" style="width: 20px;padding-left: 6px !important;padding-right: 6px !important;">
+                    <div ng-style="checked" ng-show="unChecks"></div>
+                    <label style="height: 20px;position: relative;top: -2px;left: -8px;">
+                        <input styled-checkbox style="position: absolute;" ng-style="isChk" type="checkbox" ng-model="ischeckSE" ng-click="checkAll(ischeckSE)">
+                    </label>
+                </th>
+                <th style="width: 30px;">序号</th>
+                <th>用户名称</th>
+                <th style="min-width: 53px;">用户登录名称</th>
+                <th>用户手机号</th>
+                <!--<th>密码</th>-->
+                <th>创建日期</th>
+                <!--<th>修改日期</th>-->
+                <th hidden="">当前页</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 开始循环 -->
+            <tr ng-repeat="itemSE in systemUserInfo">
+                <td class="nowrapTb" style="padding:4px 0 4px 6px !important;">
+                    <label style="height: 20px;position: relative;top: -2px;left: -11px;">
+                        <input styled-checkbox style="position: absolute;" class="registerId" type="checkbox" id={{itemSE.id}} ng-checked="isSelected(itemSE.id)"ng-model="itemSE.ischeck" ng-click="exportSelection($event,itemSE.id,itemSE.ischeck)">
+                    </label>
+                </td>
+                <td>{{itemSE.orderNo}}</td>
+                <td>{{itemSE.name}}</td>
+                <td>{{itemSE.account}}</td>
+                <td>{{itemSE.mobileNo}}</td>
+                <!--<td>{{item.password}}</td>-->
+                <td>{{itemSE.createTime}}</td>
+                <!--<td>{{itemSA.modifyTime}}</td>-->
+                <td hidden="">{{startPage}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="vechicle_diag" style="position: fixed;top: 60%;left: 44%;">
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="editStaffSave();">确认修改人员</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </div>
+    </div>
+</script>
+
+<!--删除电子围栏人员弹框-->
+<script type="text/ng-template" id="delRailStaffDiag">
+    <style>
+        .ngdialog-content{
+            width: 1000px !important;
+        }
+        input[type="number"]{
+            height: 100%;
+            padding: 6px;
+        }
+        .ngdialog-content .vechicle_diag a{
+            opacity: 0.4;
+        }
+        .ngdialog-content .vechicle_diag a:hover{
+            opacity: 1;
+        }
+    </style>
+    <div>
+        <div class="ngdialog-titile"
+             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+            <span class="icon-bell"></span>
+            <span>删除电子围栏人员</span>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="nowrapTh" style="width: 20px;padding-left: 6px !important;padding-right: 6px !important;">
+                    <div ng-style="checked" ng-show="unChecks"></div>
+                    <label style="height: 20px;position: relative;top: -2px;left: -8px;">
+                        <input styled-checkbox style="position: absolute;" ng-style="isChk" type="checkbox" ng-model="ischeckSD" ng-click="checkAll(ischeckSD)">
+                    </label>
+                </th>
+                <th style="width: 30px;">序号</th>
+                <th>运维人员姓名</th>
+                <!--<th style="min-width: 53px;">运维人员ID</th>-->
+                <th>电子围栏ID</th>
+                <th>创建日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 开始循环 -->
+            <tr ng-repeat="itemSD in delStaffInfo">
+                <td class="nowrapTb" style="padding:4px 0 4px 6px !important;">
+                    <label style="height: 20px;position: relative;top: -2px;left: -11px;">
+                        <input styled-checkbox style="position: absolute;" class="registerId" type="checkbox" id={{itemSE.id}} ng-checked="isSelected(itemSE.id)"ng-model="itemSE.ischeck" ng-click="exportSelection($event,itemSE.id,itemSE.ischeck)">
+                    </label>
+                </td>
+                <td>{{itemSD.orderNo}}</td>
+                <td>{{itemSD.name}}</td>
+                <!--<td>{{item.account}}</td>-->
+                <td>{{itemSD.fenceId}}</td>
+                <td>{{itemSD.createTime}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="vechicle_diag" style="position: fixed;top: 60%;left: 44%;">
+            <td style="text-align: center;" colspan="10">
+                <a class="btn btn-mini btn-primary" ng-click="delStaffSave();closeThisDialog('a')">确认删除人员</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+            </td>
+        </div>
+    </div>
+</script>
+
+<!--&lt;!&ndash;创建电子围栏人员弹框&ndash;&gt;-->
+<!--<script type="text/ng-template" id="addRailStaffDiag">-->
+    <!--<div>-->
+        <!--<div class="ngdialog-titile"-->
+             <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
+            <!--<span class="icon-bell"></span>-->
+            <!--<span>添加电子围栏人员</span>-->
+        <!--</div>-->
+        <!--<table class="table table-striped table-bordered table-hover">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">维修人员姓名:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<select ng-model="user" ng-change="addUserNameChange(user)">-->
+                        <!--<option value=""><strong>选择添加人员</strong></option>-->
+                        <!--<option ng-repeat="user in systemUserInfo" value="{{user.id}}">{{user.name}}</option>-->
+                    <!--</select>-->
+                    <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、人员添加一个,点击保存人员按钮进行存储,直至添加完毕,点击确认添加人员按钮创建电子围栏人员</p>-->
+
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、若设置参数有误,可点击清空人员按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="text-align: center;" colspan="10">-->
+                    <!--<a id="addStaffSaveParams" class="btn btn-mini btn-success" ng-click="addStaffSaveParams()">保存人员</a>-->
+                    <!--<a id="addStaffClearParams" class="btn btn-mini btn-warning" ng-click="addStaffClearParams()">清空人员</a>-->
+                    <!--<a class="btn btn-mini btn-primary" ng-click="addStaffSave();">确认添加人员</a>-->
+                    <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</script>-->
+
+<!--&lt;!&ndash;修改电子围栏人员弹框&ndash;&gt;-->
+<!--<script type="text/ng-template" id="editRailStaffDiag">-->
+    <!--<div>-->
+        <!--<div class="ngdialog-titile"-->
+             <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
+            <!--<span class="icon-bell"></span>-->
+            <!--<span>修改电子围栏人员</span>-->
+        <!--</div>-->
+        <!--<table class="table table-striped table-bordered table-hover">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">维修人员姓名:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<select ng-model="user" ng-change="editUserNameChange(user)">-->
+                        <!--<option value=""><strong>选择修改人员</strong></option>-->
+                        <!--<option ng-repeat="user in systemUserInfo" value="{{user.id}}">{{user.name}}</option>-->
+                    <!--</select>-->
+                    <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、替换该围栏中所有人员,若替换少量人员,请利用添加和删除功能实现</p>-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、人员添加一个,点击保存人员按钮进行存储,直至添加完毕,点击确认修改人员按钮修改电子围栏人员</p>-->
+
+                    <!--<p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空人员按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="text-align: center;" colspan="10">-->
+                    <!--<a id="editStaffSaveParams"  class="btn btn-mini btn-success" ng-click="editStaffSaveParams()">保存人员</a>-->
+                    <!--<a id="editStaffClearParams" class="btn btn-mini btn-warning" ng-click="editStaffClearParams()">清空人员</a>-->
+                    <!--<a class="btn btn-mini btn-primary" ng-click="editStaffSave();">确认修改人员</a>-->
+                    <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</script>-->
+
+<!--&lt;!&ndash;删除电子围栏人员弹框&ndash;&gt;-->
+<!--<script type="text/ng-template" id="delRailStaffDiag">-->
+    <!--<div>-->
+        <!--<div class="ngdialog-titile"-->
+             <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
+            <!--<span class="icon-bell"></span>-->
+            <!--<span>删除电子围栏人员</span>-->
+        <!--</div>-->
+        <!--<table class="table table-striped table-bordered table-hover">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">维修人员姓名:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<select ng-model="user" ng-change="delUserNameChange(user)">-->
+                        <!--<option value=""><strong>选择删除人员</strong></option>-->
+                        <!--<option ng-repeat="user in delStaffInfo" value="{{user.userId}}">{{user.name}}</option>-->
+                    <!--</select>-->
+                    <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、若不选择人员,点击确认删除按钮后,则会删除该电子围栏中所有人员</p>-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、若删除个别人员，则人员添加一个,点击保存人员按钮进行存储,直至添加完毕,点击确认删除人员按钮删除电子围栏人员</p>-->
+
+                    <!--<p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空人员按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="text-align: center;" colspan="10">-->
+                    <!--<a id="delStaffSaveParams"  class="btn btn-mini btn-success" ng-click="delStaffSaveParams()">保存人员</a>-->
+                    <!--<a id="delStaffClearParams" class="btn btn-mini btn-warning" ng-click="delStaffClearParams()">清空人员</a>-->
+                    <!--<a class="btn btn-mini btn-primary" ng-click="delStaffSave();closeThisDialog('a')">确认删除人员</a>-->
+                    <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</script>-->
+
+<!--&lt;!&ndash;创建电子围栏车辆弹框&ndash;&gt;-->
+<!--<script type="text/ng-template" id="addRailVehicleDiag">-->
+    <!--<div>-->
+        <!--<div class="ngdialog-titile"-->
+             <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
+            <!--<span class="icon-bell"></span>-->
+            <!--<span>添加电子围栏车辆</span>-->
+        <!--</div>-->
+        <!--<table class="table table-striped table-bordered table-hover">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<select ng-model="vehicle" ng-change="addVehicleNoChange(vehicle)">-->
+                        <!--<option value=""><strong>选择车辆编号</strong></option>-->
+                        <!--<option ng-repeat="vehicle in vehicleInfo" value="{{vehicle.id}}">{{vehicle.carNo}}</option>-->
+                    <!--</select>-->
+                    <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认添加车辆按钮创建电子围栏车辆</p>-->
+
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="text-align: center;" colspan="10">-->
+                    <!--<a id="addVehicleSaveParams" class="btn btn-mini btn-success" ng-click="addVehicleSaveParams()">保存车辆</a>-->
+                    <!--<a id="addVehicleClearParams" class="btn btn-mini btn-warning" ng-click="addVehicleClearParams()">清空车辆</a>-->
+                    <!--<a class="btn btn-mini btn-primary" ng-click="addVehicleSave();">确认添加车辆</a>-->
+                    <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</script>-->
+
+<!--&lt;!&ndash;修改电子围栏车辆弹框&ndash;&gt;-->
+<!--<script type="text/ng-template" id="editRailVehicleDiag">-->
+    <!--<div>-->
+        <!--<div class="ngdialog-titile"-->
+             <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
+            <!--<span class="icon-bell"></span>-->
+            <!--<span>修改电子围栏车辆</span>-->
+        <!--</div>-->
+        <!--<table class="table table-striped table-bordered table-hover">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<select ng-model="vehicle" ng-change="editVehicleNoChange(vehicle)">-->
+                        <!--<option value=""><strong>选择修改车辆</strong></option>-->
+                        <!--<option ng-repeat="vehicle in vehicleInfo" value="{{vehicle.id}}">{{vehicle.carNo}}</option>-->
+                    <!--</select>-->
+                    <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、替换该围栏中所有车辆,若替换少量车辆,请利用添加和删除功能实现</p>-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认修改车辆按钮修改电子围栏车辆</p>-->
+
+                    <!--<p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="text-align: center;" colspan="10">-->
+                    <!--<a id="editVehicleSaveParams"  class="btn btn-mini btn-success" ng-click="editVehicleSaveParams()">保存车辆</a>-->
+                    <!--<a id="editVehicleClearParams" class="btn btn-mini btn-warning" ng-click="editVehicleClearParams()">清空车辆</a>-->
+                    <!--<a class="btn btn-mini btn-primary" ng-click="editVehicleSave();">确认修改车辆</a>-->
+                    <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</script>-->
+
+<!--&lt;!&ndash;删除电子围栏车辆弹框&ndash;&gt;-->
+<!--<script type="text/ng-template" id="delRailVehicleDiag">-->
+    <!--<div>-->
+        <!--<div class="ngdialog-titile"-->
+             <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
+            <!--<span class="icon-bell"></span>-->
+            <!--<span>删除电子围栏车辆</span>-->
+        <!--</div>-->
+        <!--<table class="table table-striped table-bordered table-hover">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<select ng-model="vehicle" ng-change="delVehicleNoChange(vehicle)">-->
+                        <!--<option value=""><strong>选择删除车辆</strong></option>-->
+                        <!--<option ng-repeat="vehicle in delVehicleInfo" value="{{vehicle.vehicleId}}">{{vehicle.vehicleId}}</option>-->
+                    <!--</select>-->
+                    <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、若不选择车辆,点击确认删除车辆按钮后,则会删除该电子围栏中所有车辆</p>-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、若删除个别车辆，则车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认删除车辆按钮删除电子围栏车辆</p>-->
+
+                    <!--<p style="color: #d80c18;font-size: 16px;">3、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="text-align: center;" colspan="10">-->
+                    <!--<a id="delVehicleSaveParams"  class="btn btn-mini btn-success" ng-click="delVehicleSaveParams()">保存车辆</a>-->
+                    <!--<a id="delVehicleClearParams" class="btn btn-mini btn-warning" ng-click="delVehicleClearParams()">清空车辆</a>-->
+                    <!--<a class="btn btn-mini btn-primary" ng-click="delVehicleSave();closeThisDialog('a')">确认删除车辆</a>-->
+                    <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</script>-->
+
+
+

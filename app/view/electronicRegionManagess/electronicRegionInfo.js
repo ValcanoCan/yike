@@ -23,9 +23,9 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
 
     //获取所有电子围栏信息
     $scope.loadData = function () {
-        electronicRegion.fence_find({offset: 100}).then(function (res) {
+        electronicRegion.fence_find({offset: 1000}).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.allRailsInfo = res.data.data[0]
+                $scope.allRailsInfo = res.data.data[0].list
             }
         })
     }
@@ -101,55 +101,55 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         //    for(var i=0;i<clearMapArr.length;i++){
         //        map.removeOverlay(clearMapArr[i]);
         //    }
-            console.log(thisRail)
-            //getBoundaryInner(thisRail.cityName)
-            $scope.selectModel.fenceId = thisRail.id;
-            $scope.railVehicleData();
+        //    console.log(thisRail)
+        //getBoundaryInner(thisRail.cityName)
+        $scope.selectModel.fenceId = thisRail.id;
+        $scope.railVehicleData();
 
-            //获取电子围栏内还车点信息
-            $scope.getPointsParam.fenceId = thisRail.id;
-            $scope.getReturnPointsData();
+        //获取电子围栏内还车点信息
+        $scope.getPointsParam.fenceId = thisRail.id;
+        $scope.getReturnPointsData();
 
-            setTimeout(function () {
-                //for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
-                //    var point = new BMap.Point($scope.vehiclesInfo[i].lon, $scope.vehiclesInfo[i].lat);
-                //    addBike(point)
-                //}
-                for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
-                    if ($scope.vehiclesInfo[i].fenceId == thisRail.id) {
-                        var point = new BMap.Point($scope.vehiclesInfo[i].lon, $scope.vehiclesInfo[i].lat);
-                        //setTimeout(function(){
-                        var convertor = new BMap.Convertor();
-                        var pointArray = [];
-                        pointArray.push(point);
-                        convertor.translate(pointArray, 1, 5, addBikeCallback)
-                        //}, 1000);
-                        //addBike(point)
-                    }
+        setTimeout(function () {
+            //for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
+            //    var point = new BMap.Point($scope.vehiclesInfo[i].lon, $scope.vehiclesInfo[i].lat);
+            //    addBike(point)
+            //}
+            for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
+                if ($scope.vehiclesInfo[i].fenceId == thisRail.id) {
+                    var point = new BMap.Point($scope.vehiclesInfo[i].lon, $scope.vehiclesInfo[i].lat);
+                    //setTimeout(function(){
+                    var convertor = new BMap.Convertor();
+                    var pointArray = [];
+                    pointArray.push(point);
+                    convertor.translate(pointArray, 1, 5, addBikeCallback)
+                    //}, 1000);
+                    //addBike(point)
                 }
-            }, 1000)
+            }
+        }, 1000)
 
-            //画出还车点
-            //setTimeout(function () {
-            //    for (var i = 0; i < $scope.returnPointsInfo.length; i++) {
-            //        var point = new BMap.Point($scope.returnPointsInfo[i].lng, $scope.returnPointsInfo[i].lat);
-            //        var myIcon = new BMap.Icon("static/images/end.png", new BMap.Size(35, 40))
-            //        var marker = new BMap.Marker(point, {icon: myIcon});
-            //        map.addOverlay(marker);
-            //        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-            //    }
-            //}, 1000)
-            setTimeout(function () {
-                for (var i = 0; i < $scope.returnPointsInfo.length; i++) {
-                    var point = new BMap.Point($scope.returnPointsInfo[i].lng, $scope.returnPointsInfo[i].lat);
-                    //railAddBike(point)
-                    //var convertor = new BMap.Convertor();
-                    //var pointArray = [];
-                    //pointArray.push(point);
-                    //convertor.translate(pointArray, 1, 5, returnPointCallback)
-                    getPoints(point, i,map);
-                }
-            }, 1000)
+        //画出还车点
+        //setTimeout(function () {
+        //    for (var i = 0; i < $scope.returnPointsInfo.length; i++) {
+        //        var point = new BMap.Point($scope.returnPointsInfo[i].lng, $scope.returnPointsInfo[i].lat);
+        //        var myIcon = new BMap.Icon("static/images/end.png", new BMap.Size(35, 40))
+        //        var marker = new BMap.Marker(point, {icon: myIcon});
+        //        map.addOverlay(marker);
+        //        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        //    }
+        //}, 1000)
+        setTimeout(function () {
+            for (var i = 0; i < $scope.returnPointsInfo.length; i++) {
+                var point = new BMap.Point($scope.returnPointsInfo[i].lng, $scope.returnPointsInfo[i].lat);
+                //railAddBike(point)
+                //var convertor = new BMap.Convertor();
+                //var pointArray = [];
+                //pointArray.push(point);
+                //convertor.translate(pointArray, 1, 5, returnPointCallback)
+                getPoints(point, i, map);
+            }
+        }, 1000)
         //})
     }
 
@@ -158,7 +158,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     $scope.getCitysData = function () {
         electronicRegion.fence_getCitys().then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                console.log(res.data.data[0])
+                //console.log(res.data.data[0])
             }
         })
     }
@@ -200,7 +200,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         //map.addOverlay(cityLabel);
         //var marker = new BMap.Marker(point, circle);
         var marker = new BMap.Marker(point, {icon: myIcon});
-        marker.cityName=$scope.labelsModel.name;
+        marker.cityName = $scope.labelsModel.name;
         map.addOverlay(marker);
         marker.setLabel(cityLabel);
         //circle.setLabel(normalLabel);
@@ -210,7 +210,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         marker.addEventListener('click', function () {
             map.clearOverlays();
             //$scope.railVehicleData();
-            console.log($scope.allRailsInfo)
+            //console.log($scope.allRailsInfo)
             for (var i = 0; i < $scope.allRailsInfo.length; i++) {
                 $scope.arr = new Array()
                 //$scope.str = ''
@@ -296,7 +296,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     }
 
     //获取还车点,点击还车点删除
-    function getPoints(point, i,thisMap) {
+    function getPoints(point, i, thisMap) {
 
         //画还车点范围
         //var pointCenter = thisMap.getCenter();
@@ -336,9 +336,9 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
 
         //获取还车点位置
         var getLocation = new BMap.Geocoder();
-        getLocation.getLocation(point, function(rs){
+        getLocation.getLocation(point, function (rs) {
             var thisAddress = rs.addressComponents;
-            $scope.pointAddress= thisAddress.district+thisAddress.street +thisAddress.streetNumber;
+            $scope.pointAddress = thisAddress.district + thisAddress.street + thisAddress.streetNumber;
             //console.log($scope.pointAddress)
             //设置删除弹框
             var content = '<div class="detailsMenu" style="width:360px;min-height:50px;margin: 0;padding: 0;">';
@@ -355,27 +355,30 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             //$compile(content)($scope)
             //content = $compile(content)($scope);
             //var infowindow = new BMap.InfoWindow(content);
-            var infoBox = new BMapLib.InfoBox(thisMap,content,{windowSize:{
-            },closeIconMargin: "18px 5px 0 0"
-                ,enableAutoPan: true
-                ,align: INFOBOX_AT_TOP});
+            var infoBox = new BMapLib.InfoBox(thisMap, content, {
+                windowSize: {}, closeIconMargin: "18px 5px 0 0"
+                , enableAutoPan: true
+                , align: INFOBOX_AT_TOP
+            });
 
             //还车点点击显示详细信息
             pointmarker.addEventListener('click', function () {
                 infoBox.open(pointmarker);
                 //this.openInfoWindow(infowindow);
                 var delPointBtn = document.getElementById('del-point');
+                //console.log($scope.returnPointsInfo)
                 delPointBtn.addEventListener('click', function () {
                     electronicRegion.point_del({id: pointmarker.pointId}).then(function (res) {
                         if (res.data.RESULT == 'SUCCESS') {
                             $scope.returnPointsInfo.splice($scope.returnPointsInfo.indexOf(pointmarker.itemPoint, 1));
-                            $scope.promptContent='删除还车点成功';
+                            $scope.promptContent = '删除还车点成功';
                             ngDialog.openConfirm({
                                 template: 'view/diag/promptDiag.html',
                                 className: 'ngdialog-theme-default',
                                 preCloseCallback: 'preCloseCallbackOnScope',
                                 scope: $scope,
                             })
+                            infoBox.close();
                         }
                     })
                     //railmap.removeOverlay(pointmarker);
@@ -385,7 +388,6 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                 });
             })
         });
-
     }
 
     //列表点击画出电子围栏
@@ -400,44 +402,44 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         railmap.addOverlay(polygon);
         //returnmap.addOverlay(polygon);
         //polygon.addEventListener('click', function () {
-            var mapArr=railmap.getOverlays();
-            var clearMapArr=mapArr.splice(2,mapArr.length);
-            for(var i=0;i<clearMapArr.length;i++){
-                railmap.removeOverlay(clearMapArr[i]);
+        var mapArr = railmap.getOverlays();
+        var clearMapArr = mapArr.splice(2, mapArr.length);
+        for (var i = 0; i < clearMapArr.length; i++) {
+            railmap.removeOverlay(clearMapArr[i]);
+        }
+
+        getBoundaryInner(thisRail)
+        $scope.selectModel.fenceId = fenceId;
+        $scope.railVehicleData();
+        setTimeout(function () {
+            for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
+                if ($scope.vehiclesInfo[i].fenceId == fenceId) {
+                    var point = new BMap.Point($scope.vehiclesInfo[i].lon, $scope.vehiclesInfo[i].lat);
+                    //railAddBike(point)
+                    var convertor = new BMap.Convertor();
+                    var pointArray = [];
+                    pointArray.push(point);
+                    convertor.translate(pointArray, 1, 5, addRailBikeCallback)
+                }
+            }
+        }, 1000)
+        //railmap.removeOverlay(pointmarker);
+        //railmap.removeOverlay(circle);
+
+
+        //画出还车点
+        setTimeout(function () {
+            for (var i = 0; i < $scope.returnPointsInfo.length; i++) {
+                var point = new BMap.Point($scope.returnPointsInfo[i].lng, $scope.returnPointsInfo[i].lat);
+                //railAddBike(point)
+                //var convertor = new BMap.Convertor();
+                //var pointArray = [];
+                //pointArray.push(point);
+                //convertor.translate(pointArray, 1, 5, returnPointCallback)
+                getPoints(point, i, railmap);
             }
 
-            getBoundaryInner(thisRail)
-            $scope.selectModel.fenceId = fenceId;
-            $scope.railVehicleData();
-            setTimeout(function () {
-                for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
-                    if ($scope.vehiclesInfo[i].fenceId == fenceId) {
-                        var point = new BMap.Point($scope.vehiclesInfo[i].lon, $scope.vehiclesInfo[i].lat);
-                        //railAddBike(point)
-                        var convertor = new BMap.Convertor();
-                        var pointArray = [];
-                        pointArray.push(point);
-                        convertor.translate(pointArray, 1, 5, addRailBikeCallback)
-                    }
-                }
-            }, 1000)
-            //railmap.removeOverlay(pointmarker);
-            //railmap.removeOverlay(circle);
-
-
-            //画出还车点
-            setTimeout(function () {
-                for (var i = 0; i < $scope.returnPointsInfo.length; i++) {
-                    var point = new BMap.Point($scope.returnPointsInfo[i].lng, $scope.returnPointsInfo[i].lat);
-                    //railAddBike(point)
-                    //var convertor = new BMap.Convertor();
-                    //var pointArray = [];
-                    //pointArray.push(point);
-                    //convertor.translate(pointArray, 1, 5, returnPointCallback)
-                    getPoints(point, i,railmap);
-                }
-
-            }, 1000)
+        }, 1000)
 
         //})
     }
@@ -471,9 +473,9 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         //获取该电子围栏内的还车点
         $scope.getPointsParam.fenceId = item.id;
         $scope.getReturnPointsData();
-        setTimeout(function(){
+        setTimeout(function () {
             getRails(item.fenceDetails, item.cityName, item.id);
-        },500)
+        }, 500)
 
     }
 
@@ -529,14 +531,14 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         angular.element('#rail-container').hide();
         angular.element('#return-container').show();
         returnmap.clearOverlays();
-        setTimeout(function(){
+        setTimeout(function () {
             getRailsPoint(item.fenceDetails, item.cityName, item.id);
-        },500)
+        }, 500)
 
 
         var overlays = [];
         var overlaycomplete = function (e) {
-            console.log(e.overlay)
+            //console.log(e.overlay)
             overlays.push(e.overlay);
             //var path = e.overlay.getPath();//Array<Point> 返回点数组
             $scope.returnPointParams.lng = e.overlay.point.lng;
@@ -625,7 +627,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         electronicRegion.point_list($scope.getPointsParam).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
                 $scope.returnPointsInfo = res.data.data[0];
-                console.log($scope.returnPointsInfo)
+                //console.log($scope.returnPointsInfo)
             }
         })
     }
@@ -648,11 +650,39 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     }
 
     //获取城市信息
+    $scope.citiesInfo = [];
+    $scope.allRailsArr = [];
     $scope.railCitiesData = function () {
-        electronicRegion.fenceCity_list({offset: 100}).then(function (res) {
+        electronicRegion.fence_find({offset: 1000}).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.citiesInfo = res.data.data[0];
-                console.log($scope.citiesInfo)
+                $scope.allRailsInfo = res.data.data[0].list
+
+                electronicRegion.fenceCity_list({offset: 1000}).then(function (res) {
+                    if (res.data.RESULT == 'SUCCESS') {
+                        //$scope.citiesInfo = res.data.data[0].list;
+                        $scope.citiesInfos = res.data.data[0].list;
+                        for (var i = 0; i < $scope.allRailsInfo.length; i++) {
+                            $scope.allRailsArr.push($scope.allRailsInfo[i].cityName);
+                        }
+                        for (var j = 0; j < $scope.citiesInfos.length; j++) {
+                            contains($scope.allRailsArr, $scope.citiesInfos[j], $scope.citiesInfo)
+                        }
+                        //判别所含城市
+                        function contains(arr, obj, newArr) {
+                            var i = arr.length;
+                            while (i--) {
+                                if (arr[i] === obj.name) {
+                                    newArr.push(obj);
+                                    return newArr;
+                                }
+                            }
+                            return false;
+                        }
+
+                        //console.log($scope.citiesInfo)
+                        //console.log($scope.allRailsArr)
+                    }
+                })
             }
         })
     }
@@ -670,8 +700,8 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         $scope.selectModel.offset = 100000;
         electronicRegion.fenceVehicle_list($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.vehiclesInfo = res.data.data[0];
-                console.log($scope.vehiclesInfo)
+                $scope.vehiclesInfo = res.data.data[0].list;
+                //console.log($scope.vehiclesInfo)
             }
         })
     }
@@ -720,14 +750,14 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         angular.element('#rail-container').hide();
         angular.element('#container').show();
         map.clearOverlays();
-        setTimeout(function(){
+        setTimeout(function () {
             for (var i = 0; i < $scope.citiesInfo.length; i++) {
                 $scope.labelsModel = $scope.citiesInfo[i];
                 $scope.labelsModel.index = i;
                 var point = new BMap.Point($scope.citiesInfo[i].lon, $scope.citiesInfo[i].lat);
                 getCities(point, i)
             }
-        },500)
+        }, 500)
 
     }
 
@@ -746,7 +776,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
-            closeByDocument:false
+            closeByDocument: false
         }).then(function () {
 
         })
@@ -776,7 +806,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             bg: '#629b58',
             time: 2
         });
-        console.log($scope.addParamsArr)
+        //console.log($scope.addParamsArr)
         $scope.createParams.fenceDetails = $scope.addParamsArr;
     }
 
@@ -802,11 +832,11 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         jzts();
         electronicRegion.fence_find($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.railsInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.railsInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.railsInfo, function (data, index) {
                     data.createTime = transTime(data.createTime);
                     data.modifyTime = transTime(data.modifyTime);
@@ -816,7 +846,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                         data.orderNo = index + 1;
                     }
                 })
-                console.log($scope.railsInfo)
+                //console.log($scope.railsInfo)
             }
             hangge();
         })
@@ -870,7 +900,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
                     calssName: 'ngdialog-theme-default',
                     preCloseCallback: 'preCloseCallbackOnScope',
                     scope: $scope,
-                    closeByDocument:false
+                    closeByDocument: false
                 })
                 $scope.railsInfo.splice($scope.railsInfo.indexOf(item, 1))
             }
@@ -889,7 +919,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
-            closeByDocument:false
+            closeByDocument: false
         }).then(function (res) {
 
         })
@@ -925,7 +955,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             bg: '#629b58',
             time: 2
         });
-        console.log($scope.editParamsArr)
+        //console.log($scope.editParamsArr)
         $scope.editParams.fenceDetails = $scope.editParamsArr;
     }
 
@@ -959,7 +989,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
 
     //查看电子围栏坐标信息
     $scope.railCoordinate = function (item) {
-        console.log(item.fenceDetails)
+        //console.log(item.fenceDetails)
         $scope.fenceDetailsInfo = item.fenceDetails;
         ngDialog.openConfirm({
             template: 'railCoordinateDiag',
@@ -979,8 +1009,16 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     $scope.systemUserData = function () {
         systemUser.sysuser_list({offset: 10000}).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.systemUserInfo = res.data.data[0];
-                console.log($scope.systemUserInfo)
+                $scope.systemUserInfo = res.data.data[0].list;
+                angular.forEach($scope.systemUserInfo, function (data, index) {
+                    data.createTime = transTime(data.createTime);
+                    if ($scope.startPage > 1) {
+                        data.orderNo = ($scope.startPage - 1) * 10 + index + 1;
+                    } else {
+                        data.orderNo = index + 1;
+                    }
+                })
+                //console.log($scope.systemUserInfo)
             }
         })
     }
@@ -988,7 +1026,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
 
     //创建电子围栏人员
     $scope.addRailStaff = function (item) {
-        console.log(item)
+        //console.log(item)
         //$scope.addStaffParams.fenceId=item.fenceDetails[0].fenceId;
         $scope.addStaffParams.fenceId = item.id;
         ngDialog.openConfirm({
@@ -996,7 +1034,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
-            closeByDocument:false
+            closeByDocument: false
         }).then(function (res) {
 
         })
@@ -1005,7 +1043,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     //添加人员名称变化监测
     $scope.addUserNameChange = function (userId) {
         $scope.addUserId = userId;
-        console.log(userId);
+        //console.log(userId);
     }
 
     //保存人员传参配置
@@ -1019,7 +1057,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     $scope.addStaffSaveParams = function () {
         $scope.addUserIdArr.push($scope.addUserId);
         $scope.addStaffParams.sysUserIds = $scope.addUserIdArr;
-        console.log($scope.addStaffParams)
+        //console.log($scope.addStaffParams)
         $("#addStaffSaveParams").tips({
             side: 1,
             msg: '保存参数成功',
@@ -1076,7 +1114,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
-            closeByDocument:false
+            closeByDocument: false
         }).then(function (res) {
 
         })
@@ -1150,7 +1188,15 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     $scope.delStaffData = function () {
         electronicRegion.fenceUser_list({fenceId: $scope.delStaffParams.fenceId, offset: 10000}).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.delStaffInfo = res.data.data[0];
+                $scope.delStaffInfo = res.data.data[0].list;
+                angular.forEach($scope.delStaffInfo, function (data, index) {
+                    data.createTime = transTime(data.createTime);
+                    if ($scope.startPage > 1) {
+                        data.orderNo = ($scope.startPage - 1) * 10 + index + 1;
+                    } else {
+                        data.orderNo = index + 1;
+                    }
+                })
             }
         })
     }
@@ -1165,7 +1211,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
-            closeByDocument:false
+            closeByDocument: false
         }).then(function (res) {
 
         })
@@ -1174,7 +1220,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     //删除人员名称变化监测
     $scope.delUserNameChange = function (userId) {
         $scope.delUserId = userId;
-        console.log(userId);
+        //console.log(userId);
     }
 
     //保存人员传参配置
@@ -1247,10 +1293,40 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     //车辆部分
 
     //获取车辆信息
+    //$scope.vehicleData = function () {
+    //    vehicleManagess.vehicle_list({offset: 100000}).then(function (res) {
+    //        if (res.data.RESULT == 'SUCCESS') {
+    //            $scope.vehicleInfo = res.data.data[0].list;
+    //        }
+    //    })
+    //}
+
+    //加载车辆列表传参配置
     $scope.vehicleData = function () {
-        vehicleManagess.vehicle_list({offset: 100000}).then(function (res) {
+        vehicleManagess.vehicle_list({isNotInFence:1,offset: 100000}).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.vehicleInfo = res.data.data[0];
+                $scope.registVehicles = [];
+                $scope.vehiclesInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                $scope.startPage = res.data.data[0].pagenation.startPage;
+                angular.forEach($scope.vehiclesInfo, function (data, index) {
+                    if (data.isRegist == 1) {
+                        $scope.registVehicles.push(data)
+                    }
+                })
+                $scope.vehiclesInfo = $scope.registVehicles
+                angular.forEach($scope.vehiclesInfo, function (data, index) {
+                    if ($scope.startPage > 1) {
+                        data.orderNo = ($scope.startPage - 1) * 10 + index + 1;
+                    } else {
+                        data.orderNo = index + 1;
+                    }
+                })
+                setTimeout(function () {
+                    $scope.checkAll()
+                }, 700)
             }
         })
     }
@@ -1259,7 +1335,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     //添加电子围栏中的车辆
     //创建电子围栏中车辆
     $scope.addRailVehicle = function (item) {
-        console.log(item)
+        //console.log(item)
         //$scope.addVehicleParams.fenceId=item.fenceDetails[0].fenceId;
         $scope.addVehicleParams.fenceId = item.id;
         ngDialog.openConfirm({
@@ -1267,7 +1343,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
-            closeByDocument:false
+            closeByDocument: false
         }).then(function (res) {
 
         })
@@ -1276,7 +1352,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     //添加车辆编号变化监测
     $scope.addVehicleNoChange = function (vehicleId) {
         $scope.addVehicleId = vehicleId;
-        console.log(vehicleId);
+        //console.log(vehicleId);
     }
 
     //保存车辆传参配置
@@ -1290,7 +1366,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
     $scope.addVehicleSaveParams = function () {
         $scope.addVehicleIdArr.push($scope.addVehicleId);
         $scope.addVehicleParams.vehicleIds = $scope.addVehicleIdArr;
-        console.log($scope.addVehicleParams)
+        //console.log($scope.addVehicleParams)
         $("#addVehicleSaveParams").tips({
             side: 1,
             msg: '保存参数成功',
@@ -1347,7 +1423,7 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             className: 'ngdialog-theme-default',
             preCloseCallback: 'preCloseCallbackOnScope',
             scope: $scope,
-            closeByDocument:false
+            closeByDocument: false
         }).then(function (res) {
 
         })
@@ -1424,7 +1500,15 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
             offset: 10000
         }).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.delVehicleInfo = res.data.data[0];
+                $scope.delVehicleInfo = res.data.data[0].list;
+                angular.forEach($scope.delVehicleInfo, function (data, index) {
+                    data.createTime = transTime(data.createTime);
+                    if ($scope.startPage > 1) {
+                        data.orderNo = ($scope.startPage - 1) * 10 + index + 1;
+                    } else {
+                        data.orderNo = index + 1;
+                    }
+                })
             }
         })
     }
@@ -1513,6 +1597,113 @@ angular.module("FMsainuoyi").controller('electronicRegionInfoCtrl', function (el
         localStorage.setItem('railVehicleFenceId', item.id)
         var href = window.location.href.split('#/');
         window.location.href = href[0] + '#/railVehicleList';
+    }
+
+
+    //全选操作
+    $scope.checkAll = function (ischeck) {
+        $scope.ischeck = ischeck;
+        //console.log($scope.vehiclesInfo)
+        var checkboxes = angular.element('.registerId');
+        //console.log(checkboxes)
+        for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
+            //console.log($scope.ischeck)
+            if ($scope.ischeck) {
+                $scope.selected.push($scope.vehiclesInfo[i].id)
+                $scope.selected = removalArr($scope.selected)
+                $scope.addVehicleParams.vehicleIds = $scope.selected;
+                $scope.editVehicleParams.vehicleIds = $scope.selected;
+                $scope.delVehicleParams.vehicleIds = $scope.selected;
+                $scope.addStaffParams.sysUserIds = $scope.selected;
+                $scope.editStaffParams.sysUserIds = $scope.selected;
+                $scope.delStaffParams.sysUserIds = $scope.selected;
+                //console.log($scope.selected)
+                for (var j = 0; j < checkboxes.length; j++) {
+                    checkboxes[j].checked = 'checked';
+                    //console.log(checkboxes[j].checked)
+                }
+                //$scope.vehiclesInfo[i].ischeck = true;
+                //$scope.selectIdArray();
+            }
+            else if ($scope.selected == []) {
+                for (var j = 0; j < checkboxes.length; j++) {
+                    checkboxes[j].checked = '';
+                    //console.log(checkboxes[j].checked)
+                }
+            }
+            else if ($scope.ischeck == false) {
+                for (var j = 0; j < checkboxes.length; j++) {
+                    checkboxes[j].checked = '';
+                    //console.log(checkboxes[j].checked)
+                }
+                $scope.selected = []
+                $scope.addVehicleParams.vehicleIds = $scope.selected;
+                $scope.editVehicleParams.vehicleIds = $scope.selected;
+                $scope.delVehicleParams.vehicleIds = $scope.selected;
+                //$scope.vehiclesInfo[i].ischeck = false
+            }
+        }
+    }
+
+    $scope.selectIdArray = function () {
+        var selectItems = new Array()
+        for (var i = 0; i < $scope.vehiclesInfo.length; i++) {
+            if ($scope.vehiclesInfo[i].ischeck) {
+                selectItems.push($scope.vehiclesInfo[i])
+            }
+        }
+        return selectItems;
+    }
+
+    //解决导出多选的BUG
+    $scope.selected = [];
+    var exportSelected = function (action, id) {
+        if (action == 'add' && $scope.selected.indexOf(id) == -1) {
+            $scope.selected.push(id);
+            $scope.ids = $scope.selected.join(',')
+            //console.log($scope.selected)
+            //console.log($scope.ids)
+        }
+        if (action == 'remove' && $scope.selected.indexOf(id) != -1) {
+            var idx = $scope.selected.indexOf(id);
+            $scope.selected.splice(idx, 1);
+            $scope.ids = $scope.selected.join(',')
+        }
+        console.log($scope.selected)
+        $scope.addVehicleParams.vehicleIds = $scope.selected;
+        $scope.editVehicleParams.vehicleIds = $scope.selected;
+        $scope.delVehicleParams.vehicleIds = $scope.selected;
+    }
+    $scope.exportSelection = function ($event, id, isCheck) {
+        var checkbox = $event.target;
+        //console.log(isCheck)
+        if (isCheck == undefined || isCheck == '') {
+            checkbox.checked = '';
+        }
+        var action = (checkbox.checked ? 'add' : 'remove');
+        exportSelected(action, id);
+
+        //复选框全选与单选
+        $scope.registerId = angular.element('.registerId');
+        var checkArr = [];
+        for (var i = 0; i < $scope.registerId.length; i++) {
+            checkArr.push($scope.registerId[i].checked)
+            if ($scope.registerId[i].checked) {
+                $scope.ischeck = true;
+            } else {
+
+            }
+        }
+        for (var j = 0; j < checkArr.length; j++) {
+            if (checkArr[j] == false) {
+                $scope.ischeck = false;
+            } else if (checkArr[j] == true) {
+            }
+        }
+
+    }
+    $scope.isSelected = function (id) {
+        return $scope.selected.indexOf(id) >= 0;
     }
 
 })

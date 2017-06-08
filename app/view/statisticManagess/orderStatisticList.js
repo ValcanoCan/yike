@@ -26,12 +26,12 @@ angular.module("FMsainuoyi").controller('orderStatisticsCtrl', function (statist
         jzts()
         statisticManagess.statistics_orders($scope.selectModel).then(function (res) {
             if (res.data.RESULT == 'SUCCESS') {
-                $scope.staOrdersInfo = res.data.data[0];
-                $scope.confTotalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                console.log($scope.staOrdersInfo)
-                $scope.startPage = res.data.data[1].startPage;
+                $scope.staOrdersInfo = res.data.data[0].list;
+                $scope.confTotalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                //console.log($scope.staOrdersInfo)
+                $scope.startPage = res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.staOrdersInfo, function (data, index) {
                     if ($scope.startPage > 1) {
                         data.orderNo = ($scope.startPage - 1) * 10 + index + 1;

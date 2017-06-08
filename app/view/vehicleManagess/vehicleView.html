@@ -1,14 +1,25 @@
 <style>
     .ngdialog-content{
-        width: 800px !important;
+        width: 800px;
+    }
+    .nowrapTh {
+        padding: 0 !important;
+        margin: 0 !important;
+        vertical-align: middle !important;
+        /*white-space: nowrap !important;*/
+    }
+    .nowrapTb {
+        padding: 2px 0 !important;
+        margin: 0 !important;
+        vertical-align: middle !important;
+        /*white-space: nowrap !important;*/
     }
 </style>
 <div id="page-content" class="clearfix">
     <div class="row-fluid">
         <div class="row-fluid">
             <div class="show-title"><span style="color:#787878;font-size: 14px;">车辆管理&nbsp;>&nbsp;</span>车辆查看</div>
-            <!-- 检索  -->
-            <form action="" method="post" name="Form" id="Form">
+            <form action="" method="post" name="Form" id="Form" style="margin: 0;">
                 <table>
                     <tbody>
                     <tr>
@@ -28,98 +39,104 @@
                     </tr>
                     </tbody>
                 </table>
-                <!-- 检索  -->
-
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th hidden="">车辆颜色</th>
-                        <th>序号</th>
-                        <th>车型</th>
-                        <th>车辆颜色</th>
-                        <th>车辆VIN</th>
-                        <th>车辆编号</th>
-                        <!--<th>车辆状态</th>-->
-                        <th>电机号</th>
-                        <th>SIM卡号</th>
-                        <th>添加时间</th>
-                        <th>车辆生产日期</th>
-                        <th>车辆是否上线</th>
-                        <th>车辆所属电子围栏</th>
-                        <th hidden="">当前页</th>
-                        <!--<th>查看车辆位置</th>-->
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- 开始循环 -->
-                    <tr ng-repeat="item in vehicleInfo">
-                        <td hidden="">{{item.carColor}}</td>
-                        <td style="width: 30px;">{{item.orderNo}}</td>
-                        <td>{{item.carType}}</td>
-                        <td>{{item.carColor}}</td>
-                        <td>{{item.vehicleCode}}</td>
-                        <td>{{item.carNo}}</td>
-                        <!--<td>{{item.}}</td>-->
-                        <td>{{item.engineNo}}</td>
-                        <td>{{item.simCode}}</td>
-                        <td>{{item.createTime}}</td>
-                        <td>{{item.productDate}}</td>
-                        <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">{{item.isRegist==1?"已上线":"未上线"}}</span></td>
-                        <td>{{item.fences[0].name?item.fences[0].name:"车辆未加入电子围栏"}}</td>
-                        <td hidden="">{{startPage}}</td>
-                        <!--<td><div><a style="cursor:pointer;" title="查看车辆位置" ng-click="searchVehicle(item)"-->
-                                   <!--class="tooltip-success">-->
-                            <!--<span class="green"><i class="icon-map-marker"></i></span></a></div>-->
-                            <!--</td>-->
-                        <td style="width: 30px;">
-                            <div class="hidden-phone visible-desktop btn-group">
-                                <div class="inline position-relative">
-                                    <button class="btn btn-mini btn-info" data-toggle="dropdown">
-                                        <i class="icon-cog icon-only"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
-                                        <li><a style="cursor:pointer;" title="查看车辆位置" ng-click="searchVehicle(item,startPage)"
-                                               class="tooltip-success" data-rel="tooltip" data-placement="left">
-                                            <span class="green"><i class="icon-map-marker"></i></span></a></li>
-                                        <li>
-                                            <a style="cursor: pointer;" title="修改车辆"
-                                               ng-click="vehicleInfoEdit(item);"
-                                               class="tooltip-success" data-rel="tooltip" data-placement="left">
-                                                <span><i class="icon-edit"></i></span> </a></li>
-                                            </a>
-                                        </li>
-                                        <li><a style="cursor: pointer;" title="删除车辆" ng-click="vehicleDel(item)"
-                                               class="tooltip-error" data-rel="tooltip" data-placement="left"><span
-                                                class="red"><i class="icon-trash"></i></span> </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div>
-                    <div style="float: left;">
-                        <a class="btn btn-small btn-success" ng-click="vehicleRegister()">添加新车辆</a>
-                    </div>
-                    <div style="margin-left: 4px;float: left;">
-                        <a class="btn btn-small btn-success" ng-click="vehicleBatchRegister()">批量添加新车辆</a>
-                    </div>
-                    <div style="margin-left: 212px;width: 300px;">
-                        <a class="btn btn-small btn-success" ng-click="registerToIOT()">注册车辆到IOT</a>
-                    </div>
-                    <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -25px;">
-                        <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
-                    </div>
-                </div>
-                <tm-pagination style="margin: 10px auto 0px auto !important;"
-                               conf="paginationConf"></tm-pagination>
             </form>
-
+            <!-- 检索  -->
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="nowrapTh" style="width: 20px;padding-left: 6px !important;padding-right: 6px !important;">
+                        <div ng-style="checked" ng-show="unChecks"></div>
+                        <label style="height: 20px;position: relative;top: -2px;left: -8px;">
+                            <input styled-checkbox style="position: absolute;" ng-style="isChk" type="checkbox" ng-model="ischeck" ng-click="checkAll()">
+                        </label>
+                    </th>
+                    <th>序号</th>
+                    <th>车型</th>
+                    <th>车辆颜色</th>
+                    <th>车辆VIN号</th>
+                    <th>车辆编号</th>
+                    <!--<th>车辆状态</th>-->
+                    <th>电机号</th>
+                    <th>SIM卡号</th>
+                    <th>添加时间</th>
+                    <th>车辆生产日期</th>
+                    <th>车辆是否上线</th>
+                    <th>车辆所属电子围栏</th>
+                    <th hidden="">当前页</th>
+                    <!--<th>查看车辆位置</th>-->
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- 开始循环 -->
+                <tr ng-repeat="item in vehiclesInfo">
+                    <td class="nowrapTb" style="padding:4px 0 4px 6px !important;">
+                        <!--<div ng-style="checked" ng-show="unChecks"></div>-->
+                        <label style="height: 20px;position: relative;top: -2px;left: -11px;">
+                            <input styled-checkbox style="position: absolute;" class="registerId" type="checkbox" id={{item.id}} ng-checked="isSelected(item.id)"ng-model="item.ischeck" ng-click="exportSelection($event,item.id,item.ischeck)">
+                        </label>
+                        <!--<input ng-style="isChk" type="checkbox" ng-model="item.ischeck" ng-click="check($index+1,ischeck)">-->
+                    </td>
+                    <td>{{item.orderNo}}</td>
+                    <td>{{item.carType}}</td>
+                    <td>{{item.carColor}}</td>
+                    <td>{{item.vehicleCode}}</td>
+                    <td>{{item.carNo}}</td>
+                    <!--<td>{{item.}}</td>-->
+                    <td>{{item.engineNo}}</td>
+                    <td>{{item.simCode}}</td>
+                    <td>{{item.createTime}}</td>
+                    <td>{{item.productDate}}</td>
+                    <td><span ng-class="{true:'isclose',false:'inclose'}[item.isRegist==1]">{{item.isRegist==1?"已上线":"未上线"}}</span></td>
+                    <td>{{item.fences[0].name?item.fences[0].name:"车辆未加入电子围栏"}}</td>
+                    <td hidden="">{{startPage}}</td>
+                    <td style="width: 30px;">
+                        <div class="hidden-phone visible-desktop btn-group">
+                            <div class="inline position-relative">
+                                <button class="btn btn-mini btn-info" data-toggle="dropdown">
+                                    <i class="icon-cog icon-only"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-icon-only dropdown-light pull-right dropdown-caret dropdown-close">
+                                    <li><a style="cursor:pointer;" title="查看车辆位置" ng-click="searchVehicle(item,startPage)"
+                                           class="tooltip-success" data-rel="tooltip" data-placement="left">
+                                        <span class="green"><i class="icon-map-marker"></i></span></a></li>
+                                    <li>
+                                        <a style="cursor: pointer;" title="修改车辆"
+                                           ng-click="vehicleInfoEdit(item);"
+                                           class="tooltip-success" data-rel="tooltip" data-placement="left">
+                                            <span><i class="icon-edit"></i></span> </a></li>
+                                    </a>
+                                    </li>
+                                    <li><a style="cursor: pointer;" title="删除车辆" ng-click="vehicleDel(item)"
+                                           class="tooltip-error" data-rel="tooltip" data-placement="left"><span
+                                            class="red"><i class="icon-trash"></i></span> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <div style="float: left;">
+                    <a class="btn btn-small btn-success" ng-click="vehicleRegister()">添加新车辆</a>
+                </div>
+                <div style="margin-left: 4px;float: left;">
+                    <a class="btn btn-small btn-success" ng-click="vehicleBatchRegister()">批量添加新车辆</a>
+                </div>
+                <div style="margin-left: 212px;width: 300px;">
+                    <a class="btn btn-small btn-success" ng-click="registerToIOT()">注册车辆到IOT</a>
+                </div>
+                <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;margin-top: -25px;">
+                    <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                </div>
+            </div>
+            <tm-pagination style="margin: 10px auto 0px auto !important;" conf="paginationConf">
+            </tm-pagination>
         </div>
     </div>
 </div>
+
 
 <!--查看单个车辆-->
 <div id="map-container" class="amap-container"
@@ -264,11 +281,11 @@
                 <iframe name="posthere" frameborder=0 style="display: none"></iframe>
                 <form name="form" method="post" action=""
                       enctype="multipart/form-data" target="posthere">
-                <!--<input type="file" name="file" id="excelFile">-->
-                <input type="file" file-model="fileToUpload" name="file" id="file"
-                       onChange="document.form.path.value=this.value" style="display:none">
-                <input class="path" name="path" readonly="readonly" style="border:none;">
-                <input type="submit" value="选择文件" onclick="document.form.file.click()"/>
+                    <!--<input type="file" name="file" id="excelFile">-->
+                    <input type="file" file-model="fileToUpload" name="file" id="file"
+                           onChange="document.form.path.value=this.value" style="display:none">
+                    <input class="path" name="path" readonly="readonly" style="border:none;">
+                    <input type="submit" value="选择文件" onclick="document.form.file.click()"/>
                 </form>
             </td>
         </tr>
@@ -383,59 +400,37 @@
 </script>
 
 <!--注册车辆到IOT-->
-<script type="text/ng-template" id="registerToIOTDiag">
-    <div>
-        <div class="ngdialog-titile"
-             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
-            <span class="icon-bell"></span>
-            <span>注册车辆到IOT</span>
-        </div>
-        <table class="table table-striped table-bordered table-hover">
-            <tbody>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>
-                <td style="text-align: left !important;">
-                    <select ng-model="vehicle" ng-change="registerVehicleNoChange(vehicle)">
-                        <option value=""><strong>选择车辆编号</strong></option>
-                        <option ng-repeat="vehicle in vehicleInfo" value="{{vehicle.id}}">{{vehicle.carNo}}</option>
-                    </select>
-                    <span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>
-                <td style="text-align: left !important;">
-                    <p style="color: #d80c18;font-size: 16px;">1、车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认注册车辆到IOT按钮注册车辆</p>
-                    <p style="color: #d80c18;font-size: 16px;">2、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: center;" colspan="10">
-                    <a id="registerVehicleSaveParams" class="btn btn-mini btn-success" ng-click="registerVehicleSaveParams()">保存车辆</a>
-                    <a id="registerVehicleClearParams" class="btn btn-mini btn-warning" ng-click="registerVehicleClearParams()">清空车辆</a>
-                    <a class="btn btn-mini btn-primary" ng-click="registerVehicleSave();">确认添加车辆</a>
-                    <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</script>
-
-<!--查看车辆位置-->
-<!--<script type="text/ng-template" id="searchVehicleDiag">-->
+<!--<script type="text/ng-template" id="registerToIOTDiag">-->
     <!--<div>-->
         <!--<div class="ngdialog-titile"-->
              <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
             <!--<span class="icon-bell"></span>-->
-            <!--<span>车辆位置</span>-->
+            <!--<span>注册车辆到IOT</span>-->
         <!--</div>-->
-        <!--<div id="map-container">aaa</div>-->
-        <!--&lt;!&ndash;<div id="allmap" style="width:100%;height:320px;position:relative;"></div>&ndash;&gt;-->
         <!--<table class="table table-striped table-bordered table-hover">-->
             <!--<tbody>-->
             <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">车辆编号:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<select ng-model="vehicle" ng-change="registerVehicleNoChange(vehicle)">-->
+                        <!--<option value=""><strong>选择车辆编号</strong></option>-->
+                        <!--<option ng-repeat="vehicle in vehiclesInfo" value="{{vehicle.id}}">{{vehicle.carNo}}</option>-->
+                    <!--</select>-->
+                    <!--<span style="color: #d80c18;font-size: 16px;margin-left: 50px;">*(必填项)</span></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="width:130px;text-align: right;padding-top: 13px;">参数设置提醒:</td>-->
+                <!--<td style="text-align: left !important;">-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">1、车辆添加一个,点击保存车辆按钮进行存储,直至添加完毕,点击确认注册车辆到IOT按钮注册车辆</p>-->
+                    <!--<p style="color: #d80c18;font-size: 16px;">2、若设置参数有误,可点击清空车辆按钮,重新设置</p></td>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
                 <!--<td style="text-align: center;" colspan="10">-->
+                    <!--<a id="registerVehicleSaveParams" class="btn btn-mini btn-success" ng-click="registerVehicleSaveParams()">保存车辆</a>-->
+                    <!--<a id="registerVehicleClearParams" class="btn btn-mini btn-warning" ng-click="registerVehicleClearParams()">清空车辆</a>-->
+                    <!--<a class="btn btn-mini btn-primary" ng-click="registerVehicleSave();">确认添加车辆</a>-->
                     <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
                 <!--</td>-->
             <!--</tr>-->
@@ -444,223 +439,23 @@
     <!--</div>-->
 <!--</script>-->
 
-<!--<script type="text/ng-template" id="vehicleInfoEditDiag">-->
-    <!--<div class="ngdialog-titile"-->
-         <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
-        <!--<span class="icon-bell"></span>-->
-        <!--<span>修改车辆信息</span>-->
-    <!--</div>-->
-    <!--<table class="table table-striped table-bordered table-hover">-->
-        <!--<tbody>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;text-align: right;padding-top: 13px;">服务类型:</td>-->
-            <!--<td class="text-left">-->
-                <!--<label> <input checked="checked" type="checkbox" value="0"> <span-->
-                        <!--class="lbl"></span>&nbsp;&nbsp;预约租车</label>-->
-                <!--<label> <input checked="checked" type="checkbox" value="1"> <span-->
-                        <!--class="lbl"></span>&nbsp;&nbsp;即时租车</label>-->
-                <!--<label> <input type="checkbox" value="2"> <span class="lbl"></span>&nbsp;&nbsp;专车</label>-->
-
-            <!--</td>-->
-            <!--<td style="width:100px;text-align: right;padding-top: 13px;"></td>-->
-            <!--<td style="width:100px;text-align: right;padding-top: 13px;"></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;text-align: right;padding-top: 13px;">车型:</td>-->
-            <!--<td class="text-left">-->
-                <!--<select>-->
-
-                    <!--<option value="B50PHEV " selected="">B50PHEV</option>-->
-
-                    <!--<option value="B50EV">B50EV</option>-->
-
-                    <!--<option value="测试1">测试1</option>-->
-
-                    <!--<option value="S2">S2</option>-->
-
-                <!--</select>-->
-            <!--</td>-->
-            <!--<td class="text-right" style="width:100px;text-align: right;padding-top: 13px;">车辆状态:</td>-->
-            <!--<td class="text-left">-->
-                <!--&lt;!&ndash; <input type="hidden" name="CARMODEL" id="CARMODEL" /> &ndash;&gt;-->
-                <!--<select>-->
-
-                    <!--<option value="空闲 " selected="">空闲</option>-->
-
-                    <!--<option value="使用中">使用中</option>-->
-
-                    <!--<option value="检修">检修</option>-->
-
-                <!--</select>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;text-align: right;padding-top: 13px;">车辆颜色:</td>-->
-            <!--<td class="text-left">-->
-                <!--<select>-->
-
-                    <!--<option value="13">红色</option>-->
-
-                    <!--<option value="14">蓝色</option>-->
-
-                    <!--<option value="15">绿色</option>-->
-
-                    <!--<option value="16">黑色</option>-->
-
-                    <!--<option value="17" selected="">白色</option>-->
-
-                    <!--<option value="18">银灰色</option>-->
-
-                <!--</select>-->
-            <!--</td>-->
-            <!--&lt;!&ndash;<td style="width:100px;text-align: right;padding-top: 13px;">车牌号:</td>&ndash;&gt;-->
-            <!--&lt;!&ndash;<td>&ndash;&gt;-->
-            <!--&lt;!&ndash;<input onblur="vertify(this)" type="text" name="CAR_LICENSE" id="CAR_LICENSE" value="吉A9TX91"&ndash;&gt;-->
-            <!--&lt;!&ndash;maxlength="7" placeholder="这里输入车牌号" title="车牌号">&ndash;&gt;-->
-            <!--&lt;!&ndash;</td>&ndash;&gt;-->
-            <!--<td class="text-right" style="width:100px;text-align: right;padding-top: 13px;">车辆VIN:</td>-->
-            <!--<td class="text-left">-->
-
-
-                <!--<input readonly="readonly" style="height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;" type="text" value="LFPH3ACC0E1G37495" maxlength="17"-->
-                       <!--placeholder="这里输入VIN" title="VIN">-->
-
-
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;text-align: right;padding-top: 13px;">添加时间:</td>-->
-            <!--<td class="text-left">-->
-                <!--<div>-->
-                    <!--<div class="">-->
-                        <!--<label class="labelFont">&nbsp;</label>-->
-
-                        <!--<div class='input-group date'>-->
-                            <!--<input style="width: 130px !important;height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;margin-top: -28px !important;-->
-                           <!--border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker1"-->
-                                   <!--data-date-format="YYYY/MM/DD HH:mm:ss" placeholder="添加时间"-->
-                                   <!--type='text' class="form-control"-->
-                                   <!--ng-model="registerDate" ng-change="registerDateChange(registerDate)"/>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</td>-->
-            <!--<td class="text-right" style="width:100px;text-align: right;padding-top: 13px;">生产日期:</td>-->
-            <!--<td class="text-left">-->
-                <!--<div>-->
-                    <!--<div class="">-->
-                        <!--<label class="labelFont">&nbsp;</label>-->
-
-                        <!--<div class='input-group date'>-->
-                            <!--<input style="width: 130px !important;height: 30px !important;line-height: 30px !important;margin-bottom: 0 !important;margin-top: -28px !important;-->
-                           <!--border:1px solid #ccc; border-radius: 5px;" value="" id="datetimepicker2"-->
-                                   <!--data-date-format="YYYY/MM/DD HH:mm:ss" placeholder="生产日期"-->
-                                   <!--type='text' class="form-control"-->
-                                   <!--ng-model="productDate" ng-change="productDateChange(productDate)"/>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td style="text-align: center;" colspan="12">-->
-
-
-                <!--<a class="btn btn-mini btn-primary" ng-click="saveRegister()">保存添加车辆</a>-->
-
-
-                <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-    <!--</table>-->
-<!--</script>-->
-
-<!--车辆批量添加-->
-<!--<script type="text/ng-template" id="vehicleBatchRegistrationDiag">-->
-    <!--<style>-->
-        <!--.ngdialog-content{width:600px !important;}-->
-    <!--</style>-->
-    <!--<div class="ngdialog-titile"-->
-         <!--style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">-->
-        <!--<span class="icon-bell"></span>-->
-        <!--<span>车辆批量添加</span>-->
-    <!--</div>-->
-    <!--<p style="color: red;padding-left: 30px;">-->
-        <!--特别提醒：<br>-->
-        <!--1.批量添加车机时，请下载模板Excel<br>-->
-    <!--</p>-->
-    <!--<table class="table table-striped table-bordered table-hover">-->
-        <!--<tbody>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;padding-top: 13px;">服务类型:</td>-->
-            <!--<td class="text-left">-->
-                <!--<label> 预约租车:<input type="checkbox" value="0"> &nbsp;&nbsp; <span style="margin-top: -6px;"-->
-                                                                                  <!--class="lbl"></span></label>-->
-                <!--<label> 即时租车:<input type="checkbox" value="1"> &nbsp;&nbsp; <span style="margin-top: -6px;"-->
-                                                                                  <!--class="lbl"></span></label>-->
-                <!--<label> 专车:<input type="checkbox" value="2"> &nbsp;&nbsp; <span style="margin: -6px 0 0 28px;" class="lbl"></span></label>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;padding-top: 13px;">车型:</td>-->
-            <!--<td class="text-left">-->
-
-                <!--&lt;!&ndash; <input type="hidden" name="CARMODEL" id="CARMODEL" /> &ndash;&gt;-->
-
-
-                <!--<select>-->
-
-                    <!--<option value="B50PHEV ">B50PHEV</option>-->
-
-                    <!--<option value="B50EV">B50EV</option>-->
-
-                    <!--<option value="测试1">测试1</option>-->
-
-                    <!--<option value="S2">S2</option>-->
-
-                <!--</select>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;padding-top: 13px;">车辆颜色:</td>-->
-            <!--<td class="text-left">-->
-                <!--<select>-->
-
-                    <!--<option value="13">红色</option>-->
-
-                    <!--<option value="14">蓝色</option>-->
-
-                    <!--<option value="15">绿色</option>-->
-
-                    <!--<option value="16">黑色</option>-->
-
-                    <!--<option value="17">白色</option>-->
-
-                    <!--<option value="18">银灰色</option>-->
-
-                <!--</select>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td style="text-align: center;" colspan="2">-->
-                <!--<a href="http://121.43.32.168:8080/admin/SinoliImport.xlsm">点击下载Excel模板</a>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td class="text-right" style="width:100px;padding-top: 13px;">上传文件:</td>-->
-            <!--<td class="text-left">-->
-                <!--<input type="file" name="file" id="excelFile">-->
-            <!--</td>-->
-        <!--</tr>-->
-
-        <!--<tr>-->
-            <!--<td style="text-align: center;" colspan="2">-->
-
-                <!--<a class="btn btn-mini btn-success" ng-click="uploadFile()">上传Excel文件批量添加</a>-->
-                <!--<a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-    <!--</table>-->
-<!--</script>-->
+<!--注册车辆到IOT-->
+<script type="text/ng-template" id="registerToIOTDiag">
+    <style>
+        .ngdialog-content{
+            width: 400px !important;
+        }
+    </style>
+    <div>
+        <div class="ngdialog-titile"
+             style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+            <span class="icon-bell"></span>
+            <span>注册车辆到IOT</span>
+        </div>
+        <div style="text-align: center;height: 60px;padding: 18px;margin-bottom: 25px;">
+                <p style="font-weight: 700;">选择未上线车辆注册</p>
+                <a class="btn btn-mini btn-primary" ng-click="registerVehicleSave();">确认注册车辆</a>
+                <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">取消</a>
+        </div>
+    </div>
+</script>

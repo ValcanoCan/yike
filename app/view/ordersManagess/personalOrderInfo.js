@@ -26,16 +26,16 @@ angular.module("FMsainuoyi").controller('personalOrderInfoCtrl',function($scope,
         jzts()
         ordersManagess.order_list($scope.selectModel).then(function (res) {
             if(res.data.RESULT=='SUCCESS'){
-                $scope.ordersInfo=res.data.data[0];
-                $scope.confTotalItems=res.data.data[1].totalCount;
-                $scope.paginationConf.totalItems = res.data.data[1].totalCount;
-                $scope.paginationConf.itemsPerPage = res.data.data[1].offset;
-                console.log($scope.ordersInfo)
+                $scope.ordersInfo=res.data.data[0].list;
+                $scope.confTotalItems=res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.totalItems = res.data.data[0].pagenation.totalCount;
+                $scope.paginationConf.itemsPerPage = res.data.data[0].pagenation.offset;
+                //console.log($scope.ordersInfo)
                 //console.log($scope.paginationConf.totalItems)
                 //console.log($scope.paginationConf.itemsPerPage)
 
                 //$scope.orderStatusModel=[];//提取状态
-                $scope.startPage=res.data.data[1].startPage;
+                $scope.startPage=res.data.data[0].pagenation.startPage;
                 angular.forEach($scope.ordersInfo,function(data,index){
                     //$scope.orderStatusModel.push(data.orderStatus);
                     if($scope.startPage>1){

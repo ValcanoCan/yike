@@ -9,6 +9,11 @@
                 <table>
                     <tbody>
                     <tr>
+                        <td style="vertical-align:top;">
+                            <div class="radius" style="width: 100px;height: 30px;line-height: 30px;background-color: lightgray;position: relative;top: 2px;">
+                                <span style="font-weight: 700;">可按日期查询</span>
+                            </div>
+                        </td>
                         <td>
                             <div>
                                 <div class="">
@@ -81,7 +86,12 @@
                        <td>{{item.realName}}</td>
                        <td>{{item.mobileNo}}</td>
                        <td>{{item.title}}</td>
-                       <td>{{item.body}}</td>
+                       <!--<td>{{item.body}}</td>-->
+                        <td>
+                            <button style="border-radius:6px !important;" ng-click="showShareContent(item,startPage)" class="btn btn-mini" data-toggle="dropdown">
+                                <a href="" style="text-decoration: none;" title="查看信息内容" class="icon-file-alt">
+                                </a></button>
+                        </td>
                        <td>{{item.machineType}}</td>
                        <td>{{item.version}}</td>
                        <td>{{item.createTime}}</td>
@@ -89,9 +99,32 @@
                     </tr>
                     </tbody>
                 </table>
+                <div style="overflow: hidden;max-width: 200px;float: right;font-size: 15px;">
+                    <p style="float:right;">共计：<span>{{ confTotalItems==0?0:confTotalItems }}</span>&nbsp;条数据</p>
+                </div>
                     <tm-pagination style="margin: 10px auto 0px auto !important;"
                                    conf="paginationConf"></tm-pagination>
             </form>
         </div>
     </div>
 </div>
+
+<!--查看信息内容-->
+<script type="text/ng-template" id="showContentDiag">
+    <style>
+        .ngdialog-content{
+            text-align: left;
+        }
+    </style>
+    <div class="ngdialog-titile"
+         style="background-color: cornflowerblue;height: 30px;line-height: 30px;padding-left: 10px;font-weight: 700;">
+        <span class="icon-bell"></span>
+        <span>信息内容</span>
+    </div>
+    <div>
+        <p>{{thisContent}}</p>
+    </div>
+    <div style="text-align: center;margin: 5px 0;padding: 5px;background-color: lavender;">
+        <a class="btn btn-mini btn-danger" ng-click="closeThisDialog('a')">关闭</a>
+    </div>
+</script>
